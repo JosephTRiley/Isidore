@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{63366E02-FF57-4585-A326-CABBAF4A3D24}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Isidore_Tests</RootNamespace>
+    <AssemblyName>Isidore_Test</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Rhino3dmIO, Version=5.1.30000.14, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rhino3dmIO.dll-AnyCPU-Windows.5.1.30000.25\lib\net40\Rhino3dmIO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodingExamples\Types.cs" />
+    <Compile Include="CodingExamples\BitShifts.cs" />
+    <Compile Include="CodingExamples\Castings.cs" />
+    <Compile Include="CodingExamples\CodingExamples.cs" />
+    <Compile Include="Loader\Loader.cs" />
+    <Compile Include="Loader\Rhino3D_Read.cs" />
+    <Compile Include="Loader\OBJ_Read.cs" />
+    <Compile Include="Maths\ArrShuffle.cs" />
+    <Compile Include="Maths\ArrInverse.cs" />
+    <Compile Include="Maths\Arrs.cs" />
+    <Compile Include="Maths\KDTreeTest.cs" />
+    <Compile Include="Models\ReferencePointTurbulenceTest.cs" />
+    <Compile Include="Models\ScatterPointTurbulenceTest.cs" />
+    <Compile Include="Models\TurbulencePointWFSTest.cs" />
+    <Compile Include="Models\TurbulentNoiseTest.cs" />
+    <Compile Include="Render\PerlinNoiseStandardFactorTest.cs" />
+    <Compile Include="Render\PerturbedTextureTest.cs" />
+    <Compile Include="Render\ProceduralTextureTest.cs" />
+    <Compile Include="Render\ProceduralMixingValueTest.cs" />
+    <Compile Include="Models\ModelsTests.cs" />
+    <Compile Include="Render\TextureTest.cs" />
+    <Compile Include="Render\ProceduralValueTest.cs" />
+    <Compile Include="Render\NoiseFunctionTest.cs" />
+    <Compile Include="Maths\PointTest.cs" />
+    <Compile Include="Maths\PointGridTest.cs" />
+    <Compile Include="Maths\Interpolates.cs" />
+    <Compile Include="Maths\AreTest.cs" />
+    <Compile Include="Maths\MarchingCubeTest.cs" />
+    <Compile Include="Maths\SphereTest.cs" />
+    <Compile Include="Maths\PlaneTest.cs" />
+    <Compile Include="Maths\DistancePoint2Line.cs" />
+    <Compile Include="Maths\Geometry.cs" />
+    <Compile Include="Maths\KeyFrameTransTest.cs" />
+    <Compile Include="Maths\KeyFrameTest.cs" />
+    <Compile Include="Maths\Maths.cs" />
+    <Compile Include="Maths\Operations.cs" />
+    <Compile Include="Loader\NASTRAN_Read.cs" />
+    <Compile Include="Maths\Randoms.cs" />
+    <Compile Include="Render\PropertyTest.cs" />
+    <Compile Include="Render\ClassTest.cs" />
+    <Compile Include="Render\OctreeTraceTest.cs" />
+    <Compile Include="Render\ShapeTraceMesh.cs" />
+    <Compile Include="Render\VolumeTraceVoxel.cs" />
+    <Compile Include="Render\VolumeTests.cs" />
+    <Compile Include="Render\ShapeTracePlane.cs" />
+    <Compile Include="Render\TextureMapTest.cs" />
+    <Compile Include="Render\MaterialTest.cs" />
+    <Compile Include="Render\ShapeTests.cs" />
+    <Compile Include="Render\MatTraceReflectance.cs" />
+    <Compile Include="Render\MatTraceRefractiveIndex.cs" />
+    <Compile Include="Render\ShapeTraceSphere.cs" />
+    <Compile Include="Render\RenderTests.cs" />
+    <Compile Include="TopLevel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Isidore.ImgProcess\Isidore.ImgProcess.csproj">
+      <Project>{73474a33-594f-477b-a461-25a51fe0564c}</Project>
+      <Name>Isidore.ImgProcess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Isidore.Library\Isidore.Library.csproj">
+      <Project>{92142820-af29-4885-89ce-b73e330e04f0}</Project>
+      <Name>Isidore.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Isidore.Load\Isidore.Load.csproj">
+      <Project>{06840803-61c3-46ba-95d2-06d2136ee02a}</Project>
+      <Name>Isidore.Load</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Isidore.Maths\Isidore.Maths.csproj">
+      <Project>{1a12adcc-e59d-4475-93ab-273b98b083ff}</Project>
+      <Name>Isidore.Maths</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Isidore.Matlab\Isidore.Matlab.csproj">
+      <Project>{6a0ed322-8ab5-446b-a681-92ad7ca8e3c8}</Project>
+      <Name>Isidore.Matlab</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Isidore.Models\Isidore.Models.csproj">
+      <Project>{f0b8b8f7-05ea-4c3c-b070-20e5ed99b914}</Project>
+      <Name>Isidore.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Isidore.Render\Isidore.Render.csproj">
+      <Project>{2aea4604-ae1d-42e4-af2d-a6e9780eef2b}</Project>
+      <Name>Isidore.Render</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ImageProcess\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MLApp">
+      <Guid>{C36E46AB-6A81-457B-9F91-A7719A06287F}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+xcopy /s /y "$(SolutionDir)packages\Rhino3dmIO.dll-AnyCPU-Windows.5.1.30000.25\NativeBinaries\x86\*.*" "$(TargetDir)x86\"
+xcopy /s /y "$(SolutionDir)packages\Rhino3dmIO.dll-AnyCPU-Windows.5.1.30000.25\NativeBinaries\x64\*.*" "$(TargetDir)x64\"
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

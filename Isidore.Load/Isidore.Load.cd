@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Isidore.Load.Load">
+    <Position X="5.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQOBAAAAAAQAAAoAAEAAAAAAAAAAAAAgAIAAAAA=</HashCode>
+      <FileName>LoadBitmap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Load.OBJ">
+    <Position X="5.5" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAABAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LoadOBJ.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Load.LoadRhino3D">
+    <Position X="1" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LoadRhino3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Load.Data">
+    <Position X="1" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="Isidore.Load.Data.Tecplot">
+        <TypeIdentifier>
+          <NewMemberFileName>LoadTecplot.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Isidore.Load.Data.NAS">
+        <TypeIdentifier>
+          <NewMemberFileName>NAS\DataNAS.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Isidore.Load.Data.Grid">
+        <TypeIdentifier>
+          <NewMemberFileName>NAS\DataNAS.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Isidore.Load.Data.Node">
+        <TypeIdentifier>
+          <NewMemberFileName>NAS\DataNAS.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LoadTecplot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Load.Text">
+    <Position X="5.5" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LoadText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Load.FileRef">
+    <Position X="3" Y="0.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Isidore.Load.FileRef.NAS">
+        <Compartments>
+          <Compartment Name="Nested Types" Collapsed="false" />
+        </Compartments>
+        <NestedTypes>
+          <Enum Name="Isidore.Load.FileRef.NAS.dataType">
+            <TypeIdentifier>
+              <NewMemberFileName>NAS\FileRefNAS.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Enum>
+          <Class Name="Isidore.Load.FileRef.NAS.Format">
+            <Compartments>
+              <Compartment Name="Nested Types" Collapsed="false" />
+            </Compartments>
+            <NestedTypes>
+              <Enum Name="Isidore.Load.FileRef.NAS.Format.fType">
+                <TypeIdentifier>
+                  <NewMemberFileName>NAS\FileRefNAS.cs</NewMemberFileName>
+                </TypeIdentifier>
+              </Enum>
+            </NestedTypes>
+            <TypeIdentifier>
+              <NewMemberFileName>NAS\FileRefNAS.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Class>
+          <Class Name="Isidore.Load.FileRef.NAS.CommonField">
+            <TypeIdentifier>
+              <NewMemberFileName>NAS\FileRefNAS.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Class>
+          <Class Name="Isidore.Load.FileRef.NAS.GRID">
+            <Compartments>
+              <Compartment Name="Nested Types" Collapsed="false" />
+            </Compartments>
+            <NestedTypes>
+              <Class Name="Isidore.Load.FileRef.NAS.GRID.DataField">
+                <TypeIdentifier>
+                  <NewMemberFileName>NAS\FileRefNAS.cs</NewMemberFileName>
+                </TypeIdentifier>
+              </Class>
+            </NestedTypes>
+            <TypeIdentifier>
+              <NewMemberFileName>NAS\FileRefNAS.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Class>
+          <Class Name="Isidore.Load.FileRef.NAS.CTETRA">
+            <NestedTypes>
+              <Class Name="Isidore.Load.FileRef.NAS.CTETRA.DataField" Collapsed="true">
+                <TypeIdentifier>
+                  <NewMemberFileName>NAS\FileRefNAS.cs</NewMemberFileName>
+                </TypeIdentifier>
+              </Class>
+            </NestedTypes>
+            <TypeIdentifier>
+              <NewMemberFileName>NAS\FileRefNAS.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Class>
+        </NestedTypes>
+        <TypeIdentifier>
+          <NewMemberFileName>NAS\FileRefNAS.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NAS\FileRefNAS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

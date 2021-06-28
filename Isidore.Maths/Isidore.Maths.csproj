@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1A12ADCC-E59D-4475-93AB-273B98B083FF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Isidore.Maths</RootNamespace>
+    <AssemblyName>Isidore.Maths</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\Isidore.Maths.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Release\Isidore.Maths.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\Isidore.Maths.XML</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\Isidore.Maths.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Data, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArrayOperations\Shuffle.cs" />
+    <Compile Include="ArrayOperations\Get.cs" />
+    <Compile Include="ArrayOperations\Inverse.cs" />
+    <Compile Include="ArrayOperations\Transpose.cs" />
+    <Compile Include="ArrayOperations\Window.cs" />
+    <Compile Include="Functions\LinearIndex.cs" />
+    <Compile Include="Geometry\DistPt2Line.cs" />
+    <Compile Include="Geometry\KDTree.cs" />
+    <Compile Include="Geometry\MarchingCube.cs" />
+    <Compile Include="Geometry\Normal.cs" />
+    <Compile Include="Geometry\Plane.cs" />
+    <Compile Include="Geometry\Point.cs" />
+    <Compile Include="Geometry\PointGrid.cs" />
+    <Compile Include="Geometry\Quaternion.cs" />
+    <Compile Include="Geometry\Ray.cs" />
+    <Compile Include="Geometry\Sphere.cs" />
+    <Compile Include="Geometry\Transform.cs" />
+    <Compile Include="Geometry\Transforms_Affine.cs" />
+    <Compile Include="Geometry\Transforms_Projection.cs" />
+    <Compile Include="Geometry\Transforms_Special.cs" />
+    <Compile Include="Geometry\Vector.cs" />
+    <Compile Include="Functions\Are.cs" />
+    <Compile Include="Functions\Quadratic.cs" />
+    <Compile Include="Interpolation\KeyFrame.cs" />
+    <Compile Include="Interpolation\KeyFrameTrans.cs" />
+    <Compile Include="Functions\Jagged2Array.cs" />
+    <Compile Include="Functions\Rand.cs" />
+    <Compile Include="Interpolation\Interpolate.cs" />
+    <Compile Include="Interpolation\Linear.cs" />
+    <Compile Include="Interpolation\SmoothStep.cs" />
+    <Compile Include="Statistics\Mean.cs" />
+    <Compile Include="Statistics\Sum.cs" />
+    <Compile Include="Statistics\MinMax.cs" />
+    <Compile Include="Distributions\Gaussian.cs" />
+    <Compile Include="Distributions\Identity.cs" />
+    <Compile Include="Distributions\Increment.cs" />
+    <Compile Include="Distributions\Uniform.cs" />
+    <Compile Include="Statistics\Centroid.cs" />
+    <Compile Include="Functions\Compare.cs" />
+    <Compile Include="ArrayOperations\ConvolveDiscrete.cs" />
+    <Compile Include="ArrayOperations\Resample.cs" />
+    <Compile Include="ArrayOperations\Threshold.cs" />
+    <Compile Include="Operations\LessThanOrEqual.cs" />
+    <Compile Include="Operations\LessThan.cs" />
+    <Compile Include="Operations\GreaterThanOrEqual.cs" />
+    <Compile Include="Operations\GreaterThan.cs" />
+    <Compile Include="Operations\Convert.cs" />
+    <Compile Include="ArrayOperations\MatrixMultiply.cs" />
+    <Compile Include="Operations\NotEqual.cs" />
+    <Compile Include="Operations\Equal.cs" />
+    <Compile Include="Operations\Xor.cs" />
+    <Compile Include="Operations\Or.cs" />
+    <Compile Include="Operations\And.cs" />
+    <Compile Include="Operations\Not.cs" />
+    <Compile Include="Operations\Absolute.cs" />
+    <Compile Include="Operations\Negate.cs" />
+    <Compile Include="Operations\Multiply.cs" />
+    <Compile Include="Operations\Divide.cs" />
+    <Compile Include="Operations\Subtract.cs" />
+    <Compile Include="Operations\Add.cs" />
+    <Compile Include="Operations\FuncOperators.cs" />
+    <Compile Include="Operations\ElementOperation.cs" />
+    <Compile Include="Operations\ExpressionFunc.cs" />
+    <Compile Include="Functions\Swap.cs" />
+    <Compile Include="Statistics\StandardDeviation.cs" />
+    <Compile Include="Statistics\Variance.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Isidore.Maths.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Process\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

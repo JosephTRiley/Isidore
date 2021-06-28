@@ -1,0 +1,5 @@
+You can just copy new versions of these file into this folder to update.  Make sure to recompile the library before use.
+
+A good check for an image orientation is to use R.png
+[60,70] = 1 (or 765)
+[70,60] = 0

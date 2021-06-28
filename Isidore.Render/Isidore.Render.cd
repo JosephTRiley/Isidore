@@ -1,0 +1,581 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Isidore.Render.Item">
+    <Position X="16.75" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAgAAAAggAQIAAAAAAQAEgAAAAAgAAAAgAAAAJA=</HashCode>
+      <FileName>Item.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Isidore.Render.Items">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Light">
+    <Position X="14.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAgAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Lights\Light.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Lights">
+    <Position X="16.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Lights\Light.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Material">
+    <Position X="64.75" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAQQAAAFAAAAAICAAAAAAAAgAAABCAAAAAgAAAAJA=</HashCode>
+      <FileName>Materials\Material.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Isidore.Render.MaterialStack">
+    <Position X="67.25" Y="19" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Materials\Material.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Reflector">
+    <Position X="62" Y="12" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAAAAQAAAAAAAAIAAAAAAAAAAgAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Materials\Reflector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Transparency">
+    <Position X="67.25" Y="14.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAQAAAAAAAAAIAAAgAACACAAAAAAAAAABA=</HashCode>
+      <FileName>Materials\Transparency.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Irradiance">
+    <Position X="42" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Physical Properties\Irradiance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.SpectralIrradiance">
+    <Position X="41.5" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Physical Properties\Irradiance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Property">
+    <Position X="38" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAIAAAAAAAAAgAAAAAAEAAAAAAAABA=</HashCode>
+      <FileName>Physical Properties\Property.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Isidore.Render.Properties">
+    <Position X="40.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Physical Properties\Property.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Reflectance">
+    <Position X="38.75" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAlAAAAAAEAAgAAAAABA=</HashCode>
+      <FileName>Physical Properties\Reflectance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.RefractiveIndex">
+    <Position X="36" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAkAAAAAAEAAgAAAAABA=</HashCode>
+      <FileName>Physical Properties\RefractiveIndex.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Spectrum&lt;SampleType, ValueType&gt;" BaseTypeListCollapsed="true">
+    <Position X="62.5" Y="1.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAgAAAAAAAMIAABAAAAAQCAAAAAgAQAAABA=</HashCode>
+      <FileName>Physical Properties\Spectrum.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Isidore.Render.Spectrums">
+    <Position X="66" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Physical Properties\Spectrum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Temperature">
+    <Position X="36" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Physical Properties\Temperture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Wavelength">
+    <Position X="34.5" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Physical Properties\Wavelength.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Projector">
+    <Position X="18.75" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAIiAQAAAAAgiAUAAAAAABAAEgAAAAQKAAAAAEAAABE=</HashCode>
+      <FileName>Projection\Projector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Projectors">
+    <Position X="21.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Projection\Projector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.RectangleProjector">
+    <Position X="18.75" Y="13.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAABAAAgBAAgiMEAAAAAABABMAAAAAQCAAAAAAAIAAA=</HashCode>
+      <FileName>Projection\RectangleProjector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.AABB">
+    <Position X="23.75" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAACQAAAAASAAAAUAQAAAgEEAAAAhAAAAAQABBA=</HashCode>
+      <FileName>RayTracer\AABB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Body">
+    <Position X="12.25" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAQAAAAEAAAAAgAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>RayTracer\Body.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Bodies">
+    <Position X="10.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>RayTracer\Body.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.BodySpecificData">
+    <Position X="52" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAgAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>RayTracer\BodySpecificData.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Isidore.Render.IncidentData">
+    <Position X="80.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAIAAIBAAAACAAAAAAAAgA=</HashCode>
+      <FileName>RayTracer\IncidentData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.IntersectData">
+    <Position X="78.75" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EEAAAAAAAEAAAAAAAAIBAACAAAAAAACCAAAIAAACABA=</HashCode>
+      <FileName>RayTracer\IntersectData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.OBB">
+    <Position X="22.5" Y="12" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAEAAAAggAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>RayTracer\OBB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.OctBox">
+    <Position X="25" Y="12" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAIIRAAAAkQAAAIkAAAAAAAAEAAIABAJA=</HashCode>
+      <FileName>RayTracer\OctBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.RayTree">
+    <Position X="76.5" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAYAAQAAABAAJCAAACAAAAAACAAAAACAAAAAAAAAABE=</HashCode>
+      <FileName>RayTracer\RayTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.RenderRay" BaseTypeListCollapsed="true">
+    <Position X="72.75" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAABAAAEAQAAAAQIgAAAAAQAAwAAgIABAQABAAACARA=</HashCode>
+      <FileName>RayTracer\RenderRay.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Isidore.Render.RenderRays">
+    <Position X="74.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>RayTracer\RenderRay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Scene">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAgAAAAAAAAAAAAgAAAAAAAACAABAAgAAAAAA=</HashCode>
+      <FileName>RayTracer\Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Billboard">
+    <Position X="9.25" Y="13.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACgAAAAVABAAISAUAAEAGCSAlABIBBAABIBIAAABBI=</HashCode>
+      <FileName>Shapes\Billboard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Mesh">
+    <Position X="11.5" Y="13.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gALhAAAAAABABAQAQAUMAAgAAgAAACgAAAAABBAAABA=</HashCode>
+      <FileName>Shapes\Mesh.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.MeshOctBox">
+    <Position X="25" Y="17.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAQAAUAAAAAAAgAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Shapes\MeshOctBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.MeshOctree" BaseTypeListCollapsed="true">
+    <Position X="22.5" Y="17.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAQIAAAEAAAAAwAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Shapes\MeshOctree.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Isidore.Render.Plane">
+    <Position X="5.25" Y="13.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CiAgQIQIUFBEgMSAAAAEAAASAgBIEQAIQBIBJAAAABI=</HashCode>
+      <FileName>Shapes\Plane.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Polyshape">
+    <Position X="7.25" Y="13.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAIkAAgAAIAAAAAAAAAEAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Shapes\Polyshape.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Shape">
+    <Position X="8.75" Y="9" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAQAAQAIAAAAQAAQAAAAAAAgAAABAAAAABAAAAABA=</HashCode>
+      <FileName>Shapes\Shape.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Shapes">
+    <Position X="10.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Shapes\Shape.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.ShapeSpecificData">
+    <Position X="50.75" Y="12.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAQAAAAAACAAAgAAAAAAAAAAAAASABA=</HashCode>
+      <FileName>Shapes\ShapeSpecificData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Sphere">
+    <Position X="14.25" Y="13.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgoAgAACAAABAQAAAAEAQAgAgAEAgAAgAAAAAAIABA=</HashCode>
+      <FileName>Shapes\Sphere.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Vertex">
+    <Position X="68.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAgAAAAAAQAAAAIAAAAAIAAAAAAABA=</HashCode>
+      <FileName>Shapes\Vertex.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Vertices">
+    <Position X="70.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Shapes\Vertex.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Noise">
+    <Position X="81.75" Y="13.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gACAAAAADAAAAAAJAEAAAQAAAgAQAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Noise\Noise.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Isidore.Render.Texture">
+    <Position X="52.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAgAAAIIAAAAAAAAgAAAAAAAAAAAAAAAJA=</HashCode>
+      <FileName>Texture\Texture.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Isidore.Render.Volume">
+    <Position X="16.25" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIAAAAQAAAAAAAAAAgAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Volumes\Volume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Volumes">
+    <Position X="14.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Volumes\Volume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.VolumeSpecificData">
+    <Position X="53" Y="12.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAggAAAAQAAAAAAAAABA=</HashCode>
+      <FileName>Volumes\VolumeSpecificData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Voxel">
+    <Position X="16.25" Y="13.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAASAAAAEAQIAAwEEAgAABAEBKAABABA=</HashCode>
+      <FileName>Volumes\Voxel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.ProceduralMixingValue">
+    <Position X="62" Y="15" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAAAAQAgAAAAAAAAIAAAgEAAAgAAAAAAAgAAACAABBA=</HashCode>
+      <FileName>Materials\ProceduralMixingValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.ProceduralValue">
+    <Position X="64.75" Y="14.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EEAAAQgAADBAAAAAAAAIQAAIAgAAAAAAAAEAAAAAABg=</HashCode>
+      <FileName>Materials\ProceduralValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.ProceduralPoint">
+    <Position X="83.75" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Materials\ProceduralValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.ProceduralNoiseParameters">
+    <Position X="97" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAABA=</HashCode>
+      <FileName>Materials\ProceduralValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.PropertyValue">
+    <Position X="67.25" Y="12" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAQAAABA=</HashCode>
+      <FileName>Materials\PropertyValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.TextureValue">
+    <Position X="62" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAQACBAAAgAAAAAAAAAAgAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Materials\TextureValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.fBmNoise">
+    <Position X="84.25" Y="19.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAgAQAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Noise\fBmNoise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.FrequencyNoise">
+    <Position X="84.25" Y="14.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAEQCgAAEAgAoAQAAAQAAAAAAAAABA=</HashCode>
+      <FileName>Noise\FrequencyNoise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.mBmCascadeNoise">
+    <Position X="84.25" Y="21.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAgAQAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Noise\mBmCascadeNoise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.NoiseParameters">
+    <Position X="94.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAACAAAAAAAAEAAAQAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Noise\Noise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.NoiseFunction">
+    <Position X="88" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAIAAAAAAAAAgAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Noise\NoiseFunction.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Isidore.Render.PerlinMarbleNoise">
+    <Position X="81.25" Y="21.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAgAAAAAAAAAAgAQAAiAAAAAAAAAABA=</HashCode>
+      <FileName>Noise\PerlinMarbleNoise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.PerlinNoiseFunction">
+    <Position X="90" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gEgAAIAAAAAgAAAEIAAAAAAAAgIAAAAAgACDAABAABA=</HashCode>
+      <FileName>Noise\PerlinNoiseFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.PerlinTurbulenceNoise">
+    <Position X="81.25" Y="19.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAQAAgAAAAAAAAAABA=</HashCode>
+      <FileName>Noise\PerlinTurbulenceNoise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.SpectrumNoise">
+    <Position X="79.75" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAgAQAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Noise\SpectrumNoise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.PowerSpectrum">
+    <Position X="39.25" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAoAAAAABAAAgAAAAABA=</HashCode>
+      <FileName>Physical Properties\PowerSpectrum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Scalar">
+    <Position X="34.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Physical Properties\Scalar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.MapTexture">
+    <Position X="49.75" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAEAAEAAAAAAAAAAAAAAEAAgwAAAAAAIAAAAAAABA=</HashCode>
+      <FileName>Texture\MapTexture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.PerturbedTexture">
+    <Position X="55.25" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAAABAAAAAAAAAAAAAABAQIAgAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Texture\PerturbedTexture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.ProceduralTexture">
+    <Position X="52.5" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAgAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Texture\ProceduralTexture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.OPD">
+    <Position X="67.25" Y="9" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAABAAgAAAAAAAAAAAAACABA=</HashCode>
+      <FileName>Materials\OPD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Render.Length">
+    <Position X="37" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Physical Properties\Length.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Isidore.Render.OctBoxIntersect">
+    <Position X="22.5" Y="15.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAIAAAEAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>RayTracer\OctBox.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Isidore.Render.ISpectrum">
+    <Position X="59.5" Y="1.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIIAABAAAAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Physical Properties\Spectrum.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Isidore.Render.ISpectrum&lt;SampleType, ValueType&gt;">
+    <Position X="59.5" Y="4.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Physical Properties\Spectrum.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Isidore.Render.RayType">
+    <Position X="74.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>RayTracer\RenderRay.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Isidore.Render.RayStatus">
+    <Position X="74.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAABAAACAAAA=</HashCode>
+      <FileName>RayTracer\RenderRay.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Isidore.Render.ProcMix">
+    <Position X="65" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Materials\ProceduralMixingValue.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Isidore.Render.ProcInterp">
+    <Position X="62.25" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Materials\ProceduralValue.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Isidore.Render.NoiseDistribution">
+    <Position X="79.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Noise\Noise.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Isidore.ImgProcess.Canny">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAhAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Canny.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.ImgProcess.Contour&lt;T&gt;">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQAAAACAAAAAAAAQAAABAAAgAggglEAEIABhAAIAAAA=</HashCode>
+      <FileName>Contour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.ImgProcess.ConvertImg">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAQAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>ConvertImg.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.ImgProcess.Figure">
+    <Position X="4" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAQ=</HashCode>
+      <FileName>Display\Figure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.ImgProcess.Sobel">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAMAAAAAAgAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Edge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

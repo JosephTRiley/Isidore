@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Isidore.Maths.Arr">
+    <Position X="10.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>iAAAQAAAAAAAQAAAAAIABAAAAIAAAIAAAAAgCAgAEAA=</HashCode>
+      <FileName>ArrayOperations\ConvolveDiscrete.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Distribution">
+    <Position X="10.5" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAGAAAAAAAgA=</HashCode>
+      <FileName>Distributions\Gaussian.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Point">
+    <Position X="35.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAAgCAAYAAAKEF4AUAAAQBAQEAAIBAAAggAAAAAjg=</HashCode>
+      <FileName>Geometry\Point.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Points">
+    <Position X="35.75" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometry\Point.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Transform">
+    <Position X="20.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAFBAAAAAIADEhAAoAIAAAAAEgAAAIEAAkAGAAIBABI=</HashCode>
+      <FileName>Geometry\Transform.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Vector">
+    <Position X="38.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIABAEAAAZAAAKMU8gUAAAQBCRQAAIAAAACAAAAAAjg=</HashCode>
+      <FileName>Geometry\Vector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Compare">
+    <Position X="16.25" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Functions\Compare.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Function">
+    <Position X="56.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAACBAAAAIAAAAAACAAA=</HashCode>
+      <FileName>Functions\Jagged2Array.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Rand">
+    <Position X="13.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAgAAAAQAACAAAAAAAAAACAACA=</HashCode>
+      <FileName>Functions\Rand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Interpolate">
+    <Position X="28.25" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAIAAAEAAAAAAAAA=</HashCode>
+      <FileName>Interpolation\Interpolate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Operator">
+    <Position X="0.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>ICIAAAAAAQAABAAAgIADAAAAACAAgAAgAAAEASRAACA=</HashCode>
+      <FileName>Operations\Absolute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Element">
+    <Position X="16.25" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Operations\ElementOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.ExpressionFunc">
+    <Position X="6.25" Y="4.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Operations\ExpressionFunc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Operator&lt;T&gt;">
+    <Position X="4" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IGIAACAgAQCAAQEAgAADIASAAyAAgAQgAAAEISRCACA=</HashCode>
+      <FileName>Operations\FuncOperators.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Operator&lt;TinOnly, Tout&gt;">
+    <Position X="6.25" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAQAAgAEAAIADAAAAAwAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Operations\FuncOperators.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Stats">
+    <Position X="13.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAQAAAAAAAAAAAAAAEgAAAAAAAIAQ=</HashCode>
+      <FileName>Statistics\Centroid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Are">
+    <Position X="16.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Functions\Are.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Distance">
+    <Position X="41.25" Y="6.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometry\DistPt2Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.MarchingCube">
+    <Position X="52" Y="0.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Isidore.Maths.MarchingCube.Mode">
+        <TypeIdentifier>
+          <NewMemberFileName>Geometry\MarchingCube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Isidore.Maths.MarchingCube.FO">
+        <TypeIdentifier>
+          <NewMemberFileName>Geometry\MarchingCube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Isidore.Maths.MarchingCube.EO">
+        <TypeIdentifier>
+          <NewMemberFileName>Geometry\MarchingCube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Isidore.Maths.MarchingCube.CO">
+        <TypeIdentifier>
+          <NewMemberFileName>Geometry\MarchingCube.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAiQIgAAgBQsAAEAAAQAAAwAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Geometry\MarchingCube.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Normal">
+    <Position X="41.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAZAAAAIE8gUAAAAACRQAAIAAAACAAAAAAjA=</HashCode>
+      <FileName>Geometry\Normal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Plane">
+    <Position X="44" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACCAAQAAgAAAAAAAAAwAAgAIAAAEBAAABAAAABA=</HashCode>
+      <FileName>Geometry\Plane.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.PointGrid">
+    <Position X="48.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>QAAEAFAIAQAAgAAAgAAAQCQAAAEgAAAAAAAAAAAgGDI=</HashCode>
+      <FileName>Geometry\PointGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.GridPoint">
+    <Position X="33.75" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="Isidore.Maths.Point" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="35.75" Y="3" />
+        <Point X="35.627" Y="3" />
+        <Point X="35.627" Y="3.127" />
+        <Point X="34.5" Y="3.127" />
+        <Point X="34.5" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgQAAAAAAABAAAAAQAAEgAAABABA=</HashCode>
+      <FileName>Geometry\PointGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Ray">
+    <Position X="33.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAQAAAAAgAAAAAAQAAAAAAAAAAAAAAAgAABA=</HashCode>
+      <FileName>Geometry\Ray.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.Sphere">
+    <Position X="44" Y="4.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAgIACAACAAAAAAAAAAAAAAAQAAAAAgAAAAAEAAIABA=</HashCode>
+      <FileName>Geometry\Sphere.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.KeyFrame&lt;T&gt;">
+    <Position X="25.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAABCAAAgIAAAQAAwABASKAAAAggEAAgBA=</HashCode>
+      <FileName>Interpolation\KeyFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Isidore.Maths.KeyFrameTrans">
+    <Position X="28.25" Y="0.5" Width="2.25" />
+    <InheritanceLine Type="Isidore.Maths.KeyFrame&lt;T&gt;" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="25.75" Y="2.762" />
+        <Point X="25.51" Y="2.762" />
+        <Point X="25.51" Y="0.26" />
+        <Point X="29.375" Y="0.26" />
+        <Point X="29.375" Y="0.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABCAAAgAAAAAAAQIAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Interpolation\KeyFrameTrans.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Isidore.Maths.Quaternion">
+    <Position X="23" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAcAUAAAAACQAAAAAAABgAAAAAAAA=</HashCode>
+      <FileName>Geometry\Quaternion.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
