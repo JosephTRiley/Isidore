@@ -3,11 +3,7 @@
 ################################################################################
 
 /.vs/Isidore
-/Isidore.ImgProcess
-/Isidore.Library
-/Isidore.Load
-/Isidore.Maths
-/Isidore.Matlab
+
 /Isidore.Models/bin
 /Isidore.Models/obj/Debug
 /Isidore.Models/obj/Release
@@ -19,7 +15,22 @@
 /Isidore_Tests/obj
 /Isidore_Tests/OutputData
 /packages
-/Isidore_Tests/Inputs/Rhino3D Files
 /Isidore_Tests/Isidore_Tests.csproj.user
-/Isidore.Render/Shapes/Mesh - Copy.cs
+/Isidore.ImgProcess/bin
+/Isidore.ImgProcess/obj
+/Isidore.Library/bin
+/Isidore.Library/obj
+/Isidore.Load/bin
+/Isidore.Load/obj
+/Isidore.Maths/bin
+/Isidore.Maths/obj/Debug
+/Isidore.Maths/obj/Release
+/Isidore.Maths/obj/x64/Debug
+/Isidore.Maths/obj/x64/Release
+/Isidore.Matlab/bin
+/Isidore.Matlab/obj/Debug
+/Isidore.Matlab/obj/Release
+/Isidore.Matlab/obj/x64/Debug
+/Isidore.Matlab/obj/x64/Release
 /Isidore.Render/Shapes/Billboard - Copy.cs
+/Isidore.Render/Shapes/Mesh - Copy.cs
