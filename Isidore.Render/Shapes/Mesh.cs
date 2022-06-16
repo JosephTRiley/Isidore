@@ -181,6 +181,10 @@ namespace Isidore.Render
         /// <returns> Intersect flag (true = intersection) </returns>
         public override bool Intersect(ref RenderRay ray)
         {
+            // If the shape isn't on, it should count as a miss
+            if (!On)
+                return false;
+
             // Checks the bounding box intersect
             OctBoxIntersect bbData = octree.meshoctboxes[0].Intersect(ray);
             if (!bbData.Hit)

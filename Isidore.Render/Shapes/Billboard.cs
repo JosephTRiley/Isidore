@@ -269,21 +269,24 @@ namespace Isidore.Render
                 // Conditions for a hit
                 if (u >= 0 && u < 1)
                 {
-                    // Intersect point
-                    Point intPt = ray.Origin + (Point)ray.Dir * t;
+                    // Uses the UV coordinates to see if the alpha value
+                    // Finds the alpha value from the UV coordinates
+                    bool alphaHit = getAlpha(u, v);
 
-                    // Creates new intersection data
-                    //IntersectData iData = new IntersectData(true, t, intPt, globalSurfaceNormal,
-                    //    cosIncAng, new double[] { u, v });
+                    if (alphaHit)
+                    {
+                        // Intersect point
+                        Point intPt = ray.Origin + (Point)ray.Dir * t;
 
-                    //ShapeSpecificData sData = new ShapeSpecificData();
-                    ShapeSpecificData sData = new ShapeSpecificData(
-                        globalSurfaceNormal, cosIncAng, u, v);
-                    IntersectData iData = new IntersectData(true, t, intPt,
-                        this, sData);
-                    ray.IntersectData = iData;
+                        // Creates new intersection data
+                        ShapeSpecificData sData = new ShapeSpecificData(
+                            globalSurfaceNormal, cosIncAng, u, v);
+                        IntersectData iData = new IntersectData(true, t, intPt,
+                            this, sData);
+                        ray.IntersectData = iData;
 
-                    intersect = true;
+                        intersect = true;
+                    }
                 }
             }
 
