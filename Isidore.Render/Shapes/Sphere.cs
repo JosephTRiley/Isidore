@@ -189,7 +189,7 @@ namespace Isidore.Render
             // and returns two intersection points (Near & Far)
             // Items: 1) propagation distance, 2) cosine angle  of incidence,
             // 3) intersection point, 4) surface normal
-            var intRay = sphere.RayIntersection((Maths.Ray)ray);
+            var intRay = sphere.RayIntersection(ray);
 
             // Intersection data
             IntersectData iData = new IntersectData();
@@ -205,8 +205,7 @@ namespace Isidore.Render
                 {
                     // If there's a valid, closer hit, then the UV coordinate is found
                     // Note that CalculateUV is superseded by an active alpha flag
-                    //double[] UV = null;
-                    double U = 0, V = 0;
+                    double U = double.NaN, V = double.NaN;
                     if (UseAlpha || CalculateUV)
                     {
                         // Finds the intersect normal in lengths of radius

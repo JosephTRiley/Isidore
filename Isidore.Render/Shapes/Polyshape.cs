@@ -35,6 +35,57 @@ namespace Isidore.Render
             }
         }
 
+        /// <summary>
+        /// Allows intersection to occur on the back side of shape manifolds
+        /// </summary>
+        new public bool IntersectBackFaces
+        {
+            get { return base.IntersectBackFaces; }
+            set
+            {
+                // Sets this item's value
+                base.IntersectBackFaces = value;
+                // Sets each child's value
+                if (Shapes != null)
+                    for (int idx = 0; idx < Shapes.Count; idx++)
+                        Shapes[idx].IntersectBackFaces = value;
+            }
+        }
+
+        /// <summary>
+        /// Flag for where to calculate the intersection UV coordinates
+        /// </summary>
+        new public bool CalculateUV
+        {
+            get { return base.CalculateUV; }
+            set
+            {
+                // Sets this item's value
+                base.CalculateUV = value;
+                // Sets each child's value
+                if (Shapes != null)
+                    for (int idx = 0; idx < Shapes.Count; idx++)
+                        Shapes[idx].CalculateUV = value;
+            }
+        }
+
+        /// <summary>
+        /// Switches Alpha Mapping on
+        /// </summary>
+        new public bool UseAlpha
+        {
+            get { return base.UseAlpha; }
+            set
+            {
+                // Sets this item's value
+                base.UseAlpha = value;
+                // Sets each child's value
+                if (Shapes != null)
+                    for (int idx = 0; idx < Shapes.Count; idx++)
+                        Shapes[idx].UseAlpha = value;
+            }
+        }
+
         #endregion Fields & Properties
         #region Constructors
 

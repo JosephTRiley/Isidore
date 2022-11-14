@@ -34,7 +34,7 @@ namespace Isidore_Tests
             //Isidore.Render.Sphere sphere = new Isidore.Render.Sphere();
 
             // Orthonormal projector located -10m from the shape
-            RectangleProjector proj = new RectangleProjector(120, 140, 0.01, 0.01, 0, 0);
+            RectangleProjector proj = new RectangleProjector(120 * 4, 140 * 4, 0.01 / 4, 0.01 / 4, 0, 0);
             proj.TransformTimeLine = new KeyFrameTrans(Transform.Translate(new double[]{0,0,-10}));
 
             // Adds a list of properties to each render ray

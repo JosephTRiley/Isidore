@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 using Isidore.Maths;
 
 namespace Isidore.Render
@@ -95,6 +97,38 @@ namespace Isidore.Render
         }
 
         /// <summary>
+        /// Marks all children of the box at element "index"
+        /// </summary>
+        /// <param name="index"> Box's index </param>
+        /// <returns> An array marking all child indices 
+        /// (But not the box itself) </returns>
+        public bool[] IsChild(int index)
+        {
+            // Finds last index rank and values
+            var pBox = meshoctboxes[index];
+            var pIdx = pBox.Index; // Parent index
+            var pLen = pIdx.Length; // Parent Rank
+            
+            // Record
+            var isChild = new bool[meshoctboxes.Count];
+
+            // Marches through octree
+            for (int idx = index + 1; idx < meshoctboxes.Count; ++idx)
+            {
+                var mbox = meshoctboxes[idx];
+
+                // Extracts index
+                var thisIdx = new int[pLen] ;
+                Array.Copy(mbox.Index, 0, thisIdx, 0, pLen);
+
+                // Determines if there is a match
+                isChild[idx] = thisIdx.SequenceEqual(pIdx);
+            }
+
+            return isChild;
+        }
+
+        /// <summary>
         /// Returns a list of octbox intersection structures for matching
         /// the OctBox list of this MeshOctree
         /// </summary>
@@ -104,24 +138,37 @@ namespace Isidore.Render
         public List<OctBoxIntersect> Intersect(Ray ray)
         {
             List<OctBoxIntersect> octree = new List<OctBoxIntersect>();
+            var skip = new bool[meshoctboxes.Count];
 
-            // This records whether the box is on, since we will be flipping
-            // those not intersected to Off
-            bool[] realOn = IsOn();
 
+            // Steps through each box
             for (int idx = 0; idx < meshoctboxes.Count; idx++)
             {
-                OctBoxIntersect oData = meshoctboxes[idx].Intersect(ray);
-                octree.Add(oData);
-                // If this box is not hit, then turns off all children so
-                // they are not traced
-                if (!oData.Hit)
-                    meshoctboxes[idx].On = false;
-            }
+                // Checks to see if this is a child of a missed box
+                if (skip[idx]) continue;
 
-            // Resets the boxes On flags to their actual setting
-            for (int idx = 0; idx < meshoctboxes.Count; idx++)
-                meshoctboxes[idx].On = realOn[idx];
+                // Referenences box
+                var mBox = meshoctboxes[idx];
+
+                // Marks box in tree for skipping (Not necessary)
+                skip[idx] = true;
+
+                // Checks to see if this box is intesected
+                var oData = mBox.Intersect(ray);
+                var thisHit = oData.Hit;
+
+                // If this box is not hit, then marks all children so
+                // they are not traced
+                if (!thisHit)
+                {
+                    var children = IsChild(idx);
+                    skip = skip.Zip(children, (a, b) => a || b).ToArray();
+                }
+
+                // Only records if there are not no children
+                if (thisHit && mBox.ChildBoxes == null)
+                    octree.Add(oData);
+            }
 
             return octree;
         }

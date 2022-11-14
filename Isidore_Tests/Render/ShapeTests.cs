@@ -16,7 +16,7 @@ namespace Isidore_Tests
             // error monitors
             List<bool> passed = new List<bool>();
 
-            //// Plane shape Test
+            // Plane shape Test
             passed.Add(ShapeTracePlane.Run());
 
             // Sphere shape Tests
