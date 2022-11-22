@@ -81,7 +81,7 @@ namespace Isidore.Render
         new protected virtual Property CloneImp()
         {
             // Shallow copies from base
-            var newCopy = (PowerSpectrum)base.CloneImp();
+            PowerSpectrum newCopy = (PowerSpectrum)base.CloneImp();
 
             // Deep-copies all data this is referenced by default
             if (Value != null)

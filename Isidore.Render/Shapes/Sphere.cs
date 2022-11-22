@@ -189,7 +189,7 @@ namespace Isidore.Render
             // and returns two intersection points (Near & Far)
             // Items: 1) propagation distance, 2) cosine angle  of incidence,
             // 3) intersection point, 4) surface normal
-            var intRay = sphere.RayIntersection(ray);
+            Tuple<double[], double[], Point[], Normal[]> intRay = sphere.RayIntersection(ray);
 
             // Intersection data
             IntersectData iData = new IntersectData();
@@ -271,7 +271,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Shape CloneImp()
         {
-            var newCopy = (Sphere)MemberwiseClone();
+            Sphere newCopy = (Sphere)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

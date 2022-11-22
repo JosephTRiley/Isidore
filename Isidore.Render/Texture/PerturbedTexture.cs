@@ -69,7 +69,7 @@ namespace Isidore.Render
         /// <returns> Texture value at that location </returns>
         public override double GetVal(double x, double y, double z)
         {
-            var coord = new double[] { x, y, z };
+            double[] coord = new double[] { x, y, z };
             return GetVal(coord);
         }
 
@@ -81,7 +81,7 @@ namespace Isidore.Render
         /// <returns> Texture value at that location </returns>
         public override double GetVal(double x, double y)
         {
-            var coord = new double[] { x, y };
+            double[] coord = new double[] { x, y };
             return GetVal(coord);
         }
 
@@ -94,7 +94,7 @@ namespace Isidore.Render
         {
             // Casts coordinates as a point
             // Gets the perturbation 
-            var val = GetVal(new Point(coords));
+            double val = GetVal(new Point(coords));
 
             return val;
         }
@@ -107,18 +107,18 @@ namespace Isidore.Render
         public double GetVal(Point coords)
         {
             // Gets the perturbation magnitude
-            var mag = perturbingTexture.GetVal(coords);
+            double mag = perturbingTexture.GetVal(coords);
 
             // Finds the perturbed coordinates
-            var perturbsCoord = mag * perturbDirection;
+            Vector perturbsCoord = mag * perturbDirection;
 
             // Adds the perturbation to the base coordinates
-            var newCoord = coords.Clone();
+            Point newCoord = coords.Clone();
             for (int idx = 0; idx < newCoord.Comp.Length; idx++)
                 newCoord.Comp[idx] += perturbDirection.Comp[idx] * mag;
 
             // Gets value at perturbed coordinate
-            var val = sourceTexture.GetVal(newCoord);
+            double val = sourceTexture.GetVal(newCoord);
 
             return val;
         }
@@ -139,7 +139,7 @@ namespace Isidore.Render
         new protected virtual Texture CloneImp()
         {
             // Shallow copies from base
-            var newCopy = base.CloneImp() as PerturbedTexture;
+            PerturbedTexture newCopy = base.CloneImp() as PerturbedTexture;
 
             // Deep-copies all data this is referenced by default
             newCopy.perturbDir = perturbDir.Clone();

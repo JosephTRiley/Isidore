@@ -52,7 +52,7 @@ namespace Isidore.ImgProcess
         /// <returns> The edge image </returns>
         public static double[,] Image<T>(T[,] arr)
         {
-            var output = Process(arr);
+            Tuple<double[,], double[,], double[,]> output = Process(arr);
             return output.Item1;
         }
     }

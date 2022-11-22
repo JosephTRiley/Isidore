@@ -305,7 +305,7 @@ namespace Isidore.Render
         {
             Property[,] iP = GetProperty<propT>(index);
 
-            var iD = new T[Pos0.Length, Pos1.Length];
+            T[,] iD = new T[Pos0.Length, Pos1.Length];
             for (int idx0 = 0; idx0 < Pos0.Length; idx0++)
                 for (int idx1 = 0; idx1 < Pos1.Length; idx1++)
                     if (iP[idx0, idx1] != null)
@@ -328,7 +328,7 @@ namespace Isidore.Render
         {
             Property[,] iP = GetProperty<propT>();
 
-            var iD = new T[Pos0.Length, Pos1.Length];
+            T[,] iD = new T[Pos0.Length, Pos1.Length];
             for (int idx0 = 0; idx0 < Pos0.Length; idx0++)
                 for (int idx1 = 0; idx1 < Pos1.Length; idx1++)
                     if (iP[idx0, idx1] != null)
@@ -351,7 +351,7 @@ namespace Isidore.Render
         {
             Property[,][] iP = GetPropertyTree<propT>();
 
-            var iD = new T[iP.GetLength(0), iP.GetLength(1)][];
+            T[,][] iD = new T[iP.GetLength(0), iP.GetLength(1)][];
             for (int idx0 = 0; idx0 < Pos0.Length; idx0++)
                 for (int idx1 = 0; idx1 < Pos1.Length; idx1++)
                 {

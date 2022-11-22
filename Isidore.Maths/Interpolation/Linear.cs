@@ -230,7 +230,7 @@ namespace Isidore.Maths
             double[] arr)
         {
             // Finds current location in the time history
-            var place = PlaceVal(intPt, arrPts);
+            Tuple<int, double> place = PlaceVal(intPt, arrPts);
             int Idx = place.Item1; // Lower bound index
             double fac = place.Item2; // Unit interpolation factor
 
@@ -259,7 +259,7 @@ namespace Isidore.Maths
         public static T Linear<T>(double intPt, double[] arrPts, T[] arr)
         {
             // Finds current location in the time history
-            var place = PlaceVal(intPt, arrPts);
+            Tuple<int, double> place = PlaceVal(intPt, arrPts);
             int Idx = place.Item1; // Lower bound index
             double fac = place.Item2; // Unit interpolation factor
 
@@ -351,7 +351,7 @@ namespace Isidore.Maths
             Quaternion[] arr)
         {
             // Finds current location in the time history
-            var place = PlaceVal(idxPt, arrPts);
+            Tuple<int, double> place = PlaceVal(idxPt, arrPts);
             int Idx = place.Item1; // Lower bound index
             double fac = place.Item2; // Unit interpolation factor
 
@@ -380,7 +380,7 @@ namespace Isidore.Maths
             Transform[] arr)
         {
             // Finds current location in the time history
-            var place = PlaceVal(idxPt, arrPts);
+            Tuple<int, double> place = PlaceVal(idxPt, arrPts);
             int Idx = place.Item1; // Lower bound index
             double fac = place.Item2; // Unit interpolation factor
 
@@ -418,11 +418,11 @@ namespace Isidore.Maths
         {
             // Finds current location in the time history
             // First axis
-            var place0 = PlaceVal(idxPt0, arrPts0);
+            Tuple<int, double> place0 = PlaceVal(idxPt0, arrPts0);
             int Idx0 = place0.Item1; // Lower bound index
             double fac0 = place0.Item2; // Unit interpolation factor
             // Second axis
-            var place1 = PlaceVal(idxPt1, arrPts1);
+            Tuple<int, double> place1 = PlaceVal(idxPt1, arrPts1);
             int Idx1 = place1.Item1; // Lower bound index
             double fac1 = place1.Item2; // Unit interpolation factor
 

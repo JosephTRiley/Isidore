@@ -126,7 +126,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected OctBox CloneImp()
         {
-            var newCopy = (MeshOctBox)MemberwiseClone();
+            MeshOctBox newCopy = (MeshOctBox)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

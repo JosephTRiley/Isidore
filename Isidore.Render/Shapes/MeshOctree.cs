@@ -105,11 +105,11 @@ namespace Isidore.Render
         public bool[] IsChild(int index)
         {
             // Finds last index rank and values
-            var pIdx = meshoctboxes[index].Index; // Parent index
-            var pLen = pIdx.Length; // Parent Rank
-            
+            int[] pIdx = meshoctboxes[index].Index; // Parent index
+            int pLen = pIdx.Length; // Parent Rank
+
             // Record
-            var isChild = new bool[meshoctboxes.Count];
+            bool[] isChild = new bool[meshoctboxes.Count];
 
             // Marches through octree
             int cIdx;
@@ -135,8 +135,8 @@ namespace Isidore.Render
         public void IsChild(ref bool[] isChild, int index)
         {
             // Finds last index rank and values
-            var pIdx = meshoctboxes[index].Index; // Parent index
-            var pLen = pIdx.Length; // Parent Rank
+            int[] pIdx = meshoctboxes[index].Index; // Parent index
+            int pLen = pIdx.Length; // Parent Rank
 
             // Marches through octree
             int cIdx;
@@ -162,7 +162,7 @@ namespace Isidore.Render
         public List<OctBoxIntersect> Intersect(Ray ray)
         {
             List<OctBoxIntersect> octree = new List<OctBoxIntersect>();
-            var skip = new bool[meshoctboxes.Count];
+            bool[] skip = new bool[meshoctboxes.Count];
 
             // Steps through each box
             for (int idx = 0; idx < meshoctboxes.Count; idx++)
@@ -172,7 +172,7 @@ namespace Isidore.Render
                     continue;
 
                 // Checks to see if this box is intesected
-                var oData = meshoctboxes[idx].Intersect(ray);
+                OctBoxIntersect oData = meshoctboxes[idx].Intersect(ray);
 
                 // Only if the box is hit
                 if (oData.Hit)
@@ -209,7 +209,7 @@ namespace Isidore.Render
         protected virtual MeshOctree CloneImp()
         {
             // Shallow copy
-            var newCopy = (MeshOctree)MemberwiseClone();
+            MeshOctree newCopy = (MeshOctree)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

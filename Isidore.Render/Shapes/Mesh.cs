@@ -221,7 +221,7 @@ namespace Isidore.Render
                         evaled[facetIdx] = true;
 
                         // Returns intersect flag, travel, & barycentric UV
-                        var fData = RayTriangleIntersect(ray,
+                        Tuple<bool, double, double[]> fData = RayTriangleIntersect(ray,
                             globalVertices[Facets[facetIdx][0]].Position,
                             edge1[facetIdx], edge2[facetIdx],
                             normal[facetIdx], intersectThreshold);
@@ -464,7 +464,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Shape CloneImp()
         {
-            var newCopy = (Mesh)MemberwiseClone();
+            Mesh newCopy = (Mesh)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

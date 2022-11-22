@@ -151,7 +151,7 @@ namespace Isidore.Render
         /// <param name="ray"> Render ray instance </param>
         public override void ApplyMaterials(ref RenderRay ray)
         {
-            var shape = (Shape)ray.IntersectData.Body;
+            Shape shape = (Shape)ray.IntersectData.Body;
             // Uses the intersected shape if it has materials
             // Otherwise uses the polyshape
             if (shape.Materials.Count > 0)

@@ -40,7 +40,7 @@ namespace Isidore.Render
         /// <returns> Texture value at that location </returns>
         public override double GetVal(double x, double y, double z)
         {
-            var coord = new double[] { x, y, z };
+            double[] coord = new double[] { x, y, z };
             return GetVal(coord);
         }
 
@@ -52,7 +52,7 @@ namespace Isidore.Render
         /// <returns> Texture value at that location </returns>
         public override double GetVal(double x, double y)
         {
-            var coord = new double[] { x, y };
+            double[] coord = new double[] { x, y };
             return GetVal(coord);
         }
 
@@ -63,7 +63,7 @@ namespace Isidore.Render
         /// <returns> Texture value at that location </returns>
         public override double GetVal(double[] coords)
         {
-            var ptCoords = new Point(coords);
+            Point ptCoords = new Point(coords);
             return GetVal(ptCoords);
         }
 
@@ -74,7 +74,7 @@ namespace Isidore.Render
         /// <returns> Texture value at that location </returns>
         public double GetVal(Point coords)
         {
-            var inoise = noise.GetVal(coords);
+            double inoise = noise.GetVal(coords);
             return inoise;
         }
 
@@ -94,7 +94,7 @@ namespace Isidore.Render
         new protected virtual Texture CloneImp()
         {
             // Shallow copies from base
-            var newCopy = base.CloneImp() as ProceduralTexture;
+            ProceduralTexture newCopy = base.CloneImp() as ProceduralTexture;
 
             // Deep-copies all data this is referenced by default
             newCopy.noise = noise.Clone();

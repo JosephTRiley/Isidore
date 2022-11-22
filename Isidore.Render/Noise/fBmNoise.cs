@@ -92,15 +92,15 @@ namespace Isidore.Render
         public virtual double GetBaseVal(Point coord, double Hurst)
         {
             // Calculates frequency noise components
-            var noises = GetComponents(coord);
+            double[] noises = GetComponents(coord);
 
             // Cycles through octaves
             double noise = 0;
             for (int idx = 0; idx < Frequency.Length; idx++)
             {
                 // Anchors the frequency noise to a power
-                var power = Math.Pow(Frequency[idx], -Hurst);
-                var inoise = noises[idx] * power;
+                double power = Math.Pow(Frequency[idx], -Hurst);
+                double inoise = noises[idx] * power;
 
                 // Adds the frequency noise to the summed noise
                 noise += inoise;
@@ -125,7 +125,7 @@ namespace Isidore.Render
         new protected virtual FrequencyNoise CloneImp()
         {
             // Shallow copies from base
-            var newCopy = base.CloneImp() as fBmNoise;
+            fBmNoise newCopy = base.CloneImp() as fBmNoise;
 
             // Deep-copies all data this is referenced by default
 

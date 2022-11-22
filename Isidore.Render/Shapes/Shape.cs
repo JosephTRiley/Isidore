@@ -106,7 +106,7 @@ namespace Isidore.Render
         new protected Body CloneImp()
         {
             //var newCopy = (Shape)base.CloneImp();
-            var newCopy = (Shape)MemberwiseClone();
+            Shape newCopy = (Shape)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

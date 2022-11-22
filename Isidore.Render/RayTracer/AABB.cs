@@ -351,7 +351,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Item CloneImp()
         {
-            var newCopy = (AABB)MemberwiseClone();
+            AABB newCopy = (AABB)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

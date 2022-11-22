@@ -52,7 +52,7 @@ namespace Isidore.Maths
             // Builds an ascending integer list
             int[] elements = Enumerable.Range(0, length).ToArray();
 
-            var shuffled = Shuffle(elements, Rng);
+            IEnumerable<int> shuffled = Shuffle(elements, Rng);
 
             return shuffled;
         }

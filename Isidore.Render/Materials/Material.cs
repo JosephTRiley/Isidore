@@ -79,7 +79,7 @@ namespace Isidore.Render
 
             // For shape bodies, checks if there is any alpha consideration
             // This might be moved to the material stack class eventually
-            var sData = ray.IntersectData.BodySpecificData as 
+            ShapeSpecificData sData = ray.IntersectData.BodySpecificData as 
                 ShapeSpecificData;
             if (sData != null)
             {
@@ -126,7 +126,7 @@ namespace Isidore.Render
         protected virtual Material CloneImp()
         {
             // Shallow copy
-            var newCopy = (Material)MemberwiseClone();
+            Material newCopy = (Material)MemberwiseClone();
             // recallable Range should be cloned with a shallow copy
 
             // Deep copy

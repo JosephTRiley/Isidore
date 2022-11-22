@@ -540,16 +540,16 @@ namespace Isidore.Maths
         static public Point[] Array(double[,] coords)
         {
             // The first dimension is the points
-            var plen = coords.GetLength(0);
+            int plen = coords.GetLength(0);
             // The second dimension is the points coordinates
-            var clen = coords.GetLength(1);
+            int clen = coords.GetLength(1);
 
             // Generates point array
-            var pts = new Point[plen];
+            Point[] pts = new Point[plen];
             for (int pidx = 0; pidx < plen; pidx++)
             {
                 // Extracts the point coordinates
-                var coord = new double[clen];
+                double[] coord = new double[clen];
                 for (int cidx = 0; cidx < clen; cidx++)
                     coord[cidx] = coords[pidx, cidx];
                 // Makes each point instance

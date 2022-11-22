@@ -74,7 +74,7 @@ namespace Isidore.Render
         new protected virtual BodySpecificData CloneImp()
         {
             // Shallow copy
-            var newCopy = (ShapeSpecificData)MemberwiseClone();
+            ShapeSpecificData newCopy = (ShapeSpecificData)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

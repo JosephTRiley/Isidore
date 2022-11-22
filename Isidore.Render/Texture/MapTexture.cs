@@ -90,7 +90,7 @@ namespace Isidore.Render
         public override double GetVal(double u, double v)
         {
             // Retrieves image location
-            var loc = UV2pixel(u, v);
+            int[] loc = UV2pixel(u, v);
 
             // Retrieves value
             double val = map[loc[0], loc[1]];
@@ -136,7 +136,7 @@ namespace Isidore.Render
         public void SetVal(double val, double u, double v)
         {
             // Retrieves pixel coordinates
-            var loc = UV2pixel(u, v);
+            int[] loc = UV2pixel(u, v);
             
             // Sets value
             map[loc[0], loc[1]] = val;
@@ -151,8 +151,8 @@ namespace Isidore.Render
         public int[] UV2pixel(double u, double v)
         {
             // Image size
-            var len0 = map.GetLength(0);
-            var len1 = map.GetLength(1);
+            int len0 = map.GetLength(0);
+            int len1 = map.GetLength(1);
 
             // UV pixel location on the map
             // (Images use a left-hand coordinate system)
@@ -160,7 +160,7 @@ namespace Isidore.Render
             double dloc1 = (1 - v) * len1;
 
             // Fixes via Truncation
-            var loc = new int[2];
+            int[] loc = new int[2];
             loc[0] = (int)dloc0;
             loc[1] = (int)dloc1;
 
@@ -201,7 +201,7 @@ namespace Isidore.Render
         new protected virtual Texture CloneImp()
         {
             // Shallow copies from base
-            var newCopy = (MapTexture)base.CloneImp();
+            MapTexture newCopy = (MapTexture)base.CloneImp();
 
             // Deep-copies all data this is referenced by default
             if (map != null)

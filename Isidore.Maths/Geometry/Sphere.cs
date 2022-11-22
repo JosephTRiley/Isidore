@@ -164,7 +164,7 @@ namespace Isidore.Maths
         public static Tuple<double, double, Point, Normal> 
             NearestRayIntersection(Sphere sphere, Ray ray)
         {
-            var both = RayIntersection(sphere, ray);
+            Tuple<double[], double[], Point[], Normal[]> both = RayIntersection(sphere, ray);
             // Picks the closest intersection
             if (both.Item1[1] < both.Item1[0])
                 return Tuple.Create(both.Item1[1], both.Item2[1], 

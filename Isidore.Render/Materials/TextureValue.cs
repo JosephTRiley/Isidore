@@ -67,16 +67,16 @@
         public override bool ProcessIntersectData(ref RenderRay ray)
         {
             // Reference to the ray's intersection data
-            var iData = ray.IntersectData;
+            IntersectData iData = ray.IntersectData;
 
             // Handles map textures by using UV coordinates
             if(baseTexture.UseUV)
             {
-                var sData = iData.BodySpecificData as ShapeSpecificData;
-                var U = sData.U;
-                var V = sData.V;
-                var v = baseTexture.GetVal(U, V);
-                var thisV = new Scalar(v);
+                ShapeSpecificData sData = iData.BodySpecificData as ShapeSpecificData;
+                double U = sData.U;
+                double V = sData.V;
+                double v = baseTexture.GetVal(U, V);
+                Scalar thisV = new Scalar(v);
                 iData.Properties.Add(thisV);
                 return true;
             }
@@ -84,13 +84,13 @@
             // Otherwise, uses the location
 
             // Finds the intersect point
-            var iPt = iData.IntersectPt;
+            Maths.Point iPt = iData.IntersectPt;
 
             // If the texture is anchored to the local coordinate, casts
             // the intersect point to the local frame of reference.
             if(anchorTextureToBody)
             {
-                var trans = iData.Body.Local2World;
+                Maths.Transform trans = iData.Body.Local2World;
                 // Overwrites the reference with a clone
                 iPt = iPt.CopyTransform(trans, false);
             }
@@ -100,23 +100,23 @@
             double[] coord;
             if(useTimeShift)
             {
-                var cLen = iPt.Comp.Length;
+                int cLen = iPt.Comp.Length;
                 coord = new double[cLen + 1];
                 // Copies intersection coordinates
                 for (int idx = 0; idx < cLen; idx++)
                     coord[idx] = iPt.Comp[idx];
                 // Adds time shift
-                var timeShift = ray.Time / timeSegmentLength;
+                double timeShift = ray.Time / timeSegmentLength;
                 coord[cLen] = timeShift;
             }
             else
                 coord = iPt.Comp;
 
             // Retrieves the texture value at the intersection point
-            var val = baseTexture.GetVal(coord);
+            double val = baseTexture.GetVal(coord);
 
             // Converts the value into a scalar property and adds it to the array
-            var thisVal = new Scalar(val);
+            Scalar thisVal = new Scalar(val);
             iData.Properties.Add(thisVal);
 
             // returns interaction notification
@@ -139,7 +139,7 @@
         new protected virtual Material CloneImp()
         {
             // Shallow copies from base
-            var newCopy = (TextureValue)base.CloneImp();
+            TextureValue newCopy = (TextureValue)base.CloneImp();
 
             // Deep-copies all data this is referenced by default
             if (baseTexture != null)

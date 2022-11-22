@@ -48,7 +48,7 @@ namespace Isidore.Render
         /// <returns> Array of IntersectData matching the projector rays </returns>
         public void OneCoreIntersect(ref Projector proj)
         {
-            var projClone = proj;
+            Projector projClone = proj;
             // Cycles through every ray tree
             for (int idx = 0; idx < proj.Rays.Length; idx++)
                 Intersect(ref projClone.Rays[idx]);
@@ -62,13 +62,7 @@ namespace Isidore.Render
         /// <returns> Array of IntersectData matching the projector rays </returns>
         public void MultiCoreIntersect(ref Projector proj)
         {
-            var projClone = proj;
-            // Cycles through every ray tree
-            //Parallel.For(0, proj.Rays.Length, (int idx) =>
-            //{
-            //    Intersect(ref projClone.Rays[idx]);
-            //}
-            //);
+            Projector projClone = proj;
             Parallel.ForEach(Partitioner.Create(0, proj.Rays.Length), range => {
                 for (int idx = range.Item1; idx < range.Item2; idx++)
                     Intersect(ref projClone.Rays[idx]);
@@ -117,7 +111,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Item CloneImp()
         {
-            var newCopy = (Body)MemberwiseClone();
+            Body newCopy = (Body)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

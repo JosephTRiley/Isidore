@@ -37,7 +37,7 @@
         /// <returns> Clone copy of this instance </returns>
         new protected virtual Property CloneImp()
         {
-            var newCopy = (Scalar)base.CloneImp();
+            Scalar newCopy = (Scalar)base.CloneImp();
 
             return newCopy;
         }

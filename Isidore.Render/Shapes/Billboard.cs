@@ -308,7 +308,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Shape CloneImp()
         {
-            var newCopy = (Billboard)MemberwiseClone();
+            Billboard newCopy = (Billboard)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

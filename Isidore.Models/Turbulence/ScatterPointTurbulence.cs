@@ -39,7 +39,7 @@ namespace Isidore.Models
             {
                 pts = value;
                 // Rebuilds the K-D tree
-                var ppts = new List<Point>();
+                List<Point> ppts = new List<Point>();
                 for (int idx = 0; idx < pts.Count; idx++)
                     ppts.Add(pts[idx]);
                 kdTree = new KDTree(ppts);
@@ -84,7 +84,7 @@ namespace Isidore.Models
         /// <returns> Turbulence values </returns>
         public double[] GetVal(List<Point> pos, double now)
         {
-            var val = new double[pos.Count];
+            double[] val = new double[pos.Count];
             for (int idx = 0; idx < pos.Count; idx++)
                 val[idx] = GetVal(pos[idx], now);
             // This worked in C# but intermediately crashes in MATLAB
@@ -108,7 +108,7 @@ namespace Isidore.Models
             double val=0;
 
             // Finds points within the influence range only if range > 0
-            var inRng = new Tuple<int[], double[]>(new int[0], new double[0]);
+            Tuple<int[], double[]> inRng = new Tuple<int[], double[]>(new int[0], new double[0]);
             if(influenceRange>0)
                 inRng = kdTree.LocateNear(pos, influenceRange, maxPtValues);
 
@@ -117,8 +117,8 @@ namespace Isidore.Models
             // Otherwise calculates the turbulence magnitude
             if (inRng.Item1.Length > 0)
             {
-                var ind = inRng.Item1;
-                var dist = inRng.Item2;
+                int[] ind = inRng.Item1;
+                double[] dist = inRng.Item2;
 
                 // Equals a point when dist=0
                 if (dist[0] == 0)
@@ -128,7 +128,7 @@ namespace Isidore.Models
                 else
                 {
                     // Inverse distances
-                    var idist = new double[dist.Length];
+                    double[] idist = new double[dist.Length];
                     double idistSum = 0;
                     for (int idx = 0; idx < dist.Length; idx++)
                     {
@@ -138,14 +138,14 @@ namespace Isidore.Models
                     // Fractional influences values
                     for (int idx = 0; idx < dist.Length; idx++)
                     {
-                        var frac = idist[idx] / idistSum;
+                        double frac = idist[idx] / idistSum;
                         val += frac * pts[ind[idx]].GetVal(pos, now);
                     }
                 }
             }
             else
             {
-                var closest = kdTree.Nearest(pos);
+                Tuple<int, double> closest = kdTree.Nearest(pos);
                 val = pts[closest.Item1].GetVal(pos, now);
             }
 

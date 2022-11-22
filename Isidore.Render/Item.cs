@@ -125,7 +125,7 @@ namespace Isidore.Render
         protected virtual Item CloneImp()
         {
             // Shallow copy
-            var newCopy = (Item)MemberwiseClone();
+            Item newCopy = (Item)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

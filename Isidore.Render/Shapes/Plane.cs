@@ -284,7 +284,7 @@ namespace Isidore.Render
                 return false;
 
             // Uses Maths's plane intersection
-            var intData = Isidore.Maths.Plane.RayIntersection(
+            Tuple<double, double> intData = Isidore.Maths.Plane.RayIntersection(
                 globalNormal, globalD, (Maths.Ray)ray, IntersectBackFaces);
             double t = intData.Item1;
 
@@ -344,7 +344,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Shape CloneImp()
         {
-            var newCopy = (Plane)MemberwiseClone();
+            Plane newCopy = (Plane)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

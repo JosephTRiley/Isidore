@@ -46,7 +46,7 @@ namespace Isidore.Render
             FieldInfo finfo = GetType().GetField(name);
             if (finfo != null)
             {
-                var value = finfo.GetValue(this);
+                object value = finfo.GetValue(this);
                 return (T)value;
             }
 
@@ -54,7 +54,7 @@ namespace Isidore.Render
             PropertyInfo pinfo = GetType().GetProperty(name);
             if (pinfo != null)
             {
-                var value = pinfo.GetValue(this);
+                object value = pinfo.GetValue(this);
                 return (T)value;
             }
 
@@ -90,7 +90,7 @@ namespace Isidore.Render
         protected virtual Property CloneImp()
         {
             // Shallow copy
-            var newCopy = (Property)MemberwiseClone();
+            Property newCopy = (Property)MemberwiseClone();
             // Deep copy
             if (Units != null)
                 newCopy.Units = (string)Units.Clone();

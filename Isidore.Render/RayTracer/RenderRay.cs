@@ -205,7 +205,7 @@ namespace Isidore.Render
         protected virtual RenderRay CloneImp()
         {
             // Shallow copy
-            var newCopy = (RenderRay)MemberwiseClone();
+            RenderRay newCopy = (RenderRay)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

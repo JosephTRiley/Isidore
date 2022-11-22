@@ -33,7 +33,7 @@ namespace Isidore.ImgProcess
             // Step 1: Image smoothing -> Skipped
 
             // Step 2: Intensity Gradients & Edge Strength
-            var SobelTuple = Sobel.Process(arr); // Gets tuple data
+            Tuple<double[,], double[,], double[,]> SobelTuple = Sobel.Process(arr); // Gets tuple data
             double[,] Mag = SobelTuple.Item1;
             double[,] G0 = SobelTuple.Item2;
             double[,] G1 = SobelTuple.Item3;
@@ -168,7 +168,7 @@ namespace Isidore.ImgProcess
         public static Tuple<bool[,], double[,], int[,]> ShortProcess<T>
             (T[,] arr, double HiRelThresh, double LowRelThresh)
         {
-            var output = Process(arr, HiRelThresh, LowRelThresh);
+            Tuple<bool[,], double[,], double[,], double[,], double[,], int[,]> output = Process(arr, HiRelThresh, LowRelThresh);
             
             return Tuple.Create(output.Item1, output.Item4, output.Item6);
         }
@@ -186,7 +186,7 @@ namespace Isidore.ImgProcess
         public static bool[,] Image<T>(T[,] arr, double HiRelThresh, 
             double LowRelThresh)
         {
-            var output = ShortProcess(arr, HiRelThresh, LowRelThresh);
+            Tuple<bool[,], double[,], int[,]> output = ShortProcess(arr, HiRelThresh, LowRelThresh);
 
             return output.Item1;
         }

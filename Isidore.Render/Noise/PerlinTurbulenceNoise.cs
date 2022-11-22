@@ -85,14 +85,14 @@ namespace Isidore.Render
         public override double GetBaseVal(Point coord)
         {
             // Calculates frequency noise components
-            var noises = GetComponents(coord);
+            double[] noises = GetComponents(coord);
 
             // Cycles through octaves
             double noise = 0;
             for (int idx = 0; idx < Frequency.Length; idx++)
             {
                 // Scales power
-                var inoise = noises[idx] / Frequency[idx];
+                double inoise = noises[idx] / Frequency[idx];
 
                 // Takes the absolute value if flagged
                 if (absoluteValueNoise)
@@ -121,7 +121,7 @@ namespace Isidore.Render
         new protected virtual FrequencyNoise CloneImp()
         {
             // Shallow copies from base
-            var newCopy = base.CloneImp() as PerlinTurbulenceNoise;
+            PerlinTurbulenceNoise newCopy = base.CloneImp() as PerlinTurbulenceNoise;
 
             // Deep-copies all data this is referenced by default
 

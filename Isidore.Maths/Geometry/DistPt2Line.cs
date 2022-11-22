@@ -70,7 +70,7 @@ namespace Isidore.Maths
             Dir.Normalize();
 
             // Calls DistPt2Line (above)
-            var data = Point2Line(Point, Pt0, Dir);
+            Tuple<double, Point, double> data = Point2Line(Point, Pt0, Dir);
 
             // If tca <0, then the closest point is the first point
             if(data.Item3 < 0)

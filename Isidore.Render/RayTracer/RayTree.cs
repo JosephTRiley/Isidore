@@ -187,7 +187,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         public RayTree Clone()
         {
-            var newCopy = (RayTree)MemberwiseClone();
+            RayTree newCopy = (RayTree)MemberwiseClone();
 
             if (rays != null)
                 newCopy.rays = rays.Clone();

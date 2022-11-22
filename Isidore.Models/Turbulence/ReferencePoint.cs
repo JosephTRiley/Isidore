@@ -117,7 +117,7 @@ namespace Isidore.Models
         protected Point CloneImp()
         {
             // Shallow copies from base
-            var newCopy = base.Clone() as ReferencePoint;
+            ReferencePoint newCopy = base.Clone() as ReferencePoint;
             newCopy.ReferencePoints = ReferencePoints;
 
             return newCopy;

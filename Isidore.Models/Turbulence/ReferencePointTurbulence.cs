@@ -30,7 +30,7 @@ namespace Isidore.Models
             {
                 refPts = value;
                 // Rebuilds the K-D tree
-                var ppts = new List<Point>();
+                List<Point> ppts = new List<Point>();
                 for (int idx = 0; idx < refPts.Count; idx++)
                     ppts.Add(refPts[idx]);
                 ptKDtree = new KDTree(ppts);
@@ -77,7 +77,7 @@ namespace Isidore.Models
         /// <returns> Turbulence values </returns>
         public double[] GetVal(List<Point> pos, double now)
         {
-            var val = new double[pos.Count];
+            double[] val = new double[pos.Count];
             for (int idx = 0; idx < pos.Count; idx++)
                 val[idx] = GetVal(pos[idx], now);
             // This worked in C# but intermediately crashes in MATLAB
@@ -101,7 +101,7 @@ namespace Isidore.Models
             int refInd;
             double refDist;
             double[] dist;
-            var val = GetVal(pos, now, out refInd, out refDist, out dist);
+            double val = GetVal(pos, now, out refInd, out refDist, out dist);
             return val;
         }
 
@@ -122,15 +122,15 @@ namespace Isidore.Models
             double val = 0;
 
             // Finds the closest reference point
-            var nearest = ptKDtree.Nearest(pos);
+            Tuple<int, double> nearest = ptKDtree.Nearest(pos);
 
             // Reference point index & distance
             refInd = nearest.Item1;
             refDist = nearest.Item2;
 
             // References point & category label
-            var nearPt = refPts[refInd];
-            var ptCat = nearPt.CategoryLabel;
+            ReferencePoint nearPt = refPts[refInd];
+            ReferencePoint.Category ptCat = nearPt.CategoryLabel;
 
             // Retrieves the noise value depending on the point label
             if (ptCat == ReferencePoint.Category.Default)
@@ -139,8 +139,8 @@ namespace Isidore.Models
             }
             else
             {
-                var refPt0 = nearPt.ReferencePoints[0] as ReferencePoint;
-                var refPt1 = nearPt.ReferencePoints[1] as ReferencePoint;
+                ReferencePoint refPt0 = nearPt.ReferencePoints[0] as ReferencePoint;
+                ReferencePoint refPt1 = nearPt.ReferencePoints[1] as ReferencePoint;
                 double val0, val1;
                 double[] turbDist0, turbDist1;
                 val = GetInterpVal(refPt0, refPt1, pos, now,
@@ -180,12 +180,12 @@ namespace Isidore.Models
             val1 = GetVal(refPt1, pos, now, out turbDist1);
 
             // Projects the point to the line between the 2 ref points
-            var d2l = Distance.Point2Line(pos, refPt0, refPt1);
-            var distPos = d2l.Item3;
+            Tuple<double, Point, double, Vector> d2l = Distance.Point2Line(pos, refPt0, refPt1);
+            double distPos = d2l.Item3;
 
             // Distance between reference points
-            var distLine = refPt0.Distance(refPt1);
-            var loc = distPos / distLine;
+            double distLine = refPt0.Distance(refPt1);
+            double loc = distPos / distLine;
 
             //// distance from the position to the reference points
             //var dist0 = pos.Distance(refPt0);
@@ -193,10 +193,10 @@ namespace Isidore.Models
             //var loc = dist0 / (dist0 + dist1);
 
             // Position in polynomial space
-            var fac = Polynomial.Evaluate(loc);
+            double fac = Polynomial.Evaluate(loc);
 
             // Interpolated value
-            var val = val0 + fac * (val1 - val0);
+            double val = val0 + fac * (val1 - val0);
 
             return val;
         }
@@ -221,14 +221,14 @@ namespace Isidore.Models
 
             // Finds the distance between the position and turbulence point
             // and the value of each turbulent point
-            var tpts = refPt.ReferencePoints;
+            List<Point> tpts = refPt.ReferencePoints;
             turbDist = new double[tpts.Count];
-            var idists = new double[tpts.Count];
+            double[] idists = new double[tpts.Count];
             double idistSum = 0;
             int zeroDist = -1;
             for (int idx = 0; idx < tpts.Count; idx++)
             {
-                var tpt = tpts[idx] as TurbulencePointWFS;
+                TurbulencePointWFS tpt = tpts[idx] as TurbulencePointWFS;
                 turbDist[idx] = pos.Distance(tpt);
 
                 // Point overlap handler
@@ -248,7 +248,7 @@ namespace Isidore.Models
             // turbulence point, then it is the only contributor
             if (zeroDist >= 0)
             {
-                var thisPt = tpts[zeroDist] as TurbulencePointWFS;
+                TurbulencePointWFS thisPt = tpts[zeroDist] as TurbulencePointWFS;
                 val = thisPt.GetVal(pos, now);
                 return val;
             }
@@ -256,8 +256,8 @@ namespace Isidore.Models
             // Calculates the influence of each point using reciprocal distance
             for (int idx = 0; idx < tpts.Count; idx++)
             {
-                var frac = idists[idx] / idistSum;
-                var thisPt = tpts[idx] as TurbulencePointWFS;
+                double frac = idists[idx] / idistSum;
+                TurbulencePointWFS thisPt = tpts[idx] as TurbulencePointWFS;
                 val += frac * thisPt.GetVal(pos, now);
             }
 
@@ -276,9 +276,9 @@ namespace Isidore.Models
             int refInd;
             double refDist;
             double[] dist;
-            var val = GetVal(pos, now, out refInd, out refDist, out dist);
+            double val = GetVal(pos, now, out refInd, out refDist, out dist);
 
-            var valStruct = new RefPtTurbStruct(val, refInd, refDist, dist);
+            RefPtTurbStruct valStruct = new RefPtTurbStruct(val, refInd, refDist, dist);
             return valStruct;
         }
 
@@ -291,7 +291,7 @@ namespace Isidore.Models
         /// <returns> Turbulence values </returns>
         public RefPtTurbStruct[] GetStruct(List<Point> pos, double now)
         {
-            var val = new RefPtTurbStruct[pos.Count];
+            RefPtTurbStruct[] val = new RefPtTurbStruct[pos.Count];
             for (int idx = 0; idx < pos.Count; idx++)
                 val[idx] = GetStruct(pos[idx], now);
 

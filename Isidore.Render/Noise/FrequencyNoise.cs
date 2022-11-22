@@ -41,7 +41,7 @@ namespace Isidore.Render
                 // the original)
                 if (minfreq != maxfreq)
                 {
-                    var exp = Math.Log(minfreq) / Math.Log(lacunarity);
+                    double exp = Math.Log(minfreq) / Math.Log(lacunarity);
                     minfreq = Math.Pow(lacunarity, Math.Floor(exp));
                 }
 
@@ -169,7 +169,7 @@ namespace Isidore.Render
         /// <returns> Noise value </returns>
         public override double GetBaseVal(Point coord)
         {
-            var noise = GetComponents(coord);
+            double[] noise = GetComponents(coord);
             double val = 0;
             for (int idx = 0; idx < noise.Length; idx++)
                 val += noise[idx];
@@ -185,17 +185,17 @@ namespace Isidore.Render
         /// <returns> Component noise array </returns>
         public virtual double[] GetComponents(Point coord)
         {
-            var ssCoord = coord.Clone();
+            Point ssCoord = coord.Clone();
 
             // Scales the noise coordinates to the minimum frequency
             for (int idx = 0; idx < ssCoord.Comp.Length; idx++)
                 ssCoord.Comp[idx] *= minfreq;
 
             // Cycles through octaves
-            var noises = new double[freqs.Length];
+            double[] noises = new double[freqs.Length];
             for (int fidx = 0; fidx < freqs.Length; fidx++)
             {
-                var inoise = noiseFunc.GetVal(ssCoord);
+                double inoise = noiseFunc.GetVal(ssCoord);
 
                 // Records data
                 noises[fidx] = inoise;
@@ -216,13 +216,13 @@ namespace Isidore.Render
         /// <returns> Noise array with dim1=points, dim2=components </returns>
         public virtual double[,] GetComponents(Point[] coord)
         {
-            var vals = new double[coord.Length, Frequency.Length];
+            double[,] vals = new double[coord.Length, Frequency.Length];
 
             // Each point
             for (int idx = 0; idx < coord.Length; idx++)
             {
                 // Retrieves noise
-                var val = GetComponents(coord[idx]);
+                double[] val = GetComponents(coord[idx]);
 
                 // Assigns noise values
                 for(int fidx=0; fidx<val.Length;fidx++)
@@ -237,7 +237,7 @@ namespace Isidore.Render
         /// </summary>
         private void CalcFrequencies()
         {
-            var freqsList = new List<double>();
+            List<double> freqsList = new List<double>();
             for (double freq = minfreq; freq <= maxfreq; freq *= lacunarity)
                 freqsList.Add(freq);
             freqs = freqsList.ToArray();
@@ -261,7 +261,7 @@ namespace Isidore.Render
         new protected virtual Noise CloneImp()
         {
             // Shallow copies from base
-            var newCopy = base.CloneImp() as FrequencyNoise;
+            FrequencyNoise newCopy = base.CloneImp() as FrequencyNoise;
 
             // Deep copy
 

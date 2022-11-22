@@ -75,7 +75,7 @@ namespace Isidore.Render
             Point LowerCenter = new Point(halfLen) + CenterPoint;
 
             // Generates voxel center points and a reference index
-            var voxelData = SetVoxelPoints(LowerCenter, GridResolution,
+            Tuple<Point[], int[,]> voxelData = SetVoxelPoints(LowerCenter, GridResolution,
                 VoxelLength);
             centerPoint = voxelData.Item1;
             index = voxelData.Item2;
@@ -84,7 +84,7 @@ namespace Isidore.Render
             halfLength = Operator.Divide(VoxelLength, 2.0);
 
             // Full voxel bounding box
-            var boundingBox = SetBoundingBox(centerPoint, halfLength);
+            Tuple<Point, double[]> boundingBox = SetBoundingBox(centerPoint, halfLength);
             bbCenter = boundingBox.Item1;
             bbHalfLen = boundingBox.Item2;
         }
@@ -122,15 +122,13 @@ namespace Isidore.Render
 
             // Bounding box check for intersection and the shorter travel
             // if either are false, returns
-            var bbInter1 = AABB.Intersect(ray, bbCenter, bbHalfLen);
-            var bbInter = Intersect(ray, bbCenter, bbHalfLen);
+            Tuple<bool, double[]> bbInter = Intersect(ray, bbCenter, bbHalfLen);
             if (!bbInter.Item1 || bbInter.Item2[0] > ray.IntersectData.Travel)
                 return false;
 
             // Near, far, ID for distance for a voxel
             bool hitOut = false;
             double nearOut = double.PositiveInfinity;
-            double farOut = double.PositiveInfinity;
             int intersectIDOut = -1;
             bool hitIn = false;
             double nearIn = double.PositiveInfinity;
@@ -141,8 +139,7 @@ namespace Isidore.Render
             for (int idx = 0; idx < centerPoint.Length; idx++)
             {
                 // Checks for intersection
-                var interSect = Intersect(ray, centerPoint[idx], halfLength);
-                var interSect1 = AABB.Intersect(ray, centerPoint[idx], halfLength);
+                Tuple<bool, double[]> interSect = Intersect(ray, centerPoint[idx], halfLength);
 
                 // Continues if there is not intersect or if the far travel is
                 // less than the minimum travel allows
@@ -155,7 +152,6 @@ namespace Isidore.Render
                 {
                     hitOut = true;
                     nearOut = interSect.Item2[0];
-                    farOut = interSect.Item2[1];
                     intersectIDOut = idx;
                 }
 
@@ -191,7 +187,7 @@ namespace Isidore.Render
             }
 
             // Checks to see if there's volumetric data on the ray
-            var vDataRay = ray.IntersectData.BodySpecificData as
+            VolumeSpecificData vDataRay = ray.IntersectData.BodySpecificData as
                 VolumeSpecificData;
             // If not, then vData will be null
             if (vDataRay == null)
@@ -415,7 +411,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Volume CloneImp()
         {
-            var newCopy = (Voxel)MemberwiseClone();
+            Voxel newCopy = (Voxel)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

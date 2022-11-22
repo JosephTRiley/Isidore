@@ -153,7 +153,7 @@ namespace Isidore.Render
             Point lowCorn = octbox.CenterPoint - newHlen;
 
             // Uses the Voxel.SetVoxelPoints
-            var vData = Voxel.SetVoxelPoints(lowCorn, gridRes, 
+            Tuple<Point[], int[,]> vData = Voxel.SetVoxelPoints(lowCorn, gridRes, 
                 octbox.HalfLength);
             childBoxes = new OctBox[childCnt];
             int place = octbox.Index.Length;
@@ -183,7 +183,7 @@ namespace Isidore.Render
                 return new OctBoxIntersect();
 
             // Runs this element's AABB intersection algorithm
-            var iSpace = base.Intersect(ray);
+            Tuple<bool, double[]> iSpace = base.Intersect(ray);
             return new OctBoxIntersect(iSpace.Item1, iSpace.Item2[0],
                 iSpace.Item2[1], this);
         }
@@ -219,7 +219,7 @@ namespace Isidore.Render
             if(childBoxes != null)
                 for(int cIdx = 0; cIdx < childBoxes.Length; cIdx++)
                 {
-                    var childTree = childBoxes[cIdx].makeOctree();
+                    List<OctBox> childTree = childBoxes[cIdx].makeOctree();
                     childTree.ForEach(branch => octree.Add(branch));
                 }
             return octree;
@@ -240,7 +240,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected AABB CloneImp()
         {
-            var newCopy = (OctBox)MemberwiseClone();
+            OctBox newCopy = (OctBox)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

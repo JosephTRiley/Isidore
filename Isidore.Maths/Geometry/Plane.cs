@@ -102,7 +102,7 @@ namespace Isidore.Maths
         /// <returns> Distance from point to plane. </returns>
         public static double DistanceToPoint(Plane Plane, Point Point)
         {
-            var dist = Plane.Normal.Dot((Normal)Point) + Plane.D;
+            double dist = Plane.Normal.Dot((Normal)Point) + Plane.D;
             return dist;
         }
 
@@ -147,7 +147,7 @@ namespace Isidore.Maths
             (Plane Plane, Ray ray, bool backFaceIntersects = true)
         {
             // An Intro. to Ray Tracing, Glassner, pg 51
-            var iData = RayIntersection(Plane.Normal, Plane.D, ray,
+            Tuple<double, double> iData = RayIntersection(Plane.Normal, Plane.D, ray,
                 backFaceIntersects);
 
             // Intersection point

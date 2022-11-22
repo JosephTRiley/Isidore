@@ -82,7 +82,7 @@ namespace Isidore.Render
         protected virtual Texture CloneImp()
         {
             // Shallow copy
-            var newCopy = (Texture)MemberwiseClone();
+            Texture newCopy = (Texture)MemberwiseClone();
             
             return newCopy;
         }
