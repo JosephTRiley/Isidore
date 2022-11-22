@@ -35,3 +35,51 @@
 /Isidore.Render/Shapes/Billboard - Copy.cs
 /Isidore.Render/Shapes/Mesh - Copy.cs
 /Isidore.Render/RayTracer/Body - Copy.cs
+/Isidore.Render/RayTracer/AABB - Copy.cs
+/Isidore.Render/RayTracer/OBB - Copy.cs
+/Isidore.Render/Shapes/MeshOctree - Copy.cs
+/Isidore_Tests/OutputData - Copy MC/Maths/KDTree/Figs_KDtree_Ex
+/Isidore_Tests/OutputData - Copy MC/Maths/MarchingCubes/Figs
+/Isidore_Tests/OutputData - Copy MC/Models/ReferencePointTurbulence/Outputs_RPT
+/Isidore_Tests/OutputData - Copy MC/Models/ScatterPointTurbulence/Outputs_SPT
+/Isidore_Tests/OutputData - Copy MC/Models/TurbulencePointWFS/Output_TP_WFS
+/Isidore_Tests/OutputData - Copy MC/Models/TurbulentNoise/Output
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/FigsNoise
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/FigsPerlinStandard
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/FigsProc
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/MatsMix
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/MatsNoise
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/VidsVal
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/VidsProc
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/VidsPert
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/VidsMix
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/MatsVal
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/MatsProc
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/MatsPert
+/Isidore_Tests/OutputData - Copy MC/Render/ProceduralTexture/MatsPerlinStandard
+/Isidore_Tests/OutputData - Copy MC/Render/TextureMap/Figs
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Maths/KDTree/Figs_KDtree_Ex
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Maths/MarchingCubes/Figs
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Models/ReferencePointTurbulence/Outputs_RPT
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Models/TurbulencePointWFS/Output_TP_WFS
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Models/TurbulentNoise/Output
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/FigsNoise
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/FigsPerlinStandard
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/FigsProc
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/MatsMix
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/MatsNoise
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/VidsVal
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/VidsProc
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/VidsPert
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/VidsMix
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/MatsVal
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/MatsProc
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/MatsPert
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/ProceduralTexture/MatsPerlinStandard
+/Isidore_Tests/OutputData - Copy MC FreqNoise/Render/TextureMap/Figs
+/Isidore_Tests/OutputData - Copy MC Old/Maths/KDTree/Figs_KDtree_Ex
+/Isidore_Tests/OutputData - Copy MC Old/Maths/MarchingCubes/Figs
+/Isidore_Tests/OutputData - Copy MC Old/Models/ReferencePointTurbulence/Outputs_RPT
+/Isidore_Tests/OutputData - Copy MC Old/Models/ScatterPointTurbulence/Outputs_SPT
+/Isidore_Tests/OutputData - Copy MC Old/Models/TurbulencePointWFS/Output_TP_WFS
+/Isidore_Tests/OutputData - Copy MC Old/Models/TurbulentNoise/Output

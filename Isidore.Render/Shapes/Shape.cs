@@ -22,17 +22,32 @@ namespace Isidore.Render
         /// <summary>
         /// Allows intersection to occur on the back side of shape manifolds
         /// </summary>
-        public bool IntersectBackFaces = true;
+        public virtual bool IntersectBackFaces
+        {
+            get { return intersectBackFaces; }
+            set { intersectBackFaces = value; }
+        }
+        private bool intersectBackFaces = true;
 
         /// <summary>
         /// Flag for where to calculate the intersection UV coordinates
         /// </summary>
-        public bool CalculateUV = true;
+        public virtual bool CalculateUV
+        {
+            get { return calculateUV; }
+            set { calculateUV = value; }
+        }
+        private bool calculateUV = true;
 
         /// <summary>
         /// Switches Alpha Mapping on
         /// </summary>
-        public bool UseAlpha = true;
+        public virtual bool UseAlpha
+        {
+            get { return useAlpha; }
+            set { useAlpha = value; }
+        }
+        public bool useAlpha = true;
 
         /// <summary>
         /// Alpha texture mapping: determines whether a surface region is physically interactive

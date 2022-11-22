@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace Isidore.Render
 {
@@ -63,11 +64,15 @@ namespace Isidore.Render
         {
             var projClone = proj;
             // Cycles through every ray tree
-            Parallel.For(0, proj.Rays.Length, (int idx) =>
-            {
-                Intersect(ref projClone.Rays[idx]);
-            }
-            );
+            //Parallel.For(0, proj.Rays.Length, (int idx) =>
+            //{
+            //    Intersect(ref projClone.Rays[idx]);
+            //}
+            //);
+            Parallel.ForEach(Partitioner.Create(0, proj.Rays.Length), range => {
+                for (int idx = range.Item1; idx < range.Item2; idx++)
+                    Intersect(ref projClone.Rays[idx]);
+            });
         }
 
         /// <summary>

@@ -38,7 +38,7 @@ namespace Isidore.Render
         /// <summary>
         /// Allows intersection to occur on the back side of shape manifolds
         /// </summary>
-        new public bool IntersectBackFaces
+        public override bool IntersectBackFaces
         {
             get { return base.IntersectBackFaces; }
             set
@@ -55,7 +55,7 @@ namespace Isidore.Render
         /// <summary>
         /// Flag for where to calculate the intersection UV coordinates
         /// </summary>
-        new public bool CalculateUV
+        public override bool CalculateUV
         {
             get { return base.CalculateUV; }
             set
@@ -72,7 +72,7 @@ namespace Isidore.Render
         /// <summary>
         /// Switches Alpha Mapping on
         /// </summary>
-        new public bool UseAlpha
+        public override bool UseAlpha
         {
             get { return base.UseAlpha; }
             set

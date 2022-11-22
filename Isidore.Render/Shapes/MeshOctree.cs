@@ -105,27 +105,51 @@ namespace Isidore.Render
         public bool[] IsChild(int index)
         {
             // Finds last index rank and values
-            var pBox = meshoctboxes[index];
-            var pIdx = pBox.Index; // Parent index
+            var pIdx = meshoctboxes[index].Index; // Parent index
             var pLen = pIdx.Length; // Parent Rank
             
             // Record
             var isChild = new bool[meshoctboxes.Count];
 
             // Marches through octree
+            int cIdx;
             for (int idx = index + 1; idx < meshoctboxes.Count; ++idx)
             {
-                var mbox = meshoctboxes[idx];
+                // Matches index
+                cIdx = 0;
+                while (cIdx < pLen && pIdx[cIdx] == meshoctboxes[idx].Index[cIdx])
+                    cIdx++;
 
-                // Extracts index
-                var thisIdx = new int[pLen] ;
-                Array.Copy(mbox.Index, 0, thisIdx, 0, pLen);
-
-                // Determines if there is a match
-                isChild[idx] = thisIdx.SequenceEqual(pIdx);
+                // If all values match, this is a child
+                isChild[idx] = cIdx == pLen;
             }
 
             return isChild;
+        }
+
+        /// <summary>
+        ///  Marks all children of the box at element "index"
+        /// </summary>
+        /// <param name="isChild"> An array marking all child indices </param>
+        /// <param name="index"> Box's index </param>
+        public void IsChild(ref bool[] isChild, int index)
+        {
+            // Finds last index rank and values
+            var pIdx = meshoctboxes[index].Index; // Parent index
+            var pLen = pIdx.Length; // Parent Rank
+
+            // Marches through octree
+            int cIdx;
+            for (int idx = index + 1; idx < meshoctboxes.Count; ++idx)
+            {
+                // Matches index
+                cIdx = 0;
+                while (cIdx < pLen && pIdx[cIdx] == meshoctboxes[idx].Index[cIdx])
+                    cIdx++;
+
+                // If all values match, this is a child
+                isChild[idx] = cIdx == pLen;
+            }
         }
 
         /// <summary>
@@ -140,33 +164,18 @@ namespace Isidore.Render
             List<OctBoxIntersect> octree = new List<OctBoxIntersect>();
             var skip = new bool[meshoctboxes.Count];
 
-
             // Steps through each box
             for (int idx = 0; idx < meshoctboxes.Count; idx++)
             {
-                // Checks to see if this is a child of a missed box
-                if (skip[idx]) continue;
-
-                // Referenences box
-                var mBox = meshoctboxes[idx];
-
-                // Marks box in tree for skipping (Not necessary)
-                skip[idx] = true;
+                // Checks to see if this is a child box
+                if (meshoctboxes[idx].ChildBoxes != null)
+                    continue;
 
                 // Checks to see if this box is intesected
-                var oData = mBox.Intersect(ray);
-                var thisHit = oData.Hit;
+                var oData = meshoctboxes[idx].Intersect(ray);
 
-                // If this box is not hit, then marks all children so
-                // they are not traced
-                if (!thisHit)
-                {
-                    var children = IsChild(idx);
-                    skip = skip.Zip(children, (a, b) => a || b).ToArray();
-                }
-
-                // Only records if there are not no children
-                if (thisHit && mBox.ChildBoxes == null)
+                // Only if the box is hit
+                if (oData.Hit)
                     octree.Add(oData);
             }
 
