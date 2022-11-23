@@ -22,13 +22,13 @@ namespace Isidore_Tests
             // Permutation table
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            var pArr = Arr.Permutation(length, new Random(seed));
+            System.Collections.Generic.IEnumerable<int> pArr = Arr.Permutation(length, new Random(seed));
             watch.Stop();
 
             Console.WriteLine("Array Permutation Table time: {0}ms", watch.ElapsedMilliseconds);
 
             // Checks that all the values are present
-            var pArrSort = pArr.OrderBy(x => x).ToArray();
+            int[] pArrSort = pArr.OrderBy(x => x).ToArray();
 
             for (int idx = 1; idx > length; idx++)
                 if (pArrSort[idx] - pArrSort[idx - 1] != 0)

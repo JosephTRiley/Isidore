@@ -30,59 +30,59 @@ namespace Isidore_Tests
             // Orthonormal projector located on the origin
             int len0 = 140;
             int len1 = 120;
-            var proj = new RectangleProjector(len0, len1, 0.01, 0.01, 0, 0);
-            var pos0 = proj.Pos0;
-            var pos1 = proj.Pos1;
+            RectangleProjector proj = new RectangleProjector(len0, len1, 0.01, 0.01, 0, 0);
+            double[] pos0 = proj.Pos0;
+            double[] pos1 = proj.Pos1;
 
             // Infinite plane
             Isidore.Render.Plane plane = new Isidore.Render.Plane(
                 Point.Zero(3), -1.0 * Normal.Unit(3, 2));
 
             // Assembles scene
-            var scene = new Scene();
+            Scene scene = new Scene();
             scene.Projectors.Add(proj);
             scene.Bodies.Add(plane);
 
             // Makes a Perlin fBm texture
-            var noiseFunc = new PerlinNoiseFunction(1234, 10);
-            var fBm1 = new fBmNoise(noiseFunc, 0.125, 512, 1.0/3.0, 2);
-            var fBmText = new ProceduralTexture(fBm1);
+            PerlinNoiseFunction noiseFunc = new PerlinNoiseFunction(1234, 10);
+            fBmNoise fBm1 = new fBmNoise(noiseFunc, 0.125, 512, 1.0/3.0, 2);
+            ProceduralTexture fBmText = new ProceduralTexture(fBm1);
 
             // Adds the texture to a material stack and to the plane
             // Terminates ray at intersection
             // Anchors the texture to the body local coordinate & not to
             // global space
-            var textVal = new TextureValue(fBmText, true);
+            TextureValue textVal = new TextureValue(fBmText, true);
             // This will anchor the texture to the global coordinate
             // so the texture will not change as the plane shifts
             //var textVal = new TextureValue(fBmText, true, false);
-            var matStack = new MaterialStack(textVal);
+            MaterialStack matStack = new MaterialStack(textVal);
             plane.Materials.Add(matStack);
 
             // Sets the plane 10m in front of the camera, 
             // moving at 1 m/s along the X-axis
-            var trans1 = Transform.Translate(0, 0, 10);
-            var trans2 = Transform.Translate(2, 0, 10);
+            Transform trans1 = Transform.Translate(0, 0, 10);
+            Transform trans2 = Transform.Translate(2, 0, 10);
             plane.TransformTimeLine.AddKeys(trans1, 0.0);
             plane.TransformTimeLine.AddKeys(trans2, 2);
 
             // Samples every 1/20 sec for 2 sec
-            var time = Enumerable.Range(0, 41).
+            double[] time = Enumerable.Range(0, 41).
                 Select(x => x / 20.0).ToArray();
-            var len2 = time.Length;
+            int len2 = time.Length;
 
             // Book-keeping
-            var textArr1 = new double[len0, len1, len2];
-            var travelArr1 = new double[len0, len1, len2];
-            var intArr1 = new int[len0, len1, len2];
-            var uArr1 = new double[len0, len1, len2];
-            var vArr1 = new double[len0, len1, len2];
-            var i0Arr1 = new double[len0, len1, len2];
-            var i1Arr1 = new double[len0, len1, len2];
-            var i2Arr1 = new double[len0, len1, len2];
+            double[,,] textArr1 = new double[len0, len1, len2];
+            double[,,] travelArr1 = new double[len0, len1, len2];
+            int[,,] intArr1 = new int[len0, len1, len2];
+            double[,,] uArr1 = new double[len0, len1, len2];
+            double[,,] vArr1 = new double[len0, len1, len2];
+            double[,,] i0Arr1 = new double[len0, len1, len2];
+            double[,,] i1Arr1 = new double[len0, len1, len2];
+            double[,,] i2Arr1 = new double[len0, len1, len2];
 
             // Cycles through each time step
-            var watch = new Stopwatch();
+            Stopwatch watch = new Stopwatch();
             for (int idx = 0; idx < time.Length; idx++)
             {
                 // Runs time stepRetrieves the ray
@@ -98,8 +98,8 @@ namespace Isidore_Tests
                 {
                     for (int idx1 = 0; idx1 < len1; idx1++)
                     {
-                        var thisRay = proj.Ray(idx0, idx1).Rays[0];
-                        var iData = thisRay.IntersectData;
+                        RenderRay thisRay = proj.Ray(idx0, idx1).Rays[0];
+                        IntersectData iData = thisRay.IntersectData;
 
                         // Extracts data if hit (Should always hit)
                         if (iData.Hit)
@@ -113,14 +113,14 @@ namespace Isidore_Tests
                             i2Arr1[idx0, idx1, idx] = iData.IntersectPt.Comp[2];
 
                             // Body specific data
-                            var sData = thisRay.IntersectData.BodySpecificData
+                            ShapeSpecificData sData = thisRay.IntersectData.BodySpecificData
                                 as ShapeSpecificData;
                             uArr1[idx0, idx1, idx] = sData.U;
                             vArr1[idx0, idx1, idx] = sData.V;
 
                             // Texture properties
-                            var unit = iData.GetPropertyData<string,Scalar>("Units");
-                            var val = iData.GetPropertyData<double,Scalar>("Value");
+                            string unit = iData.GetPropertyData<string,Scalar>("Units");
+                            double val = iData.GetPropertyData<double,Scalar>("Value");
                             textArr1[idx0, idx1, idx] = val;
                         }
                     }
@@ -140,14 +140,14 @@ namespace Isidore_Tests
             textVal.timeSegmentLength = 1.0;
 
             // Book-keeping
-            var textArr3 = new double[len0, len1, len2];
-            var travelArr3 = new double[len0, len1, len2];
-            var intArr3 = new int[len0, len1, len2];
-            var uArr3 = new double[len0, len1, len2];
-            var vArr3 = new double[len0, len1, len2];
-            var i0Arr3 = new double[len0, len1, len2];
-            var i1Arr3 = new double[len0, len1, len2];
-            var i2Arr3 = new double[len0, len1, len2];
+            double[,,] textArr3 = new double[len0, len1, len2];
+            double[,,] travelArr3 = new double[len0, len1, len2];
+            int[,,] intArr3 = new int[len0, len1, len2];
+            double[,,] uArr3 = new double[len0, len1, len2];
+            double[,,] vArr3 = new double[len0, len1, len2];
+            double[,,] i0Arr3 = new double[len0, len1, len2];
+            double[,,] i1Arr3 = new double[len0, len1, len2];
+            double[,,] i2Arr3 = new double[len0, len1, len2];
 
             // Cycles through each time step
             watch.Reset();
@@ -161,12 +161,12 @@ namespace Isidore_Tests
                 watch.Stop();
 
                 // Extracts data
-                var hit = proj.GetIntersectValue<bool>("Hit");
-                var travel = proj.GetIntersectValue<double>("Travel");
-                var pt = proj.GetIntersectValue<Point>("IntersectPt");
-                var u = proj.GetIntersectValue<double>("U");
-                var v = proj.GetIntersectValue<double>("V");
-                var text = proj.GetPropertyData<double, Scalar>("Value");
+                bool[,] hit = proj.GetIntersectValue<bool>("Hit");
+                double[,] travel = proj.GetIntersectValue<double>("Travel");
+                Point[,] pt = proj.GetIntersectValue<Point>("IntersectPt");
+                double[,] u = proj.GetIntersectValue<double>("U");
+                double[,] v = proj.GetIntersectValue<double>("V");
+                double[,] text = proj.GetPropertyData<double, Scalar>("Value");
 
                 // Stores data
                 // Cycles through ray tree
@@ -211,14 +211,14 @@ namespace Isidore_Tests
             textVal.useTimeShift = false;
 
             // Book-keeping
-            var textArr2 = new double[len0, len1, len2];
-            var travelArr2 = new double[len0, len1, len2];
-            var intArr2 = new int[len0, len1, len2];
-            var uArr2 = new double[len0, len1, len2];
-            var vArr2 = new double[len0, len1, len2];
-            var i0Arr2 = new double[len0, len1, len2];
-            var i1Arr2 = new double[len0, len1, len2];
-            var i2Arr2 = new double[len0, len1, len2];
+            double[,,] textArr2 = new double[len0, len1, len2];
+            double[,,] travelArr2 = new double[len0, len1, len2];
+            int[,,] intArr2 = new int[len0, len1, len2];
+            double[,,] uArr2 = new double[len0, len1, len2];
+            double[,,] vArr2 = new double[len0, len1, len2];
+            double[,,] i0Arr2 = new double[len0, len1, len2];
+            double[,,] i1Arr2 = new double[len0, len1, len2];
+            double[,,] i2Arr2 = new double[len0, len1, len2];
 
             // Cycles through each time step
             watch.Reset();
@@ -232,12 +232,12 @@ namespace Isidore_Tests
                 watch.Stop();
 
                 // Extracts data
-                var hit = proj.GetIntersectValue<bool>("Hit");
-                var travel = proj.GetIntersectValue<double>("Travel");
-                var pt = proj.GetIntersectValue<Point>("IntersectPt");
-                var u = proj.GetIntersectValue<double>("U");
-                var v = proj.GetIntersectValue<double>("V");
-                var text = proj.GetPropertyData<double, Scalar>("Value");
+                bool[,] hit = proj.GetIntersectValue<bool>("Hit");
+                double[,] travel = proj.GetIntersectValue<double>("Travel");
+                Point[,] pt = proj.GetIntersectValue<Point>("IntersectPt");
+                double[,] u = proj.GetIntersectValue<double>("U");
+                double[,] v = proj.GetIntersectValue<double>("V");
+                double[,] text = proj.GetPropertyData<double, Scalar>("Value");
 
                 // Stores data
                 // Cycles through ray tree

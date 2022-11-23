@@ -26,7 +26,7 @@ namespace Isidore_Tests
                 Isidore.Maths.Point(0, 0, 0), 0.5);
 
             // Attaches the sphere to a polyshape
-            var shape = new Isidore.Render.Polyshape(sphere);
+            Polyshape shape = new Isidore.Render.Polyshape(sphere);
 
             // Adds straight reflectance material layer to the sphere
             //Reflector reflectance = new Reflector(0.5/Math.PI); // Creates instance
@@ -41,9 +41,9 @@ namespace Isidore_Tests
             shape.Materials.Add(sReflMats);
 
             // Adds a temperature property via PropertyValue to the polyshape
-            var temperature = new Temperature(1000);
-            var surfaceTemp = new PropertyValue(temperature);
-            var tempMats = new MaterialStack(surfaceTemp);
+            Temperature temperature = new Temperature(1000);
+            PropertyValue surfaceTemp = new PropertyValue(temperature);
+            MaterialStack tempMats = new MaterialStack(surfaceTemp);
             shape.Materials.Add(tempMats);
 
             // Orthonormal projector located -10m from the shape
@@ -84,8 +84,8 @@ namespace Isidore_Tests
             double[,] rImg = new double[len0, len1];
             double[,] tImg = new double[len0, len1];
 
-            var rType = typeof(Reflectance).ToString();
-            var tType = typeof(Temperature).ToString();
+            string rType = typeof(Reflectance).ToString();
+            string tType = typeof(Temperature).ToString();
             // Cycles through ray tree to get, casting lets us fill in the blanks if not a map ray
             for (int idx0 = 0; idx0 < len0; idx0++)
                 for (int idx1 = 0; idx1 < len1; idx1++)
@@ -105,7 +105,7 @@ namespace Isidore_Tests
                         intImg[idx0, idx1] = 1;
                         depthImg[idx0, idx1] = thisRay.IntersectData.Travel;
 
-                        var sData = thisRay.IntersectData.BodySpecificData
+                        ShapeSpecificData sData = thisRay.IntersectData.BodySpecificData
                             as ShapeSpecificData;
                         if (sData != null)
                         {
@@ -128,12 +128,12 @@ namespace Isidore_Tests
                             }
                             else if(pType==tType)
                             {
-                                var thisTemp = (Temperature)thisRay.IntersectData.Properties[idx];
+                                Temperature thisTemp = (Temperature)thisRay.IntersectData.Properties[idx];
                                 tImg[idx0, idx1] = thisTemp.Value;
                             }
 
                             // This is another option
-                            var getTemp = (Temperature)thisRay.IntersectData.GetProperty<Temperature>();
+                            Temperature getTemp = (Temperature)thisRay.IntersectData.GetProperty<Temperature>();
                             tImg[idx0, idx1] = getTemp.Value;
                         }
                         
@@ -141,25 +141,25 @@ namespace Isidore_Tests
                 }
 
             // This is another way of getting the data our of properties without having to loop
-            var tImg1 = proj.GetPropertyData<double, Temperature>("Value");
+            double[,] tImg1 = proj.GetPropertyData<double, Temperature>("Value");
 
             // And this retrieves the property tree & data
-            var tTree = proj.GetPropertyTree<Temperature>();
-            var tTreeData = proj.GetPropertyDataTree<double, Temperature>("Value");
+            Property[,][] tTree = proj.GetPropertyTree<Temperature>();
+            double[,][] tTreeData = proj.GetPropertyDataTree<double, Temperature>("Value");
 
             // This is what happens when you use GetIntersectValue with properties
-            var pImg = proj.GetIntersectValue<Properties>("Properties");
-            var tlen0 = proj.Pos0.Length;
-            var tlen1 = proj.Pos1.Length;
-            var tImg2 = new double[tlen0, tlen1];
+            Properties[,] pImg = proj.GetIntersectValue<Properties>("Properties");
+            int tlen0 = proj.Pos0.Length;
+            int tlen1 = proj.Pos1.Length;
+            double[,] tImg2 = new double[tlen0, tlen1];
             for (int idx0 = 0; idx0 < tlen0; idx0++)
                 for (int idx1 = 0; idx1 < tlen1; idx1++)
                 {
-                    var pCell = pImg[idx0, idx1];
+                    Properties pCell = pImg[idx0, idx1];
                     for (int pidx = 0; pidx < pCell.Count; pidx++)
                         if (pCell[pidx].GetType() == typeof(Temperature))
                         {
-                            var tProp = (Temperature)pCell[pidx];
+                            Temperature tProp = (Temperature)pCell[pidx];
                             tImg2[idx0, idx1] = tProp.Value;
                         }
                 }

@@ -47,11 +47,11 @@ namespace Isidore_Tests
             Point Y = new Point(new double[] { 40, 60 });
 
             // Nearest Neighbor
-            var nn = kdtree.Nearest(Y);
+            Tuple<int, double> nn = kdtree.Nearest(Y);
 
             // Range search
-            var rs = kdtree.LocateNear(Y, 10);
-            var rs3 = kdtree.LocateNear(Y, 10, 3);
+            Tuple<int[], double[]> rs = kdtree.LocateNear(Y, 10);
+            Tuple<int[], double[]> rs3 = kdtree.LocateNear(Y, 10, 3);
 
             // Extracts the box-node tree
             double[,] corn = new double[kdtree.boxes.Length, 2];

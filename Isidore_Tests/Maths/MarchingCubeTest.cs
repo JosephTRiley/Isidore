@@ -21,10 +21,10 @@ namespace Isidore_Tests
             Console.WriteLine("Marching Cube Table Test.");
 
             // Generates marching cube table
-            var cubeTable = MarchingCube.CubeTable();
+            int[][] cubeTable = MarchingCube.CubeTable();
 
             // Converts to 2D array, similar to standard form
-            var cubeTableArr = Function.Jagged2Array(cubeTable,-1);
+            int[,] cubeTableArr = Function.Jagged2Array(cubeTable,-1);
 
             // MatLab processing
             // Finds output directory location
@@ -73,14 +73,14 @@ namespace Isidore_Tests
                 gCube.Polygonize(0.0, MarchingCube.Mode.Tetra);
 
                 // Gets facet
-                var data = gCube.getFacetMesh();
-                var v = data.Item1;
-                var f = data.Item2;
+                Tuple<double[,], int[,]> data = gCube.getFacetMesh();
+                double[,] v = data.Item1;
+                int[,] f = data.Item2;
 
                 // Gets points locations and on status
-                var gData = gCube.pointGrid.ConvertToArrays();
-                var pts0 = gData.Item1; // Points
-                var in0 = gData.Item3; // On switch
+                Tuple<double[,], int[,], bool[], bool[], double[]> gData = gCube.pointGrid.ConvertToArrays();
+                double[,] pts0 = gData.Item1; // Points
+                bool[] in0 = gData.Item3; // On switch
                 
                 matlab.PutWorkspaceData("pts", "base", pts0);
                 matlab.PutWorkspaceData("in", "base", in0);
@@ -104,9 +104,9 @@ namespace Isidore_Tests
 
             // Makes grid
             PointGrid ptGrid = new PointGrid(resolution, lowCorner, spacing);
-            var ptsData = ptGrid.ConvertToArrays();
-            var pts = ptsData.Item1; // Positional data, don't care if referenced
-            var pt2 = Operator.Multiply(pts, pts);
+            Tuple<double[,], int[,], bool[], bool[], double[]> ptsData = ptGrid.ConvertToArrays();
+            double[,] pts = ptsData.Item1; // Positional data, don't care if referenced
+            double[,] pt2 = Operator.Multiply(pts, pts);
 
             // Makes sphere surface grid
             // Makes sphere surface grid
@@ -133,15 +133,15 @@ namespace Isidore_Tests
             //MarchingCube mCube = new MarchingCube(ref ptGrid, 0.0, MarchingCube.Mode.Cube);
 
             // Get the facet mesh data
-            var meshData = mCube.getFacetMesh();
-            var V = meshData.Item1;
-            var F = meshData.Item2;
+            Tuple<double[,], int[,]> meshData = mCube.getFacetMesh();
+            double[,] V = meshData.Item1;
+            int[,] F = meshData.Item2;
 
             // Writes point grid data to be passed to MatLab from reference in mCube
             mCube.pointGrid.IdentifySurfacePts();
             ptsData = mCube.pointGrid.ConvertToArrays();
-            var on = ptsData.Item3; // On switch
-            var surf = ptsData.Item4; // Surface point to compare to vertices
+            bool[] on = ptsData.Item3; // On switch
+            bool[] surf = ptsData.Item4; // Surface point to compare to vertices
 
             // Applies marching cube for speed check
             Stopwatch watch = new Stopwatch();

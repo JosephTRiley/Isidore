@@ -48,12 +48,12 @@ namespace Isidore_Tests
 
             // Infinite plane animation
             // All translate 5m in Z-Axis
-            var trans0 = Transform.Translate(0, 0, 5);
+            Transform trans0 = Transform.Translate(0, 0, 5);
             // Shift to other side, 180deg rotation
-            var trans1 = Transform.Translate(0, 0, 5) * 
+            Transform trans1 = Transform.Translate(0, 0, 5) * 
                 Transform.RotY(Math.PI);
             // Shifts back, another 180deg rotation
-            var trans2 = Transform.Translate(0, 0, 5) *
+            Transform trans2 = Transform.Translate(0, 0, 5) *
                 Transform.RotY(2.0 * Math.PI);
             plane.TransformTimeLine = new KeyFrameTrans();
             plane.TransformTimeLine.AddKeys(trans0, 0.0);
@@ -126,7 +126,7 @@ namespace Isidore_Tests
                     for (int idx1 = 0; idx1 < len1; idx1++)
                     {
                         // Frame display
-                        var sData = proj.Ray(idx0, idx1).Rays[0].IntersectData.
+                        ShapeSpecificData sData = proj.Ray(idx0, idx1).Rays[0].IntersectData.
                             BodySpecificData as ShapeSpecificData;
                         if(sData !=null)
                             frame2[idx0, idx1] = sData.U;
@@ -151,7 +151,7 @@ namespace Isidore_Tests
 
                         // Checks to see if the ray has hit
                         IntersectData iData = thisRay.IntersectData;
-                        var sData = iData.BodySpecificData as ShapeSpecificData;
+                        ShapeSpecificData sData = iData.BodySpecificData as ShapeSpecificData;
                         if (thisRay.IntersectData.Hit)
                         {
                             intArr[idx0, idx1, idx] = 1;

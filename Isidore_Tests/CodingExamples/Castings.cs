@@ -20,9 +20,11 @@ namespace Isidore_Tests
             dClass0.dNum = double.NegativeInfinity;
 
             // Add to a base class list
-            List<BaseClass> bList = new List<BaseClass>();
-            bList.Add(bClass0);
-            bList.Add(dClass0);
+            List<BaseClass> bList = new List<BaseClass>
+            {
+                bClass0,
+                dClass0
+            };
 
             // Extract derived class from list
             DerivedClass dClass1 = (DerivedClass)bList[1];
@@ -40,9 +42,11 @@ namespace Isidore_Tests
             idClass0.dNum = double.NegativeInfinity;
 
             // Add to a base class list
-            List<iBaseClass> ibList = new List<iBaseClass>();
-            ibList.Add(ibClass0);
-            ibList.Add(idClass0);
+            List<iBaseClass> ibList = new List<iBaseClass>
+            {
+                ibClass0,
+                idClass0
+            };
 
             // Extract derived class from list
             iDerivedClass idClass1 = (iDerivedClass)ibList[1];

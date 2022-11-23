@@ -32,7 +32,7 @@ namespace Isidore_Tests
 
             // Method call
             double[] intArr = new double[totPts];
-            var watch = new Stopwatch();
+            Stopwatch watch = new Stopwatch();
             for (int idx = 0; idx < totPts; idx++)
             {
                 watch.Start();

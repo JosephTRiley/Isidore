@@ -23,7 +23,7 @@ namespace Isidore_Tests
             Point P0A = new Point(P0 + (Point)(tcaB*Dir));
 
             // Full propagation
-            var fullProp = Distance.Point2Line(Point, P0, Dir);
+            Tuple<double, Point, double> fullProp = Distance.Point2Line(Point, P0, Dir);
 
             //  Full prop Truth values
             double truthDist = 3.115564935615240;
@@ -42,7 +42,7 @@ namespace Isidore_Tests
             }
 
             // Full prop using points
-            var fullPtProp = Distance.Point2Line(Point, P0, P1);
+            Tuple<double, Point, double, Vector> fullPtProp = Distance.Point2Line(Point, P0, P1);
 
             perErrDist = perErr(fullPtProp.Item1, truthDist);
             perErrCA = perErr(fullPtProp.Item2, truthCA);
@@ -54,7 +54,7 @@ namespace Isidore_Tests
             }
 
             // Checks near termination
-            var shortProp = Distance.Point2Line(Point, P0, P1A);
+            Tuple<double, Point, double, Vector> shortProp = Distance.Point2Line(Point, P0, P1A);
             truthDist = Point.Distance(P1A);
             truthCA = P1A;
             truthTca = tcaA;
@@ -68,7 +68,7 @@ namespace Isidore_Tests
             }
 
             // Checks far termination
-            var farProp = Distance.Point2Line(Point, P0A, P1);
+            Tuple<double, Point, double, Vector> farProp = Distance.Point2Line(Point, P0A, P1);
             truthDist = Point.Distance(P0A);
             truthCA = P0A;
             truthTca = 0;

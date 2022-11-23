@@ -14,7 +14,7 @@ namespace Isidore_Tests
         {
             // Retrieves text from Isidore.Library resource file
             // Note that the resource file was customized by hand
-            var Rtext = Models.R3D_text();
+            string Rtext = Models.R3D_text();
 
             string[] lines = Text.Parse(Rtext);
 

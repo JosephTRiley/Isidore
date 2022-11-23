@@ -64,15 +64,15 @@ namespace Isidore_Tests
                 Console.WriteLine("Point.Perspective Check Failed");
 
             // Rigid body transform for converting from local to global
-            var Pl = new Point(1, 2, 3);
-            var origin = new Point(10, 6, 2);
-            var ang0 = Math.PI / 4;
-            var ang1 = Math.PI / 6;
-            var axis0 = new Vector(Math.Sin(ang0), 0, Math.Sin(ang0));
-            var axis1 = new Vector(Math.Sin(ang0) * Math.Sin(-ang1), Math.Cos(ang1), 
+            Point Pl = new Point(1, 2, 3);
+            Point origin = new Point(10, 6, 2);
+            double ang0 = Math.PI / 4;
+            double ang1 = Math.PI / 6;
+            Vector axis0 = new Vector(Math.Sin(ang0), 0, Math.Sin(ang0));
+            Vector axis1 = new Vector(Math.Sin(ang0) * Math.Sin(-ang1), Math.Cos(ang1), 
                 Math.Sin(ang0) * Math.Sin(ang1));
             Transform lTrans = Transform.LocalCoord(origin, axis0, axis1);
-            var Pg = Pl.CopyTransform(lTrans); 
+            Point Pg = Pl.CopyTransform(lTrans); 
 
             // Checks if deep copy cloning works
             Point P2 = P0.Clone();

@@ -52,7 +52,7 @@ namespace Isidore_Tests
                 //for (int idx0 = 0; idx0 < totCnt; idx0++)
                 Parallel.For(0, totCnt, idx0 =>
                 {
-                    var data = sphere.RayIntersection(rays[idx0, idx1]);
+                    Tuple<double[], double[], Point[], Normal[]> data = sphere.RayIntersection(rays[idx0, idx1]);
                     travelN[idx0, idx1] = data.Item1[0];
                     cosIncAngN[idx0, idx1] = data.Item2[0];
                     incAngN[idx0, idx1] = Math.Acos(data.Item2[0]) * 180 / Math.PI;
@@ -105,7 +105,7 @@ namespace Isidore_Tests
                 //for (int idx0 = 0; idx0 < totCnt; idx0++)
                 Parallel.For(0, totCnt, idx0 =>
                 {
-                    var data = sphereC.RayIntersection(rays[idx0, idx1]);
+                    Tuple<double[], double[], Point[], Normal[]> data = sphereC.RayIntersection(rays[idx0, idx1]);
                     travelN[idx0, idx1] = data.Item1[0];
                     cosIncAngN[idx0, idx1] = data.Item2[0];
                     incAngN[idx0, idx1] = Math.Acos(data.Item2[0]) * 180 / Math.PI;

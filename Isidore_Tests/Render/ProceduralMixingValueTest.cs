@@ -27,53 +27,53 @@ namespace Isidore_Tests
             double simTime = 5;
             double samplePeriod = 0.05;
             int totFrames = (int)(simTime / samplePeriod) + 1;
-            var time = Enumerable.Range(0, totFrames).
+            double[] time = Enumerable.Range(0, totFrames).
                 Select(x => x * samplePeriod).ToArray();
-            var len2 = time.Length;
+            int len2 = time.Length;
 
             // Orthonormal projector located on the origin
             int len0 = 140;
             int len1 = 120;
-            var proj = new RectangleProjector(len0, len1, 0.01, 0.01, 0, 0);
-            var pos0 = proj.Pos0;
-            var pos1 = proj.Pos1;
+            RectangleProjector proj = new RectangleProjector(len0, len1, 0.01, 0.01, 0, 0);
+            double[] pos0 = proj.Pos0;
+            double[] pos1 = proj.Pos1;
 
             // Infinite plane
-            var surface = new Isidore.Render.Plane(new Point(0, 0, 10),
+            Isidore.Render.Plane surface = new Isidore.Render.Plane(new Point(0, 0, 10),
                 -1.0 * Normal.Unit(3, 2), Vector.Unit(3, 1));
 
             // Assembles scene
-            var scene = new Scene();
+            Scene scene = new Scene();
             scene.Projectors.Add(proj);
             scene.Bodies.Add(surface);
 
             // Makes a Perlin fBm noise instance
-            var noiseFunc = new PerlinNoiseFunction(1234, 10);
-            var fBm = new fBmNoise(noiseFunc, 0.125, 512, 1.0 / 3.0, 2);
+            PerlinNoiseFunction noiseFunc = new PerlinNoiseFunction(1234, 10);
+            fBmNoise fBm = new fBmNoise(noiseFunc, 0.125, 512, 1.0 / 3.0, 2);
 
             // Creates a list of procedural data point
             List<ProceduralPoint> procPts = new List<ProceduralPoint>();
-            var coordPt0 = new Point(0, -0.4, 0);
-            var coordPt1 = new Point(0, 0.4, 0);
-            var shift = new Vector(new double[] { 12.3, 23.4, 34.5, 0 });
-            var vel0 = new Vector(new double[] { 2.0, 0, 0, 0 });
-            var vel1 = new Vector(new double[] { 0.5, 0, 0, 0 });
+            Point coordPt0 = new Point(0, -0.4, 0);
+            Point coordPt1 = new Point(0, 0.4, 0);
+            Vector shift = new Vector(new double[] { 12.3, 23.4, 34.5, 0 });
+            Vector vel0 = new Vector(new double[] { 2.0, 0, 0, 0 });
+            Vector vel1 = new Vector(new double[] { 0.5, 0, 0, 0 });
             procPts.Add(new ProceduralPoint(coordPt0, vel0, shift, 1, 0));
             procPts.Add(new ProceduralPoint(coordPt1, vel1, shift, 1, 0));
 
             // Makes a Perlin Turbulence instance
-            var noiseFunc1 = new PerlinNoiseFunction(2345, 10);
+            PerlinNoiseFunction noiseFunc1 = new PerlinNoiseFunction(2345, 10);
             bool absValNoise = false; // 0 = shift on both sides
-            var perturbVel = new Vector(1, 0, 3);
-            var shiftP = new Vector(23.4, 34.5, 45.6);
+            Vector perturbVel = new Vector(1, 0, 3);
+            Vector shiftP = new Vector(23.4, 34.5, 45.6);
             //double scaleP = 0.1;
             double scaleP = 0.5;
-            var pertParams = new NoiseParameters(shiftP, scaleP);
+            NoiseParameters pertParams = new NoiseParameters(shiftP, scaleP);
             //var turb = new PerlinTurbulenceNoise(noiseFunc1, 0.125, 512,
             //    absValNoise, 2, pertParams);
             //var turb = new PerlinTurbulenceNoise(noiseFunc1, 16, 64,
             //    absValNoise, 2, pertParams);
-            var turb = new PerlinTurbulenceNoise(noiseFunc1, 4, 64,
+            PerlinTurbulenceNoise turb = new PerlinTurbulenceNoise(noiseFunc1, 4, 64,
                 absValNoise, 2, pertParams);
 
             // Uses the noise instance in a material
@@ -85,33 +85,33 @@ namespace Isidore_Tests
             int perturbPolyOrder = 2; // Perturbation smoothing order
             ProcMix perturbMix = ProcMix.Remap; // Mixing method
             bool anchorToBody = true; // Anchors the texture to the body
-            var procMat = new ProceduralMixingValue(noise, procPts, 
+            ProceduralMixingValue procMat = new ProceduralMixingValue(noise, procPts, 
                 perturbNoise, polyOrder, interp, perturbSmoothFrac, 
                 perturbPolyOrder, perturbMix, perturbVel, anchorToBody);
 
             // Adds the material to a material stack & to the plane
-            var matStack = new MaterialStack(procMat);
+            MaterialStack matStack = new MaterialStack(procMat);
             surface.Materials.Add(matStack);
 
             // Enumerated procedural interpolation values
-            var piStrs = Enum.GetNames(typeof(ProcInterp));
-            var piVals = Enum.GetValues(typeof(ProcInterp));
-            var piEnum = piVals as ProcInterp[];
-            var len3 = piVals.Length;
+            string[] piStrs = Enum.GetNames(typeof(ProcInterp));
+            Array piVals = Enum.GetValues(typeof(ProcInterp));
+            ProcInterp[] piEnum = piVals as ProcInterp[];
+            int len3 = piVals.Length;
 
             // Enumerated procedural mixing values
-            var pmStrs = Enum.GetNames(typeof(ProcMix));
-            var pmVals = Enum.GetValues(typeof(ProcMix));
-            var pmEnum = pmVals as ProcMix[];
-            var len4 = pmVals.Length;
+            string[] pmStrs = Enum.GetNames(typeof(ProcMix));
+            Array pmVals = Enum.GetValues(typeof(ProcMix));
+            ProcMix[] pmEnum = pmVals as ProcMix[];
+            int len4 = pmVals.Length;
 
             // Book-keeping
-            var textArr1 = new double[len0, len1, len2, len3];
-            var textArr2 = new double[len0, len1, len2, len3];
-            var uArr = new double[len0, len1, len2];
-            var vArr = new double[len0, len1, len2];
+            double[,,,] textArr1 = new double[len0, len1, len2, len3];
+            double[,,,] textArr2 = new double[len0, len1, len2, len3];
+            double[,,] uArr = new double[len0, len1, len2];
+            double[,,] vArr = new double[len0, len1, len2];
 
-            var watch = new Stopwatch();
+            Stopwatch watch = new Stopwatch();
 
             // Cycles through procedural mixing
             for (int midx = 0; midx < len4; midx++)
@@ -138,14 +138,14 @@ namespace Isidore_Tests
                         {
                             for (int idx1 = 0; idx1 < len1; idx1++)
                             {
-                                var thisRay = proj.Ray(idx0, idx1).Rays[0];
-                                var iData = thisRay.IntersectData;
+                                RenderRay thisRay = proj.Ray(idx0, idx1).Rays[0];
+                                IntersectData iData = thisRay.IntersectData;
 
                                 // Extracts data if hit (Should always hit)
                                 if (iData.Hit)
                                 {
                                     // Body specific data
-                                    var sData = thisRay.IntersectData.BodySpecificData
+                                    ShapeSpecificData sData = thisRay.IntersectData.BodySpecificData
                                         as ShapeSpecificData;
 
                                     if (iidx == 0 && midx == 0)
@@ -155,8 +155,8 @@ namespace Isidore_Tests
                                     }
 
                                     // Texture properties
-                                    var unit = iData.GetPropertyData<string, Scalar>("Units");
-                                    var val = iData.GetPropertyData<double, Scalar>("Value");
+                                    string unit = iData.GetPropertyData<string, Scalar>("Units");
+                                    double val = iData.GetPropertyData<double, Scalar>("Value");
                                     if (midx == 0)
                                         textArr1[idx0, idx1, tidx, iidx] = val;
                                     else
