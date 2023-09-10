@@ -41,8 +41,8 @@ namespace Isidore.Render
             if (powerSpectrum == null)
             {
                 int len = 20;
-                var freq = new double[len + 1];
-                var power = new double[len + 1];
+                double[] freq = new double[len + 1];
+                double[] power = new double[len + 1];
                 for(int idx = 0; idx <= len; idx++)
                 {
                     freq[idx] = Math.Pow(2, idx);
@@ -66,7 +66,7 @@ namespace Isidore.Render
         public override double GetBaseVal(Point coord)
         {
             // Calls GetComponents
-            var noise = GetComponents(coord);
+            double[] noise = GetComponents(coord);
 
             // Multiplies each component to its matching power
             double val = 0;
@@ -85,10 +85,10 @@ namespace Isidore.Render
         public virtual double[] GetComponents(Point coord)
         {
             // Noise components
-            var noise = new double[powerSpectrum.Frequency.Length];
+            double[] noise = new double[powerSpectrum.Frequency.Length];
 
             // Steps through each frequency
-            var ssCoord = new Point(coord.Comp.Length);
+            Point ssCoord = new Point(coord.Comp.Length);
             for(int idx=0; idx<noise.Length; idx++)
             {
                 // Scales the noise coordinates to the matching frequency
@@ -121,7 +121,7 @@ namespace Isidore.Render
         new protected virtual Noise CloneImp()
         {
             // Shallow copies from base
-            var newCopy = base.CloneImp() as SpectrumNoise;
+            SpectrumNoise newCopy = base.CloneImp() as SpectrumNoise;
 
             // Deep copy
             newCopy.powerSpectrum = powerSpectrum.Clone();

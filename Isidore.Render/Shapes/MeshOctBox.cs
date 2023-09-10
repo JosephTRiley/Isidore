@@ -126,7 +126,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected OctBox CloneImp()
         {
-            var newCopy = (MeshOctBox)MemberwiseClone();
+            MeshOctBox newCopy = (MeshOctBox)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);
@@ -144,7 +144,7 @@ namespace Isidore.Render
         protected void DeepCopyOverride(ref MeshOctBox copy)
         {
             // Base copy
-            MeshOctBox baseCast = copy; // This is a shallow copy
+            OctBox baseCast = copy; // This is a shallow copy
             DeepCopyOverride(ref baseCast);
 
             // public List<int> FacetOverlap;

@@ -48,15 +48,17 @@ namespace Isidore_Tests
             { 0.5e-6, 0.6e-6, 0.7e-6 });
 
             // Makes a new list
-            List<Property> list = new List<Property>();
-            list.Add(irr);
-            list.Add(specIrr);
-            list.Add(reflect);
-            list.Add(refract);
-            list.Add(specRefract);
-            list.Add(temp);
-            list.Add(wavelen);
-            list.Add(wlenArr);
+            List<Property> list = new List<Property>
+            {
+                irr,
+                specIrr,
+                reflect,
+                refract,
+                specRefract,
+                temp,
+                wavelen,
+                wlenArr
+            };
 
             ///////////////////////////////////////////////////////////////////
             // Method 1 for copying a new list
@@ -82,22 +84,26 @@ namespace Isidore_Tests
             copyTemp.Units = "Celsius";
 
             // Properties list class
-            Properties pList1 = new Properties();
-            pList1.Add(copyTemp.Clone());
-            pList1.Add(copyWlen.Clone());
+            Properties pList1 = new Properties
+            {
+                copyTemp.Clone(),
+                copyWlen.Clone()
+            };
 
             Properties pList2 = pList1.Clone();
 
             ///////////////////////////////////////////////////////////////////
             // Actual use in Isidore Render
             ///////////////////////////////////////////////////////////////////
-            Properties props = new Properties();
-            props.Add(irr);
-            props.Add(specIrr);
-            props.Add(reflect);
-            props.Add(refract);
-            props.Add(temp);
-            props.Add(wavelen);
+            Properties props = new Properties
+            {
+                irr,
+                specIrr,
+                reflect,
+                refract,
+                temp,
+                wavelen
+            };
 
             IntersectData iData = new IntersectData();
             iData.Properties = props;
@@ -108,7 +114,7 @@ namespace Isidore_Tests
             IntersectData cData = iData.Clone();
             IntersectData cData2 = iData2.Clone();
 
-            var place = cData2.Properties.FindIndex(
+            int place = cData2.Properties.FindIndex(
                 p => p.GetType() == typeof(RefractiveIndex));
             cData2.Properties[place] = specRefract;
 

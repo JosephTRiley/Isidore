@@ -118,7 +118,7 @@ namespace Isidore.Render
             ProceduralPoint pt0, pt1;
             double unitDist, smoothDist;
             Vector minDistDir;
-            var val = ProcessData(iPt, ray.IntersectData.Body.Local2World,
+            double val = ProcessData(iPt, ray.IntersectData.Body.Local2World,
                 ray.Time, out pt0, out pt1, out unitDist, out smoothDist,
                 out minDistDir);
 
@@ -127,10 +127,10 @@ namespace Isidore.Render
             if (unitDist > 0 && unitDist < 1)
             {
                 // Perturbation vector
-                var pVec = PerturbVector(iPt, minDistDir, ray.Time);
+                Vector pVec = PerturbVector(iPt, minDistDir, ray.Time);
 
                 // Smooth step scale based on the unit distance (0-1-0)
-                var smoothScale = unitPlacement(unitDist);
+                double smoothScale = unitPlacement(unitDist);
 
                 // Applies mixing
                 Point pPt = iPt.Clone(); 
@@ -152,7 +152,7 @@ namespace Isidore.Render
                         pPt += (Point)pVec;
 
                         // Perturbed value
-                        var valP = ProcessData(pPt,
+                        double valP = ProcessData(pPt,
                             ray.IntersectData.Body.Local2World, ray.Time,
                             out pt0, out pt1, out unitDist, out smoothDist,
                             out minDistDir);
@@ -165,7 +165,7 @@ namespace Isidore.Render
 
             // Converts the noise value into a scalar and adds it to the 
             // property array
-            var thisVal = new Scalar(val);
+            Scalar thisVal = new Scalar(val);
             ray.IntersectData.Properties.Add(thisVal);
 
             // returns interaction notification
@@ -183,13 +183,13 @@ namespace Isidore.Render
         public Vector PerturbVector(Point iPt, Vector segDir, double time)
         {
             // Calculates the total shift vector
-            var sVec = perturbNoise.shift + perturbVel * time;
+            Vector sVec = perturbNoise.shift + perturbVel * time;
 
             // Finds the texture value associated with the shifted location
-            var perturbMag = perturbNoise.GetVal(iPt, sVec);
+            double perturbMag = perturbNoise.GetVal(iPt, sVec);
 
             // Finds the perturbation offset vector
-            var pVec = perturbMag * segDir;
+            Vector pVec = perturbMag * segDir;
 
             return pVec;
         }
@@ -208,25 +208,25 @@ namespace Isidore.Render
             double time)
         {
             // Calculates the total shift vector
-            var sVec = perturbNoise.shift + perturbVel * time;
+            Vector sVec = perturbNoise.shift + perturbVel * time;
 
             // Finds the texture value associated with the shifted location
-            var perturbMag = perturbNoise.GetVal(iPt, sVec);
+            double perturbMag = perturbNoise.GetVal(iPt, sVec);
 
             // Finds the perturbation offset vector
-            var perturbOffset = perturbMag * segDir;
+            Vector perturbOffset = perturbMag * segDir;
 
             // Scales the perturbation value based on its location 
             // along in the vector
-            var unitPlace = unitPlacement(unitDist);
+            double unitPlace = unitPlacement(unitDist);
 
             // Finds the perturbation offset vector
-            var smoothOffset = perturbOffset * unitPlace;
+            Vector smoothOffset = perturbOffset * unitPlace;
 
             // Perturbed point
-            var pPt = iPt + (Point)perturbOffset;
+            Point pPt = iPt + (Point)perturbOffset;
 
-            var sPt = iPt + (Point)smoothOffset;
+            Point sPt = iPt + (Point)smoothOffset;
 
             return pPt;
 
@@ -259,13 +259,13 @@ namespace Isidore.Render
         public double unitPlacement(double unitDist)
         {
             // Finds the unit distance from the segment center
-            var placeHalf = 2.0 * (0.5 - Math.Abs(unitDist - 0.5));
+            double placeHalf = 2.0 * (0.5 - Math.Abs(unitDist - 0.5));
 
             // limits that smoothed distance to a fraction of the length
             placeHalf *= perturbSmoothFrac;
 
             // Applies the smoothstep and clamps the values to 0-1 
-            var place = perturbPoly.Evaluate(placeHalf);
+            double place = perturbPoly.Evaluate(placeHalf);
 
             return place;
         }
@@ -286,7 +286,7 @@ namespace Isidore.Render
         new protected ProceduralValue CloneImp()
         {
             // Shallow copies from base
-            var newCopy = (ProceduralMixingValue)base.CloneImp();
+            ProceduralMixingValue newCopy = (ProceduralMixingValue)base.CloneImp();
 
             // Deep-copies all data this is referenced by default
 

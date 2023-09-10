@@ -44,13 +44,13 @@ namespace Isidore.Models
         public override bool ProcessIntersectData(ref RenderRay ray)
         {
             // Retrieves the corresponding noise value
-            var now = ray.Time;
-            var pt = ray.IntersectData.IntersectPt;
-            var val = ReferenceTurbulence.GetVal(pt, now);
+            double now = ray.Time;
+            Point pt = ray.IntersectData.IntersectPt;
+            double val = ReferenceTurbulence.GetVal(pt, now);
 
             // Converts the noise value into a scalar and adds it to the 
             // property array
-            var thisVal = new Scalar(val);
+            Scalar thisVal = new Scalar(val);
             ray.IntersectData.Properties.Add(thisVal);
 
             // returns interaction notification
@@ -73,7 +73,7 @@ namespace Isidore.Models
         new protected virtual Material CloneImp()
         {
             // Shallow copies from base
-            var newCopy = (ReferenceTurbulenceMaterial)base.CloneImp();
+            ReferenceTurbulenceMaterial newCopy = (ReferenceTurbulenceMaterial)base.CloneImp();
 
             // Can't really deep copy these turbulence cells yet
             newCopy.ReferenceTurbulence = ReferenceTurbulence;

@@ -107,19 +107,19 @@ namespace Isidore.Models
                 ExtendTimeline(now);
 
             // Interpolates to the noise position
-            var iPt = noisePosition.InterpolateToTime(now);
+            Point iPt = noisePosition.InterpolateToTime(now);
 
             // Adds in the coordinate
             iPt += coord;
 
             // Adds the coherence shift to the N+1 dimension
-            var icoord = new double[iPt.Comp.Length + 1];
+            double[] icoord = new double[iPt.Comp.Length + 1];
             iPt.Comp.CopyTo(icoord,0);
             icoord[iPt.Comp.Length] = CoherenceRate * now;
-            var icoordPt = new Point(icoord);
+            Point icoordPt = new Point(icoord);
 
             // Calculates the noise magnitude
-            var mag = NoiseMagnitude.GetVal(icoordPt);
+            double mag = NoiseMagnitude.GetVal(icoordPt);
 
             return mag;
         }
@@ -138,8 +138,8 @@ namespace Isidore.Models
                 double speed = 0, Dir = 0;
                 if (LastTime > 0)
                 {
-                    var coord = Comp.Concat(new double[] { LastTime }).ToArray();
-                    var noisePt = new Point(coord);
+                    double[] coord = Comp.Concat(new double[] { LastTime }).ToArray();
+                    Point noisePt = new Point(coord);
                     speed = NoiseSpeed.GetVal(noisePt);
                     Dir = NoiseDirection.GetVal(noisePt);
                 }
@@ -147,16 +147,16 @@ namespace Isidore.Models
                 // Converts velocity into an offset point in sensor space
                 // using the elapsed time.  The negative pushes the
                 // turbulence in the right hemispherical direction
-                var L = -speed * TimeStep; // Distance traveled 
-                var dX = L * Math.Cos(Dir); // X position
-                var dY = L * Math.Sin(Dir); // Y position
-                var dPos = new Point(dX, dY, 0); // Point in sensor space
+                double L = -speed * TimeStep; // Distance traveled 
+                double dX = L * Math.Cos(Dir); // X position
+                double dY = L * Math.Sin(Dir); // Y position
+                Point dPos = new Point(dX, dY, 0); // Point in sensor space
 
                 // Transforms the offset point to local turbulence space
                 dPos.Transform(noiseTransform);
 
                 // Adds this delta to the last position in the random walk
-                var walkPt = noisePosition.Values.Last() + dPos;
+                Point walkPt = noisePosition.Values.Last() + dPos;
 
                 // Adds the position to the key-frame
                 noisePosition.AddKeys(walkPt, LastTime + TimeStep);
@@ -179,7 +179,7 @@ namespace Isidore.Models
         new protected ReferencePoint CloneImp()
         {
             // Shallow copies from base
-            var newCopy = base.Clone() as TurbulencePointWFS;
+            TurbulencePointWFS newCopy = base.Clone() as TurbulencePointWFS;
 
             // Deep-copies all data this is referenced by default
             newCopy.NoiseMagnitude = NoiseMagnitude.Clone();

@@ -43,15 +43,13 @@ namespace Isidore.Render
         # region Constructor
 
         /// <summary>
-        /// COnstructs a RayTree from a single RenderRay
+        /// Constructs a RayTree from a single RenderRay
         /// </summary>
         /// <param name="ray"> Ray to act as the zero ray </param>
         public RayTree(RenderRay ray = null)
         {
             // Copies ray
-            Ray rayCopy = ray ?? new Ray();
-            rays = new RenderRays();
-            rays.Add(ray);
+            rays = new RenderRays { ray };
         }
 
         # endregion Constructor
@@ -187,7 +185,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         public RayTree Clone()
         {
-            var newCopy = (RayTree)MemberwiseClone();
+            RayTree newCopy = (RayTree)MemberwiseClone();
 
             if (rays != null)
                 newCopy.rays = rays.Clone();

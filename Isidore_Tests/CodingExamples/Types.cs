@@ -59,10 +59,10 @@ namespace Isidore_Tests
                 "\nd1Type assignable to btype: " + d1Sub);
 
             // Casting check
-            var b2dCast = btype as dType;
-            var b2d1Cast = btype as d1Type;
-            var d2bCast = dtype as bType;
-            var d12bCast = d1type as bType;
+            dType b2dCast = btype as dType;
+            d1Type b2d1Cast = btype as d1Type;
+            bType d2bCast = dtype as bType;
+            bType d12bCast = d1type as bType;
             Console.WriteLine("Casting check");
             Console.WriteLine("bType casts to dType: " + (b2dCast != null));
             Console.WriteLine("bType casts to d1Type: " + (b2d1Cast != null));

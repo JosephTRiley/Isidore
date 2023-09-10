@@ -245,7 +245,7 @@ namespace Isidore.Render
             }
 
             // Noise value at these coordinates
-            var val = GetBaseVal(theseCoord);
+            double val = GetBaseVal(theseCoord);
 
             // Scales and shift the noise
             val *= multiplier;
@@ -274,7 +274,7 @@ namespace Isidore.Render
             double multiplier, double offset, 
             Func<double, double> distFunc)
         {
-            var vals = new double[coord.Length];
+            double[] vals = new double[coord.Length];
             for (int idx = 0; idx < coord.Length; idx++)
             {
                 vals[idx] = GetVal(coord[idx], shift, multiplier, offset, 
@@ -350,7 +350,7 @@ namespace Isidore.Render
         protected virtual Noise CloneImp()
         {
             // Shallow copy
-            var newCopy = (Noise)MemberwiseClone();
+            Noise newCopy = (Noise)MemberwiseClone();
 
             // Deep copy
             newCopy.shift = shift.Clone() as Vector;

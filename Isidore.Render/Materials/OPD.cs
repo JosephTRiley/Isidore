@@ -61,14 +61,14 @@ namespace Isidore.Render
         override public bool ProcessIntersectData(ref RenderRay ray)
         {
             // Checks that the specific data class is a Shape subclass
-            var sData = ray.IntersectData.BodySpecificData as 
+            ShapeSpecificData sData = ray.IntersectData.BodySpecificData as 
                 ShapeSpecificData;
             // If not, "as" will return a null, so this returns unaltered
             if (sData == null)
                 return false;
 
             // This saves some typing
-            var iData = ray.IntersectData;
+            IntersectData iData = ray.IntersectData;
 
             double length = Length.Value;
 
@@ -103,7 +103,7 @@ namespace Isidore.Render
         new protected virtual Material CloneImp()
         {
             // Shallow copies from base
-            var newCopy = base.CloneImp() as OPD;
+            OPD newCopy = base.CloneImp() as OPD;
 
             // Deep-copies all data this is referenced by default
             if (Length != null)

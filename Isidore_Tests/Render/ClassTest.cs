@@ -28,9 +28,11 @@ namespace Isidore_Tests
             sphere2.TransformTimeLine = newTrans;
 
             // Adds he two shapes to a shape list
-            Shapes shapes = new Shapes();
-            shapes.Add(sphere1);
-            shapes.Add(sphere2);
+            Shapes shapes = new Shapes
+            {
+                sphere1,
+                sphere2
+            };
 
             // This should be a reference until shapes[0] is deleted
             Shape refSphere0 = shapes[0];

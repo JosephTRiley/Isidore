@@ -29,6 +29,12 @@
         /// </summary>
         public Lights Lights;
 
+        /// <summary>
+        /// Signals whether to use multiple cores
+        /// </summary>
+        public bool UseMultiCores { get; set; } = true;
+
+
         #endregion Fields & Properties
         #region Constructors
 
@@ -95,7 +101,11 @@
             // Accesses each surface's intersection application
             // Lambda operations aren't permitted with references
             for (int idx = 0; idx < Bodies.Count; idx++)
-                Bodies[idx].Intersect(ref proj);
+                if(UseMultiCores)
+                    Bodies[idx].MultiCoreIntersect(ref proj);
+                else
+                    Bodies[idx].OneCoreIntersect(ref proj);
+
 
             // Updates the ray tree associated with each pixel
             proj.UpdateRayTrees();

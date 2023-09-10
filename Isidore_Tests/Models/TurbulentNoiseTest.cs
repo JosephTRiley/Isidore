@@ -42,34 +42,34 @@ namespace Isidore_Tests
             double H = 1 / 3;
             NoiseDistribution normDist = 0;
             NoiseDistribution lognormDist = NoiseDistribution.LogNormal;
-            var noisePos = new Vector(new double[]
+            Vector noisePos = new Vector(new double[]
                 { 123.4, 234.5, 345.6, 456.7 });
 
             // Standard normal
-            var noiseSN = new TurbulentNoise(pnoise, minFreq, maxFreq, H, 
+            TurbulentNoise noiseSN = new TurbulentNoise(pnoise, minFreq, maxFreq, H, 
                 0, 1, normDist, noisePos);
 
             // 5 sig, normal
-            var noise5s = new TurbulentNoise(pnoise, minFreq, maxFreq, H,
+            TurbulentNoise noise5s = new TurbulentNoise(pnoise, minFreq, maxFreq, H,
                 0, 5, normDist, noisePos);
 
             // 9 mu, 3 sig, normal
-            var noise9m3s = new TurbulentNoise(pnoise, minFreq, maxFreq, H,
+            TurbulentNoise noise9m3s = new TurbulentNoise(pnoise, minFreq, maxFreq, H,
                 9, 3, normDist, noisePos);
 
             // 9 mu, 3 sig, log-normal
-            var noise9m3sLN = new TurbulentNoise(pnoise, minFreq, maxFreq, H,
+            TurbulentNoise noise9m3sLN = new TurbulentNoise(pnoise, minFreq, maxFreq, H,
                 9, 3, lognormDist, noisePos);
 
             // Time length
             int xLen = 4096;
             int xMax = 256;
-            var iArr = Distribution.Increment(0.0, 1.0, 1.0 / (xLen - 1));
-            var xArr = iArr.Select(x => x * xMax).ToArray();
+            double[] iArr = Distribution.Increment(0.0, 1.0, 1.0 / (xLen - 1));
+            double[] xArr = iArr.Select(x => x * xMax).ToArray();
 
             // Cycles through each time point
             double[,] pData = new double[xLen, 4];
-            var coord = new Point(new double[] { 1, 2, 3, 0 });
+            Point coord = new Point(new double[] { 1, 2, 3, 0 });
             Stopwatch watch = new Stopwatch();
             watch.Start();
             for (int idx = 0; idx < xLen; idx++)
@@ -78,7 +78,7 @@ namespace Isidore_Tests
                 coord.Comp[coord.Comp.Length - 1] = xArr[idx];
 
                 // Calculates noise values
-                var noise = noiseSN.GetVal(coord);
+                double noise = noiseSN.GetVal(coord);
                 pData[idx, 0] = noise;
                 noise = noise5s.GetVal(coord);
                 pData[idx, 1] = noise;

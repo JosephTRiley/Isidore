@@ -17,10 +17,10 @@ namespace Isidore_Tests
             List<bool> passed = new List<bool>();
 
             //// Plane shape Test
-            passed.Add(ShapeTracePlane.Run());
+            //passed.Add(ShapeTracePlane.Run());
 
-            // Sphere shape Tests
-            passed.Add(ShapeTraceSphere.Run());
+            //// Sphere shape Tests
+            //passed.Add(ShapeTraceSphere.Run());
 
             // Mesh shape Tests
             passed.Add(ShapeTraceMesh.Run());

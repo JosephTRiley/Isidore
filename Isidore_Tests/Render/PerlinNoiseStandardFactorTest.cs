@@ -30,9 +30,9 @@ namespace Isidore_Tests
             int slen = 1 << tablePower; // Data series length
             int noiseSeed = 12345; // Seed used in the permuted table
             // There are two separate noise functions: 3D & 4D
-            var noiseOffset3D = new Vector(new double[]
+            Vector noiseOffset3D = new Vector(new double[]
                 { 123.456, 234.567, 345.678});
-            var noiseOffset4D = new Vector(new double[]
+            Vector noiseOffset4D = new Vector(new double[]
                 { 123.456, 234.567, 345.678, 456.789 });
 
             // Sampling points
@@ -40,8 +40,8 @@ namespace Isidore_Tests
             int flen = slen * factor; // Spans entire noise function
             double dt = 1.0 / factor; // Step size
             double[] time = Distribution.Increment(dt, slen, dt); // time
-            var coords3D = new double[flen, 3]; // 3D Coordinate array
-            var coords4D = new double[flen, 4]; // 4D Coordinate array
+            double[,] coords3D = new double[flen, 3]; // 3D Coordinate array
+            double[,] coords4D = new double[flen, 4]; // 4D Coordinate array
             // Populates coordinate array
             // Populates coordinate array
             for (int idx = 0; idx < flen; idx++)
@@ -54,13 +54,13 @@ namespace Isidore_Tests
             int numReal = 500; // Number of realizations
             double[] pnoise3DArr = new double[flen];
             double[] pnoise4DArr = new double[flen];
-            var mean3D = new double[2, numReal]; // Perlin 3D STD
-            var mean4D = new double[2, numReal]; // Perlin 4D STD
-            var std3D = new double[2, numReal]; // Perlin 3D STD
-            var std4D = new double[2, numReal]; // Perlin 4D STD
+            double[,] mean3D = new double[2, numReal]; // Perlin 3D STD
+            double[,] mean4D = new double[2, numReal]; // Perlin 4D STD
+            double[,] std3D = new double[2, numReal]; // Perlin 3D STD
+            double[,] std4D = new double[2, numReal]; // Perlin 4D STD
 
-            var eTime = new double[2];
-            var watch = new Stopwatch();
+            double[] eTime = new double[2];
+            Stopwatch watch = new Stopwatch();
             for (int standIdx = 0; standIdx < 2; standIdx++)
             {
                 watch.Restart();
@@ -68,26 +68,26 @@ namespace Isidore_Tests
                 for (int realIdx = 0; realIdx < numReal; realIdx++)
                 {
                     // Calculates the coordinates
-                    var pts3D = Point.Array(Operator.Add(coords3D, 
+                    Point[] pts3D = Point.Array(Operator.Add(coords3D, 
                         0.01 * realIdx));
-                    var pts4D = Point.Array(Operator.Add(coords4D,
+                    Point[] pts4D = Point.Array(Operator.Add(coords4D,
                         0.01 * realIdx));
 
                     // Creates noise function
-                    var thisSeed = noiseSeed + realIdx;
-                    var perlinNoise = new PerlinNoiseFunction(thisSeed,
+                    int thisSeed = noiseSeed + realIdx;
+                    PerlinNoiseFunction perlinNoise = new PerlinNoiseFunction(thisSeed,
                         tablePower, standIdx == 1);
 
                     // Creates 3D & 4D instances
-                    var pnoise3D = new Noise(perlinNoise, noiseOffset3D);
-                    var pnoise4D = new Noise(perlinNoise, noiseOffset4D);
+                    Noise pnoise3D = new Noise(perlinNoise, noiseOffset3D);
+                    Noise pnoise4D = new Noise(perlinNoise, noiseOffset4D);
 
                     // Retrieves the noise values
                     pnoise3DArr = pnoise3D.GetVal(pts3D);
                     pnoise4DArr = pnoise4D.GetVal(pts4D);
 
                     // Calculates the standard deviations
-                    var stats = Stats.STD(pnoise3DArr);
+                    double[] stats = Stats.STD(pnoise3DArr);
                     std3D[standIdx, realIdx] = stats[0];
                     mean3D[standIdx, realIdx] = stats[1];
                     stats = Stats.STD(pnoise4DArr);

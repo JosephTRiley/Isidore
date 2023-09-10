@@ -35,6 +35,57 @@ namespace Isidore.Render
             }
         }
 
+        /// <summary>
+        /// Allows intersection to occur on the back side of shape manifolds
+        /// </summary>
+        public override bool IntersectBackFaces
+        {
+            get { return base.IntersectBackFaces; }
+            set
+            {
+                // Sets this item's value
+                base.IntersectBackFaces = value;
+                // Sets each child's value
+                if (Shapes != null)
+                    for (int idx = 0; idx < Shapes.Count; idx++)
+                        Shapes[idx].IntersectBackFaces = value;
+            }
+        }
+
+        /// <summary>
+        /// Flag for where to calculate the intersection UV coordinates
+        /// </summary>
+        public override bool CalculateUV
+        {
+            get { return base.CalculateUV; }
+            set
+            {
+                // Sets this item's value
+                base.CalculateUV = value;
+                // Sets each child's value
+                if (Shapes != null)
+                    for (int idx = 0; idx < Shapes.Count; idx++)
+                        Shapes[idx].CalculateUV = value;
+            }
+        }
+
+        /// <summary>
+        /// Switches Alpha Mapping on
+        /// </summary>
+        public override bool UseAlpha
+        {
+            get { return base.UseAlpha; }
+            set
+            {
+                // Sets this item's value
+                base.UseAlpha = value;
+                // Sets each child's value
+                if (Shapes != null)
+                    for (int idx = 0; idx < Shapes.Count; idx++)
+                        Shapes[idx].UseAlpha = value;
+            }
+        }
+
         #endregion Fields & Properties
         #region Constructors
 
@@ -100,7 +151,7 @@ namespace Isidore.Render
         /// <param name="ray"> Render ray instance </param>
         public override void ApplyMaterials(ref RenderRay ray)
         {
-            var shape = (Shape)ray.IntersectData.Body;
+            Shape shape = (Shape)ray.IntersectData.Body;
             // Uses the intersected shape if it has materials
             // Otherwise uses the polyshape
             if (shape.Materials.Count > 0)

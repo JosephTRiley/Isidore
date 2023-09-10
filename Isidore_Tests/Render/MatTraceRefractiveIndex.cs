@@ -112,7 +112,7 @@ namespace Isidore_Tests
                             thisRay.Rank + 1 : thisRay.Rank;
                         idImg[idx0, idx1] = thisRay.IntersectData.Body.ID;
 
-                        var sData = thisRay.IntersectData.BodySpecificData
+                        ShapeSpecificData sData = thisRay.IntersectData.BodySpecificData
                             as ShapeSpecificData;
                         if (sData != null)
                         {

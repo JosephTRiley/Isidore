@@ -154,8 +154,6 @@ namespace Isidore.Render
         private Vector A, AB, AD, ABpDC, ADpBC;
         // U,V determinants
         private double denU, denV;
-        // The actual U,V coordinates
-        private double u, v;
 
         #endregion Fields & Properties
         #region Constructors
@@ -286,8 +284,8 @@ namespace Isidore.Render
                 return false;
 
             // Uses Maths's plane intersection
-            var intData = Isidore.Maths.Plane.RayIntersection(
-                globalNormal, globalD, ray, IntersectBackFaces);
+            Tuple<double, double> intData = Isidore.Maths.Plane.RayIntersection(
+                globalNormal, globalD, (Maths.Ray)ray, IntersectBackFaces);
             double t = intData.Item1;
 
             // Checks the distance, if longer or negative returns as a miss
@@ -302,7 +300,9 @@ namespace Isidore.Render
             // So populates the Intersect data instance
             Point intPt = ray.Origin + (Point)ray.Dir * t;
 
-            // Calculates the UV 
+            // Calculates the UV
+            // Note that CalculateUV is superseded by an active alpha flag
+            double U = double.NaN, V = double.NaN;
             if (UseAlpha || CalculateUV)
             {
                 // Finds closest planar axis (A 2D vector)
@@ -310,17 +310,17 @@ namespace Isidore.Render
                 Vector AM = M - A;
 
                 // U,V coordinates in distance
-                u = Det(AM.Comp, ADpBC.Comp) / denU;
-                v = -Det(AM.Comp, ABpDC.Comp) / denV;
+                U = Det(AM.Comp, ADpBC.Comp) / denU;
+                V = -Det(AM.Comp, ABpDC.Comp) / denV;
 
                 // Wraps coordinates
-                u -= Math.Floor(u);
-                v -= Math.Floor(v);
+                U -= Math.Floor(U);
+                V -= Math.Floor(V);
             }
 
             // Intersect data
             ShapeSpecificData sData = new ShapeSpecificData(
-                globalNormal, cosIncAng, u, v);
+                globalNormal, cosIncAng, U, V);
             IntersectData iData = new IntersectData(true, t, intPt, this,
                 sData);
             
@@ -344,7 +344,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Shape CloneImp()
         {
-            var newCopy = (Plane)MemberwiseClone();
+            Plane newCopy = (Plane)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

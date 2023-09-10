@@ -74,14 +74,14 @@ namespace Isidore_Tests
             double testInt = 30.0440; // Theoretical travel until intersection
 
             // Calculates travel
-            var interData = plane.RayIntersection(rayFront);
+            Tuple<double, double, Point, Normal> interData = plane.RayIntersection(rayFront);
             double intDiff = Aids.perErr(interData.Item1, testInt);
 
             // Checks that we miss the back face
-            var interDataBack = plane.RayIntersection(rayBack, false);
-            var interDataBack1 = Plane.RayIntersection(plane.Normal,
+            Tuple<double, double, Point, Normal> interDataBack = plane.RayIntersection(rayBack, false);
+            Tuple<double, double> interDataBack1 = Plane.RayIntersection(plane.Normal,
             plane.D, rayBack); // This one does interest
-            var interDataBack2 = Plane.RayIntersection(-1*plane.Normal,
+            Tuple<double, double> interDataBack2 = Plane.RayIntersection(-1*plane.Normal,
             -plane.D, rayBack); // This one does interest
 
             if (intDiff > threshErr || !double.IsNaN(interDataBack.Item1))
@@ -97,8 +97,8 @@ namespace Isidore_Tests
                 new Vector(0, 0, 1));
 
             // Excludes back face interface
-            var interDataMiss = plane.RayIntersection(rayMiss, false);
-            var interDataMiss1 = Plane.RayIntersection(plane.Normal,
+            Tuple<double, double, Point, Normal> interDataMiss = plane.RayIntersection(rayMiss, false);
+            Tuple<double, double> interDataMiss1 = Plane.RayIntersection(plane.Normal,
             plane.D, rayMiss);
 
             if(!double.IsNaN(interDataMiss.Item1) || 

@@ -69,7 +69,7 @@ namespace Isidore.Render
         /// <summary>
         /// Mesh octree
         /// </summary>
-        private MeshOctree octree;
+        protected MeshOctree octree;
 
 
         #endregion Fields & Properties
@@ -193,13 +193,8 @@ namespace Isidore.Render
             // Finds which octboxes are intersected
             List<OctBoxIntersect> oData = octree.Intersect(ray);
 
-            // Removes all octbox intersects that are not intersected 
-            // or lowest level
-            oData.RemoveAll(o => (!o.Hit) || (o.OctBox.ChildBoxes != null));
-
             // Sorts the octboxes via near travel distances
             // (You could use  OrderByDescending for a z-buffer renderer)
-            //oData.OrderBy(o => o.NearTravel);
             oData = oData.OrderBy(o => o.NearTravel).ToList();
 
             // Now we start evaluating individual facets
@@ -226,7 +221,7 @@ namespace Isidore.Render
                         evaled[facetIdx] = true;
 
                         // Returns intersect flag, travel, & barycentric UV
-                        var fData = RayTriangleIntersect(ray,
+                        Tuple<bool, double, double[]> fData = RayTriangleIntersect(ray,
                             globalVertices[Facets[facetIdx][0]].Position,
                             edge1[facetIdx], edge2[facetIdx],
                             normal[facetIdx], intersectThreshold);
@@ -241,11 +236,13 @@ namespace Isidore.Render
                         // Determines if the intersect has an alpha tag
                         // Sets to true by default
                         bool alphaIn = true;
-                        double[] textureUV = new double[2];
+                        double[] textureUV = new double[] { double.NaN, 
+                            double.NaN };
                         // Calculates the texture UV (for Alpha testing)
                         // (After checking if there are UV coordinates)
-                        if (globalVertices[Facets[facetIdx][0]].UV != null &
-                            globalVertices[Facets[facetIdx][1]].UV != null &
+                        if ((UseAlpha || CalculateUV) &&
+                            globalVertices[Facets[facetIdx][0]].UV != null &&
+                            globalVertices[Facets[facetIdx][1]].UV != null &&
                             globalVertices[Facets[facetIdx][2]].UV != null)
                         {
                             textureUV = baryInterpolate(fData.Item3,
@@ -253,11 +250,6 @@ namespace Isidore.Render
                                 globalVertices[Facets[facetIdx][1]].UV,
                                 globalVertices[Facets[facetIdx][2]].UV);
                             alphaIn = getAlpha(textureUV[0], textureUV[1]);
-                        }
-                        else
-                        {
-                            textureUV[0] = double.NaN;
-                            textureUV[1] = double.NaN;
                         }
 
                         // Uses alpha value to trigger recording
@@ -472,7 +464,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Shape CloneImp()
         {
-            var newCopy = (Mesh)MemberwiseClone();
+            Mesh newCopy = (Mesh)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

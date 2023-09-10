@@ -24,11 +24,11 @@ namespace Isidore_Tests
             PointGrid perGrid = ptGrid.CopyTransform(trans);
 
             // Processes data for MatLab
-            var ptsData = ptGrid.ConvertToArrays();
-            var pts = ptsData.Item1; // Positional data, don't care if referenced
-            var spTag = ptsData.Item4; // Surface point tag
-            var pPtsData = perGrid.ConvertToArrays();
-            var pPts = pPtsData.Item1;
+            Tuple<double[,], int[,], bool[], bool[], double[]> ptsData = ptGrid.ConvertToArrays();
+            double[,] pts = ptsData.Item1; // Positional data, don't care if referenced
+            bool[] spTag = ptsData.Item4; // Surface point tag
+            Tuple<double[,], int[,], bool[], bool[], double[]> pPtsData = perGrid.ConvertToArrays();
+            double[,] pPts = pPtsData.Item1;
 
             MLApp.MLApp matlab = new MLApp.MLApp();
             String strAppDir = new FileInfo(System.Windows.Forms.Application.ExecutablePath).DirectoryName;
@@ -58,10 +58,10 @@ namespace Isidore_Tests
 
             // Makes grid
             PointGrid ptGrid0 = new PointGrid(resolution0, lowCorner0, spacing0);
-            var ptsData0 = ptGrid0.ConvertToArrays();
-            var pts0 = ptsData0.Item1; // Positional data, don't care if referenced
-            var surf0 = ptsData0.Item4; // Positional data, don't care if referenced
-            var pt2 = Operator.Multiply(pts0, pts0);
+            Tuple<double[,], int[,], bool[], bool[], double[]> ptsData0 = ptGrid0.ConvertToArrays();
+            double[,] pts0 = ptsData0.Item1; // Positional data, don't care if referenced
+            bool[] surf0 = ptsData0.Item4; // Positional data, don't care if referenced
+            double[,] pt2 = Operator.Multiply(pts0, pts0);
 
             // Reduces points to a sphere
             // Makes sphere surface grid
@@ -81,9 +81,9 @@ namespace Isidore_Tests
             // Identifies surface points
             ptGrid0.IdentifySurfacePts();
 
-            var ptsData1 = ptGrid0.ConvertToArrays();
-            var on1 = ptsData1.Item3; // On switch
-            var surf1 = ptsData1.Item4; // OnSurface Switch
+            Tuple<double[,], int[,], bool[], bool[], double[]> ptsData1 = ptGrid0.ConvertToArrays();
+            bool[] on1 = ptsData1.Item3; // On switch
+            bool[] surf1 = ptsData1.Item4; // OnSurface Switch
 
             // Outputs
             matlab.PutWorkspaceData("pts0", "base", pts0);

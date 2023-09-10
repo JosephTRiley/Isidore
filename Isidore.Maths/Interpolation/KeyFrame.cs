@@ -259,7 +259,7 @@ namespace Isidore.Maths
                     // Calls linear interpolation
                     if (typeof(T) == typeof(Point))
                     {
-                        var tempVal = Maths.Interpolate.Linear(
+                        Point tempVal = Maths.Interpolate.Linear(
                             values[idx] as Point, values[idx + 1] as Point,
                             fac);
                         currentValue = Operator.Convert<Point, T>(tempVal);

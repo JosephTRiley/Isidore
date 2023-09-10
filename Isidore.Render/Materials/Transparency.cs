@@ -60,14 +60,14 @@ namespace Isidore.Render
         public override bool ProcessIntersectData(ref RenderRay ray)
         {
             // Checks that the specific data class is a Shape subclass
-            var sData = ray.IntersectData.BodySpecificData as
+            ShapeSpecificData sData = ray.IntersectData.BodySpecificData as
                 ShapeSpecificData;
             // If not, "as" will return a null, so this returns unaltered
             if (sData == null)
                 return false;
 
             // This saves some typing
-            var iData = ray.IntersectData;
+            IntersectData iData = ray.IntersectData;
 
             // indicates an interaction
             bool interaction = false;
@@ -107,8 +107,8 @@ namespace Isidore.Render
             {
                 // Updates the properties to include effects of the material
                 // Properties Clones
-                var reflectProp = ray.Properties.Clone();
-                var transmitProp = ray.Properties.Clone();
+                Properties reflectProp = ray.Properties.Clone();
+                Properties transmitProp = ray.Properties.Clone();
 
                 // Transmitted refractive index  for this wave
                 RefractiveIndex N2 = new RefractiveIndex(wlens[idx], n2[idx]);
@@ -165,7 +165,7 @@ namespace Isidore.Render
                 }
 
                 // Reflection and transmission vectors
-                var rtVecs = Refraction(ray.Dir, surfNorm, mat1, mat2);
+                Tuple<Vector, Vector> rtVecs = Refraction(ray.Dir, surfNorm, mat1, mat2);
 
                 // Calculates the origin time
                 double startTime = ray.Time + n1[idx] * ray.IntersectData.Travel / c;
@@ -234,7 +234,7 @@ namespace Isidore.Render
         new protected virtual Material CloneImp()
         {
             // Shallow copies from base
-            var newCopy = (Transparency)base.CloneImp();
+            Transparency newCopy = (Transparency)base.CloneImp();
 
             // Deep-copies all data this is referenced by default
             if (RefractiveIndex != null)

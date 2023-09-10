@@ -123,7 +123,7 @@ namespace Isidore.Render
 
             // Converts the noise value into a scalar and adds it to the 
             // property array
-            var thisVal = new Scalar(val);
+            Scalar thisVal = new Scalar(val);
             ray.IntersectData.Properties.Add(thisVal);
 
             // returns interaction notification
@@ -201,7 +201,7 @@ namespace Isidore.Render
                 // 2) the point of closest approach along the line
                 // 3) the travel from the first point to the closest
                 // approach point
-                var distData = Distance.Point2Line(iPt, procPts[idx],
+                System.Tuple<double, Point, double, Vector> distData = Distance.Point2Line(iPt, procPts[idx],
                     procPts[idx + 1]);
                 // Updates the closest line segment data
                 if (distData.Item1 >= 0 && distData.Item1 < minDist)
@@ -268,7 +268,7 @@ namespace Isidore.Render
             Vector totalShift = intShift + time * intVel;
 
             // Retrieves the noise value at the intersection point
-            var val = noise.GetVal(iPt, totalShift, intMult, intOff);
+            double val = noise.GetVal(iPt, totalShift, intMult, intOff);
 
             return val;
         }
@@ -312,15 +312,15 @@ namespace Isidore.Render
             Vector totalShift1 = shift1 + time * vel1;
 
             // Retrieves the noise value at the intersection point
-            var val0 = noise.GetVal(iPt, totalShift0,
+            double val0 = noise.GetVal(iPt, totalShift0,
                 pt0.ProcNoiseParams.multiplier,
                 pt0.ProcNoiseParams.offset);
-            var val1 = noise.GetVal(iPt, totalShift1,
+            double val1 = noise.GetVal(iPt, totalShift1,
                 pt1.ProcNoiseParams.multiplier,
                 pt1.ProcNoiseParams.offset);
 
             // Interpolates the values
-            var val = val0 * (1 - smoothDist) + val1 * smoothDist;
+            double val = val0 * (1 - smoothDist) + val1 * smoothDist;
 
             return val;
         }
@@ -333,7 +333,7 @@ namespace Isidore.Render
         protected double SinglePointEval(RenderRay ray)
         {
             // Finds the intersect point
-            var iPt = ray.IntersectData.IntersectPt;
+            Point iPt = ray.IntersectData.IntersectPt;
 
             // Values used for interpolating noise parameters
             Vector intShift = procPts[0].ProcNoiseParams.shift;
@@ -345,7 +345,7 @@ namespace Isidore.Render
             // the intersect point to the local frame of reference.
             if (anchorTextureToBody)
             {
-                var trans = ray.IntersectData.Body.Local2World;
+                Transform trans = ray.IntersectData.Body.Local2World;
                 // Overwrites the reference point with a clone
                 iPt = iPt.CopyTransform(trans, false);
 
@@ -358,7 +358,7 @@ namespace Isidore.Render
             Vector totalShift = intShift + ray.Time * intVel;
 
             // Retrieves the noise value at the intersection point
-            var val = noise.GetVal(iPt, totalShift, intMult,
+            double val = noise.GetVal(iPt, totalShift, intMult,
                 intOff);
 
             return val;
@@ -380,7 +380,7 @@ namespace Isidore.Render
         new protected virtual Material CloneImp()
         {
             // Shallow copies from base
-            var newCopy = (ProceduralValue)base.CloneImp();
+            ProceduralValue newCopy = (ProceduralValue)base.CloneImp();
 
             // Deep-copies all data this is referenced by default
             if (noise != null)
@@ -493,7 +493,7 @@ namespace Isidore.Render
         /// <returns> The cloned copy </returns>
         public new ProceduralNoiseParameters Clone()
         {
-            var newInt = base.Clone() as ProceduralNoiseParameters;
+            ProceduralNoiseParameters newInt = base.Clone() as ProceduralNoiseParameters;
             newInt.velocity = velocity.Clone();
 
             return newInt;

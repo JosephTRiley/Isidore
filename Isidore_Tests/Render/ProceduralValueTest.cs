@@ -33,13 +33,13 @@ namespace Isidore_Tests
             int len1 = 120;
             //int len0 = 2;
             //int len1 = 2;
-            var proj = new RectangleProjector(len0, len1, 0.01, 0.01, 0, 0);
-            var pos0 = proj.Pos0;
-            var pos1 = proj.Pos1;
+            RectangleProjector proj = new RectangleProjector(len0, len1, 0.01, 0.01, 0, 0);
+            double[] pos0 = proj.Pos0;
+            double[] pos1 = proj.Pos1;
 
             // Sets the camera 10m behind of the plane 
-            var transProj1 = Transform.Translate(0, 0, -10);
-            var transProj2 = Transform.Translate(0, 10, -10);
+            Transform transProj1 = Transform.Translate(0, 0, -10);
+            Transform transProj2 = Transform.Translate(0, 10, -10);
             //var transProj2 = Transform.Translate(0, 1, -10);
             proj.TransformTimeLine.AddKeys(transProj1, 0.0);
             proj.TransformTimeLine.AddKeys(transProj2, simTime);
@@ -49,20 +49,20 @@ namespace Isidore_Tests
                 Point.Zero(3), -1.0 * Normal.Unit(3, 2));
 
             // Assembles scene
-            var scene = new Scene();
+            Scene scene = new Scene();
             scene.Projectors.Add(proj);
             scene.Bodies.Add(plane);
 
             // Makes a Perlin fBm noise instance
-            var noiseFunc = new PerlinNoiseFunction(1234, 10);
-            var fBm = new fBmNoise(noiseFunc, 0.125, 512, 1.0/3.0, 2);
+            PerlinNoiseFunction noiseFunc = new PerlinNoiseFunction(1234, 10);
+            fBmNoise fBm = new fBmNoise(noiseFunc, 0.125, 512, 1.0/3.0, 2);
 
             // Creates a list of procedural data point
             List<ProceduralPoint> procPts = new List<ProceduralPoint>();
             double dPos = 2;
             double pos = 0;
-            var shift = new Vector(new double[] { 12.3, 23.4, 34.5, 0 });
-            var vel = new Vector(new double[] { 0, 0, 0, 1 });
+            Vector shift = new Vector(new double[] { 12.3, 23.4, 34.5, 0 });
+            Vector vel = new Vector(new double[] { 0, 0, 0, 1 });
             procPts.Add(new ProceduralPoint(new Point(0, pos, 0), vel, shift, 
                 1, 10));
             pos += dPos;
@@ -84,30 +84,30 @@ namespace Isidore_Tests
 
             // Uses the noise instance in a material
             bool anchorToBody = true;
-            var procMat = new ProceduralValue(fBm, procPts, 0, 
+            ProceduralValue procMat = new ProceduralValue(fBm, procPts, 0, 
                 ProcInterp.Params, anchorToBody);
 
             // Adds the material to a material stack & to the plane
-            var matStack = new MaterialStack(procMat);
+            MaterialStack matStack = new MaterialStack(procMat);
             plane.Materials.Add(matStack);
 
             // Samples every 1/20 sec for 5 sec
-            var time = Enumerable.Range(0, totFrames).
+            double[] time = Enumerable.Range(0, totFrames).
                 Select(x => x * samplePeriod).ToArray();
-            var len2 = time.Length;
+            int len2 = time.Length;
 
             // Enumeration values
-            var piStrs = Enum.GetNames(typeof(ProcInterp));
-            var piVals = Enum.GetValues(typeof(ProcInterp));
-            var piEnum = piVals as ProcInterp[];
-            var len3 = piVals.Length;
+            string[] piStrs = Enum.GetNames(typeof(ProcInterp));
+            Array piVals = Enum.GetValues(typeof(ProcInterp));
+            ProcInterp[] piEnum = piVals as ProcInterp[];
+            int len3 = piVals.Length;
 
             // Book-keeping
-            var textArr = new double[len0, len1, len2, len3];
-            var uArr = new double[len0, len1, len2, len3];
-            var vArr = new double[len0, len1, len2, len3];
+            double[,,,] textArr = new double[len0, len1, len2, len3];
+            double[,,,] uArr = new double[len0, len1, len2, len3];
+            double[,,,] vArr = new double[len0, len1, len2, len3];
 
-            var watch = new Stopwatch();
+            Stopwatch watch = new Stopwatch();
 
             // Cycles though interpolation options
             for (int iidx = 0; iidx < len3; iidx++)
@@ -129,21 +129,21 @@ namespace Isidore_Tests
                     {
                         for (int idx1 = 0; idx1 < len1; idx1++)
                         {
-                            var thisRay = proj.Ray(idx0, idx1).Rays[0];
-                            var iData = thisRay.IntersectData;
+                            RenderRay thisRay = proj.Ray(idx0, idx1).Rays[0];
+                            IntersectData iData = thisRay.IntersectData;
 
                             // Extracts data if hit (Should always hit)
                             if (iData.Hit)
                             {
                                 // Body specific data
-                                var sData = thisRay.IntersectData.BodySpecificData
+                                ShapeSpecificData sData = thisRay.IntersectData.BodySpecificData
                                     as ShapeSpecificData;
                                 uArr[idx0, idx1, tidx, iidx] = sData.U;
                                 vArr[idx0, idx1, tidx, iidx] = sData.V;
 
                                 // Texture properties
-                                var unit = iData.GetPropertyData<string, Scalar>("Units");
-                                var val = iData.GetPropertyData<double, Scalar>("Value");
+                                string unit = iData.GetPropertyData<string, Scalar>("Units");
+                                double val = iData.GetPropertyData<double, Scalar>("Value");
                                 textArr[idx0, idx1, tidx, iidx] = val;
                             }
                         }

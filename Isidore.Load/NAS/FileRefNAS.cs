@@ -198,8 +198,8 @@
                     // without the "E" text, this inserts it
                     catch
                     {
-                        var ind = str.LastIndexOf("-");
-                        var newStr = str.Insert(ind, "E");
+                        int ind = str.LastIndexOf("-");
+                        string newStr = str.Insert(ind, "E");
                         val = double.Parse(newStr);
                     }
                     return val;

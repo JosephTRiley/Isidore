@@ -36,7 +36,7 @@
         /// <returns> Clone copy of this instance </returns>
         new protected virtual Property CloneImp()
         {
-            var newCopy = (Irradiance)base.CloneImp();
+            Irradiance newCopy = (Irradiance)base.CloneImp();
 
             return newCopy;
         }
@@ -102,7 +102,7 @@
         new protected virtual Property CloneImp()
         {
             // Shallow copies from base
-            var newCopy = (SpectralIrradiance)base.CloneImp();
+            SpectralIrradiance newCopy = (SpectralIrradiance)base.CloneImp();
 
             // Deep-copies all data this is referenced by default
             if (Value != null)

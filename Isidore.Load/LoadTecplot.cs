@@ -76,12 +76,12 @@ namespace Isidore.Load
             textFile = File.OpenText(fileStr);
 
             // Parses Header information
-            var items = TecplotHeader();
-            var title = items.Item1;
-            var variables = items.Item2;
-            var auxList = items.Item3;
-            var dataDims = items.Item4;
-            var blockFormat = items.Item5;
+            Tuple<string, List<string>, List<string>, int[], bool> items = TecplotHeader();
+            string title = items.Item1;
+            List<string> variables = items.Item2;
+            List<string> auxList = items.Item3;
+            int[] dataDims = items.Item4;
+            bool blockFormat = items.Item5;
 
             // Parses data by format
             double[][,,] data = null;
@@ -299,7 +299,7 @@ namespace Isidore.Load
             // name will be there
             MatchCollection matches = reg.Matches(thisLine);
             // Adds to varList
-            foreach (var item in matches)
+            foreach (object item in matches)
             {
                 string varStr = item.ToString().Replace("\"", "");
                 varList.Add(varStr);
@@ -311,7 +311,7 @@ namespace Isidore.Load
             {
                 thisLine = textFile.ReadLine();
                 matches = reg.Matches(thisLine);
-                foreach (var item in matches)
+                foreach (object item in matches)
                     varList.Add(item.ToString().Replace("\"", ""));
             }
 
@@ -337,7 +337,7 @@ namespace Isidore.Load
             // Opens file for reading
             textFile = File.OpenText(fileStr);
 
-            var header = TecplotHeader();
+            Tuple<string, List<string>, List<string>, int[], bool> header = TecplotHeader();
 
             textFile.Close();
 

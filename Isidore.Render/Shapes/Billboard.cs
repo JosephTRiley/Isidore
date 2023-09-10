@@ -127,8 +127,6 @@ namespace Isidore.Render
         private Vector A, AB, AD, ABpDC, ADpBC;
         // U,V determinants
         private double denU, denV;
-        // The actual U,V coordinates
-        private double u, v;
 
         #endregion Fields & Properties
         #region Constructors
@@ -258,39 +256,41 @@ namespace Isidore.Render
             Vector AM = M - A;
 
             // U,V coordinates
-            v = -Det(AM.Comp, ABpDC.Comp) / denV;
-
-            // Intersection hit operator
+            // Note that CalculateUV is superseded by an active alpha flag
+            double u = double.NaN, v = double.NaN;
             bool intersect = false;
-            if (v >= 0 && v < 1)
-            {
-                u = Det(AM.Comp, ADpBC.Comp) / denU;
+            if (UseAlpha || CalculateUV)
+            { 
+                v = -Det(AM.Comp, ABpDC.Comp) / denV;
 
-                // Conditions for a hit
-                if (u >= 0 && u < 1)
+                // Intersection hit operator
+                if (v >= 0 && v < 1)
                 {
-                    // Uses the UV coordinates to see if the alpha value
-                    // Finds the alpha value from the UV coordinates
-                    bool alphaHit = getAlpha(u, v);
+                    u = Det(AM.Comp, ADpBC.Comp) / denU;
 
-                    if (alphaHit)
+                    // Conditions for a hit
+                    if (u >= 0 && u < 1)
                     {
-                        // Intersect point
-                        Point intPt = ray.Origin + (Point)ray.Dir * t;
+                        // Uses the UV coordinates to see if the alpha value
+                        // Finds the alpha value from the UV coordinates
+                        bool alphaHit = getAlpha(u, v);
 
-                        // Creates new intersection data
-                        ShapeSpecificData sData = new ShapeSpecificData(
-                            globalSurfaceNormal, cosIncAng, u, v);
-                        IntersectData iData = new IntersectData(true, t, intPt,
-                            this, sData);
-                        ray.IntersectData = iData;
-
-                        intersect = true;
+                        if (!alphaHit) return false;
                     }
                 }
             }
 
-            return intersect;
+            // Intersect point
+            Point intPt = ray.Origin + (Point)ray.Dir * t;
+
+            // Creates new intersection data
+            ShapeSpecificData sData = new ShapeSpecificData(
+                globalSurfaceNormal, cosIncAng, u, v);
+            IntersectData iData = new IntersectData(true, t, intPt,
+                this, sData);
+            ray.IntersectData = iData;
+
+            return true;
         }
 
         /// <summary>
@@ -308,7 +308,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Shape CloneImp()
         {
-            var newCopy = (Billboard)MemberwiseClone();
+            Billboard newCopy = (Billboard)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

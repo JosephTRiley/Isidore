@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace Isidore.Render
 {
@@ -44,33 +46,54 @@ namespace Isidore.Render
         /// </summary>
         /// <param name="proj"> Projector instance </param>
         /// <returns> Array of IntersectData matching the projector rays </returns>
-        public void Intersect(ref Projector proj)
+        public void OneCoreIntersect(ref Projector proj)
         {
-            //IntersectData[] iData = new IntersectData[proj.Rays.Length];
+            Projector projClone = proj;
             // Cycles through every ray tree
             for (int idx = 0; idx < proj.Rays.Length; idx++)
-            {
-                // Checks to see the ray tree is still open
-                if (proj.Rays[idx].Open)
-                {
-                    // Grabs next open ray in ray tree
-                    RenderRay thisRay = proj.Rays[idx].NextOpenRay();
+                Intersect(ref projClone.Rays[idx]);
+        }
 
-                    // Checks physical intersection
-                    bool intersect = Intersect(ref thisRay);
+        /// <summary>
+        /// Performs an intersection test for all the next open ray within a 
+        /// projector's ray tree
+        /// </summary>
+        /// <param name="proj"> Projector instance </param>
+        /// <returns> Array of IntersectData matching the projector rays </returns>
+        public void MultiCoreIntersect(ref Projector proj)
+        {
+            Projector projClone = proj;
+            Parallel.ForEach(Partitioner.Create(0, proj.Rays.Length), range => {
+                for (int idx = range.Item1; idx < range.Item2; idx++)
+                    Intersect(ref projClone.Rays[idx]);
+            });
+        }
 
-                    // Checks material intersection and applies materials
-                    // Updates ray properties & casted rays
-                    if (intersect)
-                    {
-                        //thisRay.IntersectData.Body = this;
-                        ApplyMaterials(ref thisRay);
-                    }
+        /// <summary>
+        /// Performs an intersection test for all the next open ray within a 
+        /// ray tree
+        /// </summary>
+        /// <param name="raytree"> Ray tree instance </param>
+        /// <returns> IntersectData matching the projector rays </returns>
+        protected void Intersect(ref RayTree raytree)
+        {
+            // Checks to see the ray tree is still open
+            if (!raytree.Open)
+                return;
 
-                    // Marks this ray as being propagated
-                    thisRay.Status = RayStatus.Propagated;
-                }
-            }
+            // Grabs next open ray in ray tree
+            RenderRay thisRay = raytree.NextOpenRay();
+
+            // Checks physical intersection
+            bool intersect = Intersect(ref thisRay);
+
+            // Checks material intersection and applies materials
+            // Updates ray properties & casted rays
+            if (intersect)
+                ApplyMaterials(ref thisRay);
+
+            // Marks this ray as being propagated
+            thisRay.Status = RayStatus.Propagated;
         }
 
         /// <summary>
@@ -88,7 +111,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Item CloneImp()
         {
-            var newCopy = (Body)MemberwiseClone();
+            Body newCopy = (Body)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

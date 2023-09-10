@@ -36,7 +36,7 @@
         /// <returns> Clone copy of this instance </returns>
         new protected virtual Property CloneImp()
         {
-            var newCopy = base.CloneImp() as Length;
+            Length newCopy = base.CloneImp() as Length;
 
             return newCopy;
         }

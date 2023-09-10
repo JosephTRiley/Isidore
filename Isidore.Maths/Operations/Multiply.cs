@@ -96,7 +96,7 @@ namespace Isidore.Maths
             int[,] arrOut = new int[len1, len2];
 
             // Partitions source array by columns
-            var part = Partitioner.Create(0, len1);
+            OrderablePartitioner<Tuple<int, int>> part = Partitioner.Create(0, len1);
             Parallel.ForEach(part, (range) =>
             {
                 for (int idx0 = range.Item1; idx0 < range.Item2; idx0++)
@@ -125,7 +125,7 @@ namespace Isidore.Maths
             int[,] arrOut = new int[len1, len2];
 
             // Partitions source array by columns
-            var part = Partitioner.Create(0, len1);
+            OrderablePartitioner<Tuple<int, int>> part = Partitioner.Create(0, len1);
             Parallel.ForEach(part, (range) =>
             {
                 for (int idx0 = range.Item1; idx0 < range.Item2; idx0++)
@@ -237,7 +237,7 @@ namespace Isidore.Maths
             double[,] arrOut = new double[len1, len2];
 
             // Partitions source array by columns
-            var part = Partitioner.Create(0, len1);
+            OrderablePartitioner<Tuple<int, int>> part = Partitioner.Create(0, len1);
             Parallel.ForEach(part, (range) =>
             {
                 for (int idx0 = range.Item1; idx0 < range.Item2; idx0++)
@@ -266,7 +266,7 @@ namespace Isidore.Maths
             double[,] arrOut = new double[len1, len2];
 
             // Partitions source array by columns
-            var part = Partitioner.Create(0, len1);
+            OrderablePartitioner<Tuple<int, int>> part = Partitioner.Create(0, len1);
             Parallel.ForEach(part, (range) =>
             {
                 for (int idx0 = range.Item1; idx0 < range.Item2; idx0++)

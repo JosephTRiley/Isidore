@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Diagnostics;
 using Isidore.Render;
 using Isidore.Maths;
@@ -31,7 +32,7 @@ namespace Isidore_Tests
             Isidore.Maths.Point p2 = new Isidore.Maths.Point(0.5, 0.5, 0);
             RenderRay ray = new RenderRay(new Isidore.Maths.Point(0.1, 0.1, -10),
                 new Vector(0, 0, 1));
-            var iData = Mesh.RayTriangleIntersect(ray, p0, p1, p2);
+            Tuple<bool, double, double[]> iData = Mesh.RayTriangleIntersect(ray, p0, p1, p2);
             if (!iData.Item1) return false;
 
             ////////////////////////////
@@ -59,6 +60,9 @@ namespace Isidore_Tests
                 new double[] { -0.5, -0.5, 0 }));
             // Turns off back face intersection
             mesh.IntersectBackFaces = false;
+            // Adjusts the mesh tree depth
+            Mesh imesh = mesh.Shapes[0] as Mesh;
+            imesh.maxOctreeDepth = 5;
 
             // Checks that this ray intersect
             mesh.AdvanceToTime(0.0);
@@ -69,15 +73,15 @@ namespace Isidore_Tests
 
             // On-axis, Orthonormal projector 
             // Located -10m from the shape
-            RectangleProjector proj1 = new RectangleProjector(120, 140,
-                0.01, 0.01, 0, 0);
+            RectangleProjector proj1 = new RectangleProjector(120 * 4, 140 * 4,
+                0.01 / 4, 0.01 / 4, 0, 0);
             proj1.TransformTimeLine = new KeyFrameTrans(Transform.Translate(
                 new double[] { 0, 0, -10 }));
 
             // Off-axis, Orthonormal projector
             // Located -10m back and -10m off-axis
-            RectangleProjector proj2 = new RectangleProjector(120, 140,
-                0.01, 0.01, 0, 0);
+            RectangleProjector proj2 = new RectangleProjector(120 * 4, 140 * 4,
+                0.01 / 4, 0.01 / 4, 0, 0);
             Isidore.Maths.Point offPt = new Isidore.Maths.Point(new
                 double[] { 10, 0, -10 });
             Transform lookAt = Transform.LookAt(offPt,
@@ -92,10 +96,29 @@ namespace Isidore_Tests
             scene.Projectors.Add(proj2);
             scene.Bodies.Add(mesh);
 
-            // Rendering
-            watch.Start();
-            scene.AdvanceToTime(0.0);
-            watch.Stop();
+            // Multiple rendering calls to check multi-threading
+            scene.UseMultiCores = false;
+            for (int idx = 0; idx < 10; idx++)
+            {
+                watch.Restart();
+                watch.Start();
+                scene.AdvanceToTime(0.0, true);
+                watch.Stop();
+                Console.WriteLine("Serial Mesh trace {0}, " +
+                    "total render time = {1}s",
+                    idx, watch.ElapsedMilliseconds / 1000.0);
+            }
+            scene.UseMultiCores = true;
+            for (int idx = 0; idx < 10; idx++)
+            {
+                watch.Restart();
+                watch.Start();
+                scene.AdvanceToTime(0.0, true);
+                watch.Stop();
+                Console.WriteLine("Parallel Mesh trace {0}, " +
+                    "total render time = {1}s",
+                    idx, watch.ElapsedMilliseconds / 1000.0);
+            }
 
             // Uses the get GetIntersectValue normally used with MatLab
             bool[,] Hit = proj1.GetIntersectValue<bool>("Hit");
@@ -136,7 +159,7 @@ namespace Isidore_Tests
                         idImg[idx0, idx1, 0] = thisRay1.IntersectData.Body.ID;
                         depthImg[idx0, idx1, 0] = 
                             thisRay1.IntersectData.Travel;
-                        var sData = thisRay1.IntersectData.BodySpecificData
+                        ShapeSpecificData sData = thisRay1.IntersectData.BodySpecificData
                             as ShapeSpecificData;
                         cosIncImg[idx0, idx1, 0] = sData.CosIncAng;
                         uImg[idx0, idx1, 0] = sData.U;
@@ -148,7 +171,7 @@ namespace Isidore_Tests
                         idImg[idx0, idx1, 1] = thisRay2.IntersectData.Body.ID;
                         depthImg[idx0, idx1, 1] =
                             thisRay2.IntersectData.Travel;
-                        var sData = thisRay2.IntersectData.BodySpecificData
+                        ShapeSpecificData sData = thisRay2.IntersectData.BodySpecificData
                             as ShapeSpecificData;
                         cosIncImg[idx0, idx1, 1] = sData.CosIncAng;
                         uImg[idx0, idx1, 1] = sData.U;
@@ -185,7 +208,7 @@ namespace Isidore_Tests
             ///////////////////////////////////////////
 
             // Loads the cube model with no texture (i.e. UV coordinates)
-            var fileStr1 = dname.Remove(dname.IndexOf("bin")) + "Inputs\\Rhino3D Files\\Cube_NoTexture.obj";
+            string fileStr1 = dname.Remove(dname.IndexOf("bin")) + "Inputs\\Rhino3D Files\\Cube_NoTexture.obj";
             mesh = OBJ.Load(fileStr1);
             mesh.Shapes[0].ID = 1;
 
@@ -269,7 +292,7 @@ namespace Isidore_Tests
                         idImg[idx0, idx1, 0] = thisRay1.IntersectData.Body.ID;
                         depthImg[idx0, idx1, 0] =
                             thisRay1.IntersectData.Travel;
-                        var sData = thisRay1.IntersectData.BodySpecificData
+                        ShapeSpecificData sData = thisRay1.IntersectData.BodySpecificData
                             as ShapeSpecificData;
                         cosIncImg[idx0, idx1, 0] = sData.CosIncAng;
                         uImg[idx0, idx1, 0] = sData.U;
@@ -281,7 +304,7 @@ namespace Isidore_Tests
                         idImg[idx0, idx1, 1] = thisRay2.IntersectData.Body.ID;
                         depthImg[idx0, idx1, 1] =
                             thisRay2.IntersectData.Travel;
-                        var sData = thisRay2.IntersectData.BodySpecificData
+                        ShapeSpecificData sData = thisRay2.IntersectData.BodySpecificData
                             as ShapeSpecificData;
                         cosIncImg[idx0, idx1, 1] = sData.CosIncAng;
                         uImg[idx0, idx1, 1] = sData.U;

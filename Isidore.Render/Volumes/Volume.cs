@@ -44,10 +44,10 @@ namespace Isidore.Render
             {
                 // If not, then adds a ray that is shifted
                 // to the intersect point
-                var iData = ray.IntersectData;
+                IntersectData iData = ray.IntersectData;
 
                 // Checks that the specific data class is a Volume subclass
-                var vData = iData.BodySpecificData as VolumeSpecificData;
+                VolumeSpecificData vData = iData.BodySpecificData as VolumeSpecificData;
                 if (vData == null)
                     return;
 
@@ -76,7 +76,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected Body CloneImp()
         {
-            var newCopy = (Volume)MemberwiseClone();
+            Volume newCopy = (Volume)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

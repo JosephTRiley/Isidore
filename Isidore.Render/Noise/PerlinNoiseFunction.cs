@@ -75,7 +75,7 @@ namespace Isidore.Render
             lim = tableSize - 1;
 
             // The table needs to be twice for Grad
-            var hLUT = Arr.Permutation(tableSize, rng);
+            System.Collections.Generic.IEnumerable<int> hLUT = Arr.Permutation(tableSize, rng);
             lut = hLUT.Concat(hLUT).ToArray();
 
             // Flags the scaling factor
@@ -145,9 +145,9 @@ namespace Isidore.Render
             double z = (coord.Comp.Length > 2) ? coord.Comp[2] : 0;
 
             // Coordinate whole values
-            var ix = (long)Math.Floor(x);
-            var iy = (long)Math.Floor(y);
-            var iz = (long)Math.Floor(z);
+            long ix = (long)Math.Floor(x);
+            long iy = (long)Math.Floor(y);
+            long iz = (long)Math.Floor(z);
 
             // Coordinate fractional values 
             double dx = x - ix;
@@ -160,12 +160,12 @@ namespace Isidore.Render
             iz &= tableSize - 1;
 
             // Hash coordinates for the 8 cube corners
-            var p0 = lut[ix] + iy;
-            var p1 = lut[ix + 1] + iy;
-            var p00 = lut[p0] + iz;
-            var p01 = lut[p0 + 1] + iz;
-            var p10 = lut[p1] + iz;
-            var p11 = lut[p1 + 1] + iz;
+            long p0 = lut[ix] + iy;
+            long p1 = lut[ix + 1] + iy;
+            long p00 = lut[p0] + iz;
+            long p01 = lut[p0 + 1] + iz;
+            long p10 = lut[p1] + iz;
+            long p11 = lut[p1 + 1] + iz;
 
             // Compute gradient weights
             double g000 = Grad3D(lut[p00], dx, dy, dz);
@@ -209,17 +209,17 @@ namespace Isidore.Render
         private double Grad3D(int hash, double x, double y, double z)
         {
             // Converts the hash one of 16 gradient directions (0-15)
-            var h = hash & 15;
+            int h = hash & 15;
 
             //// Coverts the hash to one of three orientations (0-2)
-            var a = h < 8 || h == 12 || h == 13 ? x : y;
-            var b = h < 4 || h == 12 || h == 13 ? y : z;
+            double a = h < 8 || h == 12 || h == 13 ? x : y;
+            double b = h < 4 || h == 12 || h == 13 ? y : z;
             // Reverse gradient direction based on the hash
-            var g0 = (h & 1) > 0 ? -a : a;
-            var g1 = (h & 2) > 0 ? -b : b;
+            double g0 = (h & 1) > 0 ? -a : a;
+            double g1 = (h & 2) > 0 ? -b : b;
 
             // Combines the component gradients 
-            var grad = g0 + g1;
+            double grad = g0 + g1;
 
             return grad;
         }
@@ -232,16 +232,16 @@ namespace Isidore.Render
         private double CalcNoise4D(Point coord)
         {
             // Parses data
-            var x = (coord.Comp.Length > 0) ? coord.Comp[0] : 0;
-            var y = (coord.Comp.Length > 1) ? coord.Comp[1] : 0;
-            var z = (coord.Comp.Length > 2) ? coord.Comp[2] : 0;
-            var w = (coord.Comp.Length > 3) ? coord.Comp[3] : 0;
+            double x = (coord.Comp.Length > 0) ? coord.Comp[0] : 0;
+            double y = (coord.Comp.Length > 1) ? coord.Comp[1] : 0;
+            double z = (coord.Comp.Length > 2) ? coord.Comp[2] : 0;
+            double w = (coord.Comp.Length > 3) ? coord.Comp[3] : 0;
 
             // Hypercube containing the point
-            var ix = (long)Math.Floor(x);
-            var iy = (long)Math.Floor(y);
-            var iz = (long)Math.Floor(z);
-            var iw = (long)Math.Floor(w);
+            long ix = (long)Math.Floor(x);
+            long iy = (long)Math.Floor(y);
+            long iz = (long)Math.Floor(z);
+            long iw = (long)Math.Floor(w);
 
             // Point location within the hypercube 
             double dx = x - ix;
@@ -256,66 +256,66 @@ namespace Isidore.Render
             iw &= lim;
 
             // Hash coordinates for the 16 hypercube corners (i.e. four axes)
-            var p0 = lut[ix] + iy;
-            var p1 = lut[ix + 1] + iy;
-            var p00 = lut[p0] + iz;
-            var p01 = lut[p0 + 1] + iz;
-            var p10 = lut[p1] + iz;
-            var p11 = lut[p1 + 1] + iz;
-            var p000 = lut[p00] + iw;
-            var p001 = lut[p00 + 1] + iw;
-            var p010 = lut[p01] + iw;
-            var p011 = lut[p01 + 1] + iw;
-            var p100 = lut[p10] + iw;
-            var p101 = lut[p10 + 1] + iw;
-            var p110 = lut[p11] + iw;
-            var p111 = lut[p11 + 1] + iw;
+            long p0 = lut[ix] + iy;
+            long p1 = lut[ix + 1] + iy;
+            long p00 = lut[p0] + iz;
+            long p01 = lut[p0 + 1] + iz;
+            long p10 = lut[p1] + iz;
+            long p11 = lut[p1 + 1] + iz;
+            long p000 = lut[p00] + iw;
+            long p001 = lut[p00 + 1] + iw;
+            long p010 = lut[p01] + iw;
+            long p011 = lut[p01 + 1] + iw;
+            long p100 = lut[p10] + iw;
+            long p101 = lut[p10 + 1] + iw;
+            long p110 = lut[p11] + iw;
+            long p111 = lut[p11 + 1] + iw;
 
             // Each node's gradient
             // 16 nodes/gradients
-            var g0000 = Grad4D(lut[p000], dx, dy, dz, dw);
-            var g1000 = Grad4D(lut[p100], dx - 1, dy, dz, dw);
-            var g0100 = Grad4D(lut[p010], dx, dy - 1, dz, dw);
-            var g1100 = Grad4D(lut[p110], dx - 1, dy - 1, dz, dw);
-            var g0010 = Grad4D(lut[p001], dx, dy, dz - 1, dw);
-            var g1010 = Grad4D(lut[p101], dx - 1, dy, dz - 1, dw);
-            var g0110 = Grad4D(lut[p011], dx, dy - 1, dz - 1, dw);
-            var g1110 = Grad4D(lut[p111], dx - 1, dy - 1, dz - 1, dw);
-            var g0001 = Grad4D(lut[p000 + 1], dx, dy, dz, dw - 1);
-            var g1001 = Grad4D(lut[p100 + 1], dx - 1, dy, dz, dw - 1);
-            var g0101 = Grad4D(lut[p010 + 1], dx, dy - 1, dz, dw - 1);
-            var g1101 = Grad4D(lut[p110 + 1], dx - 1, dy - 1, dz, dw - 1);
-            var g0011 = Grad4D(lut[p001 + 1], dx, dy, dz - 1, dw - 1);
-            var g1011 = Grad4D(lut[p101 + 1], dx - 1, dy, dz - 1, dw - 1);
-            var g0111 = Grad4D(lut[p011 + 1], dx, dy - 1, dz - 1, dw - 1);
-            var g1111 = Grad4D(lut[p111 + 1], dx - 1, dy - 1, dz - 1, dw - 1);
+            double g0000 = Grad4D(lut[p000], dx, dy, dz, dw);
+            double g1000 = Grad4D(lut[p100], dx - 1, dy, dz, dw);
+            double g0100 = Grad4D(lut[p010], dx, dy - 1, dz, dw);
+            double g1100 = Grad4D(lut[p110], dx - 1, dy - 1, dz, dw);
+            double g0010 = Grad4D(lut[p001], dx, dy, dz - 1, dw);
+            double g1010 = Grad4D(lut[p101], dx - 1, dy, dz - 1, dw);
+            double g0110 = Grad4D(lut[p011], dx, dy - 1, dz - 1, dw);
+            double g1110 = Grad4D(lut[p111], dx - 1, dy - 1, dz - 1, dw);
+            double g0001 = Grad4D(lut[p000 + 1], dx, dy, dz, dw - 1);
+            double g1001 = Grad4D(lut[p100 + 1], dx - 1, dy, dz, dw - 1);
+            double g0101 = Grad4D(lut[p010 + 1], dx, dy - 1, dz, dw - 1);
+            double g1101 = Grad4D(lut[p110 + 1], dx - 1, dy - 1, dz, dw - 1);
+            double g0011 = Grad4D(lut[p001 + 1], dx, dy, dz - 1, dw - 1);
+            double g1011 = Grad4D(lut[p101 + 1], dx - 1, dy, dz - 1, dw - 1);
+            double g0111 = Grad4D(lut[p011 + 1], dx, dy - 1, dz - 1, dw - 1);
+            double g1111 = Grad4D(lut[p111 + 1], dx - 1, dy - 1, dz - 1, dw - 1);
 
             // Fade (pull weights)
-            var fx = polynomial.Evaluate(dx);
-            var fy = polynomial.Evaluate(dy);
-            var fz = polynomial.Evaluate(dz);
-            var fw = polynomial.Evaluate(dw);
+            double fx = polynomial.Evaluate(dx);
+            double fy = polynomial.Evaluate(dy);
+            double fz = polynomial.Evaluate(dz);
+            double fw = polynomial.Evaluate(dw);
 
             // Interpolates the gradients
             // 8 on X axis
-            var x000 = Lerp(fx, g0000, g1000);
-            var x100 = Lerp(fx, g0100, g1100);
-            var x010 = Lerp(fx, g0010, g1010);
-            var x110 = Lerp(fx, g0110, g1110);
-            var x001 = Lerp(fx, g0001, g1001);
-            var x101 = Lerp(fx, g0101, g1101);
-            var x011 = Lerp(fx, g0011, g1011);
-            var x111 = Lerp(fx, g0111, g1111);
+            double x000 = Lerp(fx, g0000, g1000);
+            double x100 = Lerp(fx, g0100, g1100);
+            double x010 = Lerp(fx, g0010, g1010);
+            double x110 = Lerp(fx, g0110, g1110);
+            double x001 = Lerp(fx, g0001, g1001);
+            double x101 = Lerp(fx, g0101, g1101);
+            double x011 = Lerp(fx, g0011, g1011);
+            double x111 = Lerp(fx, g0111, g1111);
             // 4 on Y axis
-            var y00 = Lerp(fy, x000, x100);
-            var y10 = Lerp(fy, x010, x110);
-            var y01 = Lerp(fy, x001, x101);
-            var y11 = Lerp(fy, x011, x111);
+            double y00 = Lerp(fy, x000, x100);
+            double y10 = Lerp(fy, x010, x110);
+            double y01 = Lerp(fy, x001, x101);
+            double y11 = Lerp(fy, x011, x111);
             // 2 on Z axis
-            var z0 = Lerp(fz, y00, y10);
-            var z1 = Lerp(fz, y01, y11);
+            double z0 = Lerp(fz, y00, y10);
+            double z1 = Lerp(fz, y01, y11);
             // 1 on W axis
-            var val = Lerp(fw, z0, z1);
+            double val = Lerp(fw, z0, z1);
 
             return val;
         }
@@ -333,14 +333,14 @@ namespace Isidore.Render
         private double Grad4D(int hash, double x, double y, double z, double w)
         {
             // Converts the hash one of 32 gradient directions (0-31)
-            var h = hash & 31;
+            int h = hash & 31;
 
             // Coverts the hash to one of four orientations (0-3)
-            var hSwitch = h >> 3;
+            int hSwitch = h >> 3;
             // hSwitch = 0
-            var a = x;
-            var b = y;
-            var c = z;
+            double a = x;
+            double b = y;
+            double c = z;
             // hSwitch = 1-3
             switch (hSwitch)
             {
@@ -362,12 +362,12 @@ namespace Isidore.Render
             }
 
             // Reverse gradient direction based on the hash
-            var g0 = (h & 4) == 0 ? -a : a;
-            var g1 = (h & 2) == 0 ? -b : b;
-            var g2 = (h & 1) == 0 ? -c : c;
+            double g0 = (h & 4) == 0 ? -a : a;
+            double g1 = (h & 2) == 0 ? -b : b;
+            double g2 = (h & 1) == 0 ? -c : c;
 
             // Combines the component gradients &
-            var grad = g0 + g1 + g2;
+            double grad = g0 + g1 + g2;
 
             return grad;
         }
@@ -400,7 +400,7 @@ namespace Isidore.Render
         new protected virtual NoiseFunction CloneImp()
         {
             // Shallow copies from base
-            var newCopy = base.CloneImp() as PerlinNoiseFunction;
+            PerlinNoiseFunction newCopy = base.CloneImp() as PerlinNoiseFunction;
 
             // Deep-copies all data this is referenced by default
             newCopy.lut = lut.Clone() as int[];

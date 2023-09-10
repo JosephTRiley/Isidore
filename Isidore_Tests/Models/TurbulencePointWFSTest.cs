@@ -30,19 +30,19 @@ namespace Isidore_Tests
 
             // Point grid
             int len0 = 140, len1 = 120;
-            var resolution = new int[] { len0, len1, 1 };
-            var lowerCorner = new double[] { 0, 0, 0 };
-            var separation = new double[] { 0.01, 0.01, 0 };
+            int[] resolution = new int[] { len0, len1, 1 };
+            double[] lowerCorner = new double[] { 0, 0, 0 };
+            double[] separation = new double[] { 0.01, 0.01, 0 };
             //var separation = new double[] { 10, 10, 0 };
-            var ptGrid = new PointGrid(resolution, lowerCorner, separation);
+            PointGrid ptGrid = new PointGrid(resolution, lowerCorner, separation);
 
             // Simulation time & sampling period
             double simTime = 10;
             double samplePeriod = 0.05;
             int totFrames = (int)(simTime / samplePeriod) + 1;
-            var time = Enumerable.Range(0, totFrames).
+            double[] time = Enumerable.Range(0, totFrames).
                 Select(x => x * samplePeriod).ToArray();
-            var len2 = time.Length;
+            int len2 = time.Length;
 
             //////////////////////////////////
             // 1st Turbulence point & inputs
@@ -54,49 +54,49 @@ namespace Isidore_Tests
             double minFreq = 0.125; // Minimum frequency
             double maxFreq = 512; // Maximum frequency
             double lacunarity = 2; // Noise lacunarity
-            var shift = new Vector(new double[] 
+            Vector shift = new Vector(new double[] 
                 { 12.3, 23.4, 34.5, 0 }); // Shift in noise space
 
             // WFE Magnitude Noise: Independent standard fBm
             int seed_WFE = 1234; // Random realization seed
-            var H_WFS = 1.0 / 3.0; // Hurst exponent
+            double H_WFS = 1.0 / 3.0; // Hurst exponent
             double std_WFE = 1.0; // The STD noise multiplier
             double mean_WFE = 0; // The noise mean
-            var noiseFuncWFE = new PerlinNoiseFunction(seed_WFE, tablePower, 
+            PerlinNoiseFunction noiseFuncWFE = new PerlinNoiseFunction(seed_WFE, tablePower, 
                 standNorm);
-            var NoiseWFE = new fBmNoise(noiseFuncWFE, minFreq, maxFreq,
+            fBmNoise NoiseWFE = new fBmNoise(noiseFuncWFE, minFreq, maxFreq,
                 H_WFS, lacunarity, shift, std_WFE, mean_WFE);
 
             // Direction Noise: Independent standard fBm
             int seed_Dir = 12345; // Random realization seed
-            var H_Dir = 0.8; // Hurst exponent
+            double H_Dir = 0.8; // Hurst exponent
             double std_Dir = 0.05; // The STD noise multiplier
             double mean_Dir = Math.PI * 1 / 2; // The noise mean
-            var noiseFuncDir = new PerlinNoiseFunction(seed_Dir, tablePower,
+            PerlinNoiseFunction noiseFuncDir = new PerlinNoiseFunction(seed_Dir, tablePower,
                 standNorm);
-            var NoiseDir = new fBmNoise(noiseFuncDir, minFreq, maxFreq,
+            fBmNoise NoiseDir = new fBmNoise(noiseFuncDir, minFreq, maxFreq,
                 H_Dir, lacunarity, shift, std_Dir, mean_Dir);
 
             // Speed Noise: Independent log-normal mBm
             int seed_Speed = 123456; // Random realization seed
-            var H_Speed = 0.8; // Hurst exponent
+            double H_Speed = 0.8; // Hurst exponent
             double std_Speed = 0.01; // The STD noise multiplier
             double mean_Speed = 0.5; // The noise mean
-            var noiseFuncSpeed = new PerlinNoiseFunction(seed_Speed,
+            PerlinNoiseFunction noiseFuncSpeed = new PerlinNoiseFunction(seed_Speed,
                 tablePower, standNorm);
-            var NoiseSpeed = new fBmNoise(noiseFuncSpeed, minFreq, maxFreq,
+            fBmNoise NoiseSpeed = new fBmNoise(noiseFuncSpeed, minFreq, maxFreq,
                 H_Speed, lacunarity, shift, std_Speed, mean_Speed);
             // Sets distribution to log-normal
             NoiseSpeed.distFunc = Noise.DistFunc(NoiseDistribution.LogNormal);
 
             // Turbulence point parameters
-            var pos = new Point(0, 0, 0); // Point position
-            var trans = Transform.RotZ(Math.PI / 2); // Orientation transform
+            Point pos = new Point(0, 0, 0); // Point position
+            Transform trans = Transform.RotZ(Math.PI / 2); // Orientation transform
             double timeStep = samplePeriod; // Turbulence walk steps
-            var coherenceRates = new double[] { 0, 0.25 }; // Coherence rates
+            double[] coherenceRates = new double[] { 0, 0.25 }; // Coherence rates
 
             // Creates a turbulence point instance
-            var turbPt = new TurbulencePointWFS(pos, NoiseWFE, NoiseDir,
+            TurbulencePointWFS turbPt = new TurbulencePointWFS(pos, NoiseWFE, NoiseDir,
                 NoiseSpeed, trans, timeStep, coherenceRates[0]);
 
             //////////////////////////////////
@@ -104,29 +104,29 @@ namespace Isidore_Tests
             //////////////////////////////////
 
             // WFE Magnitude Noise: Independent standard fBm
-            var NoiseWFE2 = new fBmNoise(noiseFuncWFE, minFreq, maxFreq,
+            fBmNoise NoiseWFE2 = new fBmNoise(noiseFuncWFE, minFreq, maxFreq,
                 H_WFS, lacunarity, shift, std_WFE, mean_WFE);
 
             // Direction Noise: Independent standard fBm
             double std_Dir2 = std_Dir * 2; // The STD noise multiplier
             double mean_Dir2 = mean_Dir * 2; // The noise mean
-            var NoiseDir2 = new fBmNoise(noiseFuncDir, minFreq, maxFreq,
+            fBmNoise NoiseDir2 = new fBmNoise(noiseFuncDir, minFreq, maxFreq,
                 H_Dir, lacunarity, shift, std_Dir2, mean_Dir2);
 
             // Speed Noise: Independent log-normal mBm
             double std_Speed2 = std_Speed * 2.0; // The STD noise multiplier
             double mean_Speed2 = mean_Speed * 2.0; // The noise mean
-            var NoiseSpeed2 = new fBmNoise(noiseFuncSpeed, minFreq, maxFreq,
+            fBmNoise NoiseSpeed2 = new fBmNoise(noiseFuncSpeed, minFreq, maxFreq,
                 H_Speed, lacunarity, shift, std_Speed2, mean_Speed2);
             // Sets distribution to log-normal
             NoiseSpeed2.distFunc = Noise.DistFunc(NoiseDistribution.LogNormal);
 
             // Turbulence point parameters
-            var pos2 = new Point(len0 * separation[0],
+            Point pos2 = new Point(len0 * separation[0],
                 len1 * separation[1], 0); // Point position
 
             // Creates a turbulence point instance
-            var turbPt2 = new TurbulencePointWFS(pos2, NoiseWFE2, NoiseDir2,
+            TurbulencePointWFS turbPt2 = new TurbulencePointWFS(pos2, NoiseWFE2, NoiseDir2,
                 NoiseSpeed2, trans, timeStep, coherenceRates[0]);
 
             //////////////////////////////////
@@ -134,29 +134,29 @@ namespace Isidore_Tests
             //////////////////////////////////
 
             // WFE Magnitude Noise: Independent standard fBm
-            var NoiseWFE3 = new fBmNoise(noiseFuncWFE, minFreq, maxFreq,
+            fBmNoise NoiseWFE3 = new fBmNoise(noiseFuncWFE, minFreq, maxFreq,
                 H_WFS, lacunarity, shift, std_WFE, mean_WFE);
 
             // Direction Noise: Independent standard fBm
             double std_Dir3 = std_Dir * 3; // The STD noise multiplier
             double mean_Dir3 = mean_Dir * 3; // The noise mean
-            var NoiseDir3 = new fBmNoise(noiseFuncDir, minFreq, maxFreq,
+            fBmNoise NoiseDir3 = new fBmNoise(noiseFuncDir, minFreq, maxFreq,
                 H_Dir, lacunarity, shift, std_Dir3, mean_Dir3);
 
             // Speed Noise: Independent log-normal mBm
             double std_Speed3 = std_Speed * 3.0; // The STD noise multiplier
             double mean_Speed3 = mean_Speed * 3.0; // The noise mean
-            var NoiseSpeed3 = new fBmNoise(noiseFuncSpeed, minFreq, maxFreq,
+            fBmNoise NoiseSpeed3 = new fBmNoise(noiseFuncSpeed, minFreq, maxFreq,
                 H_Speed, lacunarity, shift, std_Speed3, mean_Speed3);
             // Sets distribution to log-normal
             NoiseSpeed2.distFunc = Noise.DistFunc(NoiseDistribution.LogNormal);
 
             // Turbulence point parameters
-            var pos3 = new Point(0,
+            Point pos3 = new Point(0,
                 len1 * separation[1], 0); // Point position
 
             // Creates a turbulence point instance
-            var turbPt3 = new TurbulencePointWFS(pos3, NoiseWFE3, NoiseDir3,
+            TurbulencePointWFS turbPt3 = new TurbulencePointWFS(pos3, NoiseWFE3, NoiseDir3,
                 NoiseSpeed3, trans, timeStep, coherenceRates[0]);
 
             //////////////////////////////////
@@ -164,51 +164,51 @@ namespace Isidore_Tests
             //////////////////////////////////
 
             // WFE Magnitude Noise: Independent standard fBm
-            var NoiseWFE4 = new fBmNoise(noiseFuncWFE, minFreq, maxFreq,
+            fBmNoise NoiseWFE4 = new fBmNoise(noiseFuncWFE, minFreq, maxFreq,
                 H_WFS, lacunarity, shift, std_WFE, mean_WFE);
 
             // Direction Noise: Independent standard fBm
             double std_Dir4 = std_Dir * 4; // The STD noise multiplier
             double mean_Dir4 = mean_Dir * 4; // The noise mean
-            var NoiseDir4 = new fBmNoise(noiseFuncDir, minFreq, maxFreq,
+            fBmNoise NoiseDir4 = new fBmNoise(noiseFuncDir, minFreq, maxFreq,
                 H_Dir, lacunarity, shift, std_Dir4, mean_Dir4);
 
             // Speed Noise: Independent log-normal mBm
             double std_Speed4 = std_Speed * 4.0; // The STD noise multiplier
             double mean_Speed4 = mean_Speed * 4.0; // The noise mean
-            var NoiseSpeed4 = new fBmNoise(noiseFuncSpeed, minFreq, maxFreq,
+            fBmNoise NoiseSpeed4 = new fBmNoise(noiseFuncSpeed, minFreq, maxFreq,
                 H_Speed, lacunarity, shift, std_Speed4, mean_Speed4);
             // Sets distribution to log-normal
             NoiseSpeed2.distFunc = Noise.DistFunc(NoiseDistribution.LogNormal);
 
             // Turbulence point parameters
-            var pos4 = new Point(len0 * separation[0], 0,
+            Point pos4 = new Point(len0 * separation[0], 0,
                 0); // Point position
 
             // Creates a turbulence point instance
-            var turbPt4 = new TurbulencePointWFS(pos4, NoiseWFE4, NoiseDir4,
+            TurbulencePointWFS turbPt4 = new TurbulencePointWFS(pos4, NoiseWFE4, NoiseDir4,
                 NoiseSpeed4, trans, timeStep, coherenceRates[0]);
 
             //////////////////////////////////////////////////
             // K-D Tree
             /////////////////////////////////////////////////
-            var KDpts = new List<Point>();
+            List<Point> KDpts = new List<Point>();
             KDpts.Add(turbPt);
             KDpts.Add(turbPt2);
             KDpts.Add(turbPt3);
             KDpts.Add(turbPt4);
-            var KDtree = new KDTree(KDpts);
+            KDTree KDtree = new KDTree(KDpts);
 
             //////////////////////////////////////////////////
             // Rendering
             /////////////////////////////////////////////////
 
             // Book-keeping
-            var len3 = coherenceRates.Length;
-            var noiseVal = new double[len0, len1, len2, len3];
+            int len3 = coherenceRates.Length;
+            double[,,,] noiseVal = new double[len0, len1, len2, len3];
 
             // Cycles through coherence rates
-            var watch = new Stopwatch();
+            Stopwatch watch = new Stopwatch();
             for (int cidx = 0; cidx < len3; cidx++)
             {
                 // Updates coherence rate
@@ -223,20 +223,20 @@ namespace Isidore_Tests
                         for (int idx1 = 0; idx1 < len1; idx1++)
                         {
                             // Point at this location
-                            var loc = new int[] { idx0, idx1, 0 };
+                            int[] loc = new int[] { idx0, idx1, 0 };
                             Point pt = ptGrid.getPoint(loc);
 
                             // Retrieves the noise value at each point
                             watch.Start();
-                            var vals = new double[4];
+                            double[] vals = new double[4];
                             vals[0] = turbPt.GetVal(pt, time[tidx]);
                             vals[1] = turbPt2.GetVal(pt, time[tidx]);
                             vals[2] = turbPt3.GetVal(pt, time[tidx]);
                             vals[3] = turbPt4.GetVal(pt, time[tidx]);
 
-                            var inRng = KDtree.LocateNear(pt, 1000, -1);
-                            var ind = inRng.Item1;
-                            var dist = inRng.Item2;
+                            Tuple<int[], double[]> inRng = KDtree.LocateNear(pt, 1000, -1);
+                            int[] ind = inRng.Item1;
+                            double[] dist = inRng.Item2;
 
                             // Influence function
                             double val = 0;
@@ -248,7 +248,7 @@ namespace Isidore_Tests
                             else
                             {
                                 // Inverse distances
-                                var idist = new double[dist.Length];
+                                double[] idist = new double[dist.Length];
                                 double idistSum = 0;
                                 for (int idx = 0; idx < dist.Length; idx++)
                                 {
@@ -258,7 +258,7 @@ namespace Isidore_Tests
                                 // Fractional influences values
                                 for (int idx = 0; idx < dist.Length; idx++)
                                 {
-                                    var frac = idist[idx] / idistSum;
+                                    double frac = idist[idx] / idistSum;
                                     val += frac * vals[ind[idx]];
                                 }
                             }

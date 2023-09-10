@@ -36,7 +36,7 @@
         /// <returns> Clone copy of this instance </returns>
         new protected virtual Property CloneImp()
         {
-            var newCopy = (Temperature)base.CloneImp();
+            Temperature newCopy = (Temperature)base.CloneImp();
 
             return newCopy;
         }

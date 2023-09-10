@@ -91,7 +91,7 @@ namespace Isidore.Render
             FieldInfo finfo = GetType().GetField(fieldName);
             if (finfo != null)
             {
-                var value = finfo.GetValue(this);
+                object value = finfo.GetValue(this);
                 return (T)value;
             }
 
@@ -101,7 +101,7 @@ namespace Isidore.Render
                 finfo = Body.GetType().GetField(fieldName);
                 if (finfo != null)
                 {
-                    var value = finfo.GetValue(Body);
+                    object value = finfo.GetValue(Body);
                     return (T)value;
                 }
             }
@@ -112,7 +112,7 @@ namespace Isidore.Render
                 finfo = BodySpecificData.GetType().GetField(fieldName);
                 if (finfo != null)
                 {
-                    var value = finfo.GetValue(BodySpecificData);
+                    object value = finfo.GetValue(BodySpecificData);
                     return (T)value;
                 }
             }

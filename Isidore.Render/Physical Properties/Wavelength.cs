@@ -63,7 +63,7 @@
         new protected virtual Property CloneImp()
         {
             // Shallow copies from base
-            var newCopy = (Wavelength)base.CloneImp();
+            Wavelength newCopy = (Wavelength)base.CloneImp();
 
             // Deep-copies all data that is referenced by default
             if(Value != null)

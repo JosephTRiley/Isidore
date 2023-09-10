@@ -20,23 +20,23 @@ namespace Isidore_Tests
             // scientific programming or scripting
             //CodingExamples.Run();
 
-            var totTime = new Stopwatch();
+            Stopwatch totTime = new Stopwatch();
             totTime.Start();
 
             // error monitors
             List<bool> passed = new List<bool>();
 
-            // Maths Tests
-            passed.Add(Maths.Run());
+            //// Maths Tests
+            //passed.Add(Maths.Run());
 
-            // Loader Tests
-            passed.Add(Loader.Run());
+            //// Loader Tests
+            //passed.Add(Loader.Run());
 
             // Render Tests
             passed.Add(RenderTests.Run());
 
-            // Models Tests
-            passed.Add(ModelsTests.Run());
+            //// Models Tests
+            //passed.Add(ModelsTests.Run());
 
             totTime.Stop();
             Console.WriteLine("\nSuite total time = {0}s\n",

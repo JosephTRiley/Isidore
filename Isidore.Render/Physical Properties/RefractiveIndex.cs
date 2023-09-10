@@ -98,7 +98,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected virtual Property CloneImp()
         {
-            var newCopy = (RefractiveIndex)base.CloneImp();
+            RefractiveIndex newCopy = (RefractiveIndex)base.CloneImp();
 
             // Deep Copies value
             newCopy.Value = Value.Clone() as Spectrum<double, double>;

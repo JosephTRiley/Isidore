@@ -106,13 +106,13 @@ namespace Isidore.Render
         public override double GetBaseVal(Point coord)
         {
             // Gets noise value for PerlinTurbulence
-            var noiseT = base.GetBaseVal(coord);
+            double noiseT = base.GetBaseVal(coord);
 
             // Adds marbling factor and dimensional offset
-            var noise = coord.Comp[marbleDim] + marbleMultiplier * noiseT;
+            double noise = coord.Comp[marbleDim] + marbleMultiplier * noiseT;
 
             // Calculates the "brightness"
-            var bright = Math.Sin(2 * Math.PI * frequency * noise);
+            double bright = Math.Sin(2 * Math.PI * frequency * noise);
 
             return bright;
         }
@@ -125,16 +125,16 @@ namespace Isidore.Render
         public System.Drawing.Color GetRGB(Point coord)
         {
             // Gets brightness value
-            var bright = GetVal(coord);
+            double bright = GetVal(coord);
 
             // Takes the brightness and coverts it to a color representation
             bright = Math.Sqrt((bright + 1) / 2);
-            var G = 0.3 + 0.8 * bright;
+            double G = 0.3 + 0.8 * bright;
             bright = Math.Sqrt(bright);
-            var R = 0.3 + 0.6 * bright;
-            var B = 0.6 + 0.4 * bright;
+            double R = 0.3 + 0.6 * bright;
+            double B = 0.6 + 0.4 * bright;
 
-            var color = System.Drawing.Color.FromArgb((int)R, (int)G, (int)B);
+            System.Drawing.Color color = System.Drawing.Color.FromArgb((int)R, (int)G, (int)B);
             return color;
         }
 
@@ -154,7 +154,7 @@ namespace Isidore.Render
         new protected virtual PerlinTurbulenceNoise CloneImp()
         {
             // Shallow copies from base
-            var newCopy = base.CloneImp() as PerlinMarbleNoise;
+            PerlinMarbleNoise newCopy = base.CloneImp() as PerlinMarbleNoise;
 
             // Deep-copies all data this is referenced by default
 

@@ -89,11 +89,11 @@ namespace Isidore_Tests
                     intCnt1[idx0, idx1] = thisTree1.Rays.Count;
 
                     // Intersected surface voxel ID
-                    var vData0 = thisRay0.IntersectData.BodySpecificData as
+                    VolumeSpecificData vData0 = thisRay0.IntersectData.BodySpecificData as
                         VolumeSpecificData;
                     if(vData0 != null)
                         surfID0[idx0, idx1] = vData0.IntersectIndex[0];
-                    var vData1 = thisRay1.IntersectData.BodySpecificData as
+                    VolumeSpecificData vData1 = thisRay1.IntersectData.BodySpecificData as
                         VolumeSpecificData;
                     if(vData1 != null)
                         surfID1[idx0, idx1] = vData1.IntersectIndex[0];
@@ -102,7 +102,7 @@ namespace Isidore_Tests
                     for(int idx=0; idx< thisTree0.Rays.Count; idx++)
                     {
                         RenderRay Ray = thisTree0.Rays[idx];
-                        var vData = Ray.IntersectData.BodySpecificData as
+                        VolumeSpecificData vData = Ray.IntersectData.BodySpecificData as
                         VolumeSpecificData;
                         if (vData != null)
                             volume0[idx0, idx1] += Ray.IntersectData.Travel;
@@ -110,7 +110,7 @@ namespace Isidore_Tests
                     for (int idx = 0; idx < thisTree1.Rays.Count; idx++)
                     {
                         RenderRay Ray = thisTree1.Rays[idx];
-                        var vData = Ray.IntersectData.BodySpecificData as
+                        VolumeSpecificData vData = Ray.IntersectData.BodySpecificData as
                         VolumeSpecificData;
                         if (vData != null)
                             volume1[idx0, idx1] += Ray.IntersectData.Travel;

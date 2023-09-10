@@ -50,7 +50,7 @@ namespace Isidore.Render
         protected virtual NoiseFunction CloneImp()
         {
             // Shallow copy
-            var newCopy = (NoiseFunction)MemberwiseClone();
+            NoiseFunction newCopy = (NoiseFunction)MemberwiseClone();
 
             // Deep copy
 

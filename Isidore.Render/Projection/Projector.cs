@@ -230,7 +230,7 @@ namespace Isidore.Render
         /// projector ray </returns>
         virtual public Property[] GetProperty<T>(int index)
         {
-            var iP = new Property[rays.Length];
+            Property[] iP = new Property[rays.Length];
             for (int idx = 0; idx < rays.Length; idx++)
                 iP[idx] = rays[idx].Rays[index].
                     IntersectData.GetProperty<T>();
@@ -248,7 +248,7 @@ namespace Isidore.Render
         /// projector ray </returns>
         virtual public Property[] GetProperty<T>()
         {
-            var iP = new Property[rays.Length];
+            Property[] iP = new Property[rays.Length];
             for (int idx = 0; idx < rays.Length; idx++)
                 iP[idx] = rays[idx].Rays.Last().
                     IntersectData.GetProperty<T>();
@@ -266,7 +266,7 @@ namespace Isidore.Render
         /// projector ray </returns>
         virtual public Property[][] GetPropertyTree<T>()
         {
-            var iP = new Property[rays.Length][];
+            Property[][] iP = new Property[rays.Length][];
             for (int idx = 0; idx < rays.Length; idx++)
             {
                 iP[idx] = new Property[rays[idx].rays.Count];
@@ -293,7 +293,7 @@ namespace Isidore.Render
         {
             Property[] iP = GetProperty<propT>(index);
 
-            var iD = new T[iP.Length];
+            T[] iD = new T[iP.Length];
             for (int idx = 0; idx < rays.Length; idx++)
                 if (iP[idx] != null)
                     iD[idx] = iP[idx].GetData<T>(name);
@@ -315,7 +315,7 @@ namespace Isidore.Render
         {
             Property[] iP = GetProperty<propT>();
 
-            var iD = new T[iP.Length];
+            T[] iD = new T[iP.Length];
             for (int idx = 0; idx < rays.Length; idx++)
                 if (iP[idx] != null)
                     iD[idx] = iP[idx].GetData<T>(name);
@@ -337,7 +337,7 @@ namespace Isidore.Render
         {
             Property[][] iP = GetPropertyTree<propT>();
 
-            var iD = new T[iP.Length][];
+            T[][] iD = new T[iP.Length][];
             for (int idx = 0; idx < rays.Length; idx++)
             {
                 iD[idx] = new T[rays[idx].rays.Count];
@@ -362,7 +362,7 @@ namespace Isidore.Render
         /// <returns> Clone copy of this instance </returns>
         new protected virtual Item CloneImp()
         {
-            var newCopy = (Projector)MemberwiseClone();
+            Projector newCopy = (Projector)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

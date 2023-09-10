@@ -87,7 +87,7 @@
             // This is a standard method for cloning
             // It uses the memberwise clone and then specifically 
             // clones members that are normally referenced
-            var newRay = (Ray)MemberwiseClone();
+            Ray newRay = (Ray)MemberwiseClone();
             newRay.Origin = Origin.Clone();
             newRay.Dir = Dir.Clone();
 

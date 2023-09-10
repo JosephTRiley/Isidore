@@ -30,55 +30,55 @@ namespace Isidore_Tests
             //// Billboard
             //var surface = new Billboard(new Point(-1, -1, 10),
             //    new Normal(0, 0, -1), new Vector(0, 1, 0), 3, 2);
-            var surface = new Isidore.Render.Plane(new Point(0, 0, 10),
+            Isidore.Render.Plane surface = new Isidore.Render.Plane(new Point(0, 0, 10),
                 new Normal(0, 0, -1), new Vector(0, 1, 0));
 
             // Orthonormal projector located on the origin
-            var proj = new RectangleProjector(140, 120, 0.01, 0.01, 0, 0);
+            RectangleProjector proj = new RectangleProjector(140, 120, 0.01, 0.01, 0, 0);
             //var proj = new RectangleProjector(1000, 500, 
             //    0.0025, 0.0025, 0, 0);
-            var pos0 = proj.Pos0;
-            var pos1 = proj.Pos1;
+            double[] pos0 = proj.Pos0;
+            double[] pos1 = proj.Pos1;
             int len0 = pos0.Length;
             int len1 = pos1.Length;
-   
+
             // Perturbation parameters
-            var perturbMult = Enumerable.Range(0, 101).
+            double[] perturbMult = Enumerable.Range(0, 101).
                 Select(p => (double)p / 100).ToArray();
-            var plen = perturbMult.Length;
+            int plen = perturbMult.Length;
 
             // Makes a perturb texture
             // Source texture
-            var noiseFunc1 = new PerlinNoiseFunction(1234, 10);
-            var shift1 = new Vector(new double[] { 12.3, 23.4, 34.5, 45.6 });
-            var noise1 = new fBmNoise(noiseFunc1, 0.125, 512, 1.0 / 3.0, 2,
+            PerlinNoiseFunction noiseFunc1 = new PerlinNoiseFunction(1234, 10);
+            Vector shift1 = new Vector(new double[] { 12.3, 23.4, 34.5, 45.6 });
+            fBmNoise noise1 = new fBmNoise(noiseFunc1, 0.125, 512, 1.0 / 3.0, 2,
                     shift1, 1);
-            var mapTexture = new ProceduralTexture(noise1);
+            ProceduralTexture mapTexture = new ProceduralTexture(noise1);
 
             // Perturbation texture
-            var noiseFunc2 = new PerlinNoiseFunction(-1234, 10);
-            var shift2 = new Vector(new double[] { 112.3, 123.4, 134.5, 145.6 });
+            PerlinNoiseFunction noiseFunc2 = new PerlinNoiseFunction(-1234, 10);
+            Vector shift2 = new Vector(new double[] { 112.3, 123.4, 134.5, 145.6 });
             //var noise2 = new fBmNoise(noiseFunc2, 0.125, 512, 1.0 / 3.0, 2,
             //        shift2, 1);
-            var noise2 = new PerlinTurbulenceNoise(noiseFunc2, 0.125, 512,
+            PerlinTurbulenceNoise noise2 = new PerlinTurbulenceNoise(noiseFunc2, 0.125, 512,
                 false, 2, shift2);
-            var pTexture = new ProceduralTexture(noise2);
+            ProceduralTexture pTexture = new ProceduralTexture(noise2);
 
             // Perturbed Texture
-            var pVec = new Vector(0, 1, 0);
-            var perturbedTexture = new PerturbedTexture(mapTexture, 
+            Vector pVec = new Vector(0, 1, 0);
+            PerturbedTexture perturbedTexture = new PerturbedTexture(mapTexture, 
                 pTexture, pVec);
-            var textVal = new TextureValue(perturbedTexture, true);
-            var matStack = new MaterialStack(textVal);
+            TextureValue textVal = new TextureValue(perturbedTexture, true);
+            MaterialStack matStack = new MaterialStack(textVal);
 
             // Scene
-            var scene = new Scene();
+            Scene scene = new Scene();
             scene.Projectors.Add(proj);
             scene.Bodies.Add(surface);
             surface.Materials.Add(matStack);
 
             // Perturbation multiplier loop
-            var textArr1 = new double[len0, len1, plen];
+            double[,,] textArr1 = new double[len0, len1, plen];
             for (int pidx = 0; pidx < plen; pidx++)
             {
                 // Updates the perturbation texture
@@ -100,7 +100,7 @@ namespace Isidore_Tests
                 for (int idx0 = 0; idx0 < len0; idx0++)
                     for (int idx1 = 0; idx1 < len1; idx1++)
                     {
-                        var iData = proj.Ray(idx0, idx1).Rays[0].IntersectData;
+                        IntersectData iData = proj.Ray(idx0, idx1).Rays[0].IntersectData;
                         if (iData.Hit)
                             textArr1[idx0, idx1, pidx] =
                                 iData.GetPropertyData<double, Scalar>("Value");
@@ -113,21 +113,21 @@ namespace Isidore_Tests
 
             // Sets the plane 10m in front of the camera, 
             // moving at 1 m/s along the X-axis
-            var trans1 = Transform.Translate(0, 0, 10);
-            var trans2 = Transform.Translate(2, 0, 10);
-            var tline = new KeyFrameTrans();
+            Transform trans1 = Transform.Translate(0, 0, 10);
+            Transform trans2 = Transform.Translate(2, 0, 10);
+            KeyFrameTrans tline = new KeyFrameTrans();
             tline.AddKeys(trans1, 0);
             tline.AddKeys(trans2, 2);
             surface.TransformTimeLine = tline;
 
             // Samples every 1/20 sec for 2 sec
-            var perturbTime = Enumerable.Range(0, 101).
+            double[] perturbTime = Enumerable.Range(0, 101).
                 Select(x => x / 50.0).ToArray();
-            var len2 = perturbTime.Length;
+            int len2 = perturbTime.Length;
 
             // Cycles through each time step
-            var textArr2 = new double[len0, len1, len2];
-            var textArr3 = new double[len0, len1, len2];
+            double[,,] textArr2 = new double[len0, len1, len2];
+            double[,,] textArr3 = new double[len0, len1, len2];
             for (int aidx = 0; aidx < 2; aidx++)
             {
                 noise2.absoluteValueNoise = aidx == 0 ? false : true;
@@ -146,7 +146,7 @@ namespace Isidore_Tests
                     for (int idx0 = 0; idx0 < len0; idx0++)
                         for (int idx1 = 0; idx1 < len1; idx1++)
                         {
-                            var iData = 
+                            IntersectData iData = 
                                 proj.Ray(idx0, idx1).Rays[0].IntersectData;
                             if (iData.Hit)
                             {

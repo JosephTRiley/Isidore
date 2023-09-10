@@ -34,7 +34,7 @@ namespace Isidore_Tests
             //Isidore.Render.Sphere sphere = new Isidore.Render.Sphere();
 
             // Orthonormal projector located -10m from the shape
-            RectangleProjector proj = new RectangleProjector(120, 140, 0.01, 0.01, 0, 0);
+            RectangleProjector proj = new RectangleProjector(120 * 4, 140 * 4, 0.01 / 4, 0.01 / 4, 0, 0);
             proj.TransformTimeLine = new KeyFrameTrans(Transform.Translate(new double[]{0,0,-10}));
 
             // Adds a list of properties to each render ray
@@ -104,7 +104,7 @@ namespace Isidore_Tests
                         intImg[idx0, idx1] = 1;
                         depthImg[idx0, idx1] = thisRay.IntersectData.Travel;
 
-                        var sData = thisRay.IntersectData.BodySpecificData 
+                        ShapeSpecificData sData = thisRay.IntersectData.BodySpecificData 
                             as ShapeSpecificData;
 
                         cosIncImg[idx0, idx1] = sData.CosIncAng;
@@ -191,7 +191,7 @@ namespace Isidore_Tests
                         intImg[idx0, idx1] = 1;
                         depthImg[idx0, idx1] = thisRay.IntersectData.Travel;
 
-                        var sData = thisRay.IntersectData.BodySpecificData
+                        ShapeSpecificData sData = thisRay.IntersectData.BodySpecificData
                             as ShapeSpecificData;
 
                         cosIncImg[idx0, idx1] = sData.CosIncAng;
@@ -298,7 +298,7 @@ namespace Isidore_Tests
                 for (int idx0 = 0; idx0 < len0; idx0++)
                     for (int idx1 = 0; idx1 < len1; idx1++)
                     {
-                        var sData = proj.Ray(idx0, idx1).Rays[0].IntersectData.
+                        ShapeSpecificData sData = proj.Ray(idx0, idx1).Rays[0].IntersectData.
                             BodySpecificData as ShapeSpecificData;
                         if (sData != null)
                             frame2[idx0, idx1] = sData.V;
@@ -320,7 +320,7 @@ namespace Isidore_Tests
                             depthArr[idx0, idx1, idx] = 
                                 thisRay.IntersectData.Travel;
 
-                            var sData = thisRay.IntersectData.BodySpecificData
+                            ShapeSpecificData sData = thisRay.IntersectData.BodySpecificData
                                 as ShapeSpecificData;
                             cosIncArr[idx0, idx1, idx] = sData.CosIncAng;
                             uArr[idx0, idx1, idx] = sData.U;

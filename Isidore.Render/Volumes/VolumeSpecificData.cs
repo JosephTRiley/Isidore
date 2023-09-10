@@ -72,7 +72,7 @@
         new protected virtual BodySpecificData CloneImp()
         {
             // Shallow copy
-            var newCopy = (VolumeSpecificData)MemberwiseClone();
+            VolumeSpecificData newCopy = (VolumeSpecificData)MemberwiseClone();
 
             // Deep copy
             DeepCopyOverride(ref newCopy);

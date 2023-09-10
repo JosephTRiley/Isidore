@@ -107,7 +107,7 @@ namespace Isidore.Render
         new protected virtual Property CloneImp()
         {
             // Shallow copies from base
-            var newCopy = (Reflectance)base.CloneImp();
+            Reflectance newCopy = (Reflectance)base.CloneImp();
 
             // Deep-copies all data this is referenced by default
             if (Value != null)
