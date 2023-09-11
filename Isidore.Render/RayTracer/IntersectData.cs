@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Xml.Linq;
 using Isidore.Maths;
 
 namespace Isidore.Render
@@ -118,6 +120,53 @@ namespace Isidore.Render
             }
 
             return default(T);
+        }
+
+        /// <summary>
+        /// Retrieves the value from the field or property named in the 
+        /// string input
+        /// </summary>
+        /// <typeparam name="T"> Data type of the field being 
+        /// returned </typeparam>
+        /// <param name="fieldName"> Name of the member to return the 
+        /// value of (Can include subfields) </param>
+        /// <returns> Field/property value </returns>
+        public T GetValue<T>(string fieldName = "Hit")
+        {
+            // Splits fieldname string into an array of field strings
+            string[] fieldnames = fieldName.Split('.');
+
+            // Retrieves top level field info
+            Type type = GetType();
+            FieldInfo finfo = type.GetField(fieldnames[0]);
+            PropertyInfo pinfo = type.GetProperty(fieldnames[0]);
+
+            // If the field is not present then returns
+            if (finfo == null && pinfo == null)
+                return default(T);
+
+            // Retreives the top level field value as an object
+            object value;
+            if(finfo != null)
+                value = finfo.GetValue(this);
+            else
+                value = pinfo.GetValue(this);
+
+            // Repeats the operation through each sub-field 
+            for (int idx = 1; idx < fieldnames.Length; idx++)
+            {
+                type = value.GetType();                
+                finfo = type.GetField(fieldnames[idx]);
+                pinfo = type.GetProperty(fieldnames[idx]);
+                if (finfo == null && pinfo == null)
+                    return default(T);
+                if (finfo != null)
+                    value = finfo.GetValue(value);
+                else
+                    value = pinfo.GetValue(value);
+            }
+
+            return (T)value;
         }
 
         /// <summary>

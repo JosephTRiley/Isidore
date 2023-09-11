@@ -80,6 +80,7 @@
     <Compile Include="ArrayOperations\Transpose.cs" />
     <Compile Include="ArrayOperations\Window.cs" />
     <Compile Include="Functions\LinearIndex.cs" />
+    <Compile Include="Functions\Retrieve.cs" />
     <Compile Include="Geometry\DistPt2Line.cs" />
     <Compile Include="Geometry\KDTree.cs" />
     <Compile Include="Geometry\MarchingCube.cs" />

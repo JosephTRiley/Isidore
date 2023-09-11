@@ -75,6 +75,7 @@ namespace Isidore_Tests
             // Retrieves data
             int len0 = proj.Pos0.Length;
             int len1 = proj.Pos1.Length;
+            int len2 = sphere.Center.Comp.Length;
             double[,] x = new double[len0, len1];
             double[,] y = new double[len0, len1];
             int[,] intImg = new int[len0, len1];
@@ -84,6 +85,7 @@ namespace Isidore_Tests
             double[,] vImg = new double[len0, len1];
             int[,] rImg = new int[len0, len1];
             int[,] idImg = new int[len0, len1];
+            double[,,] compImg = new double[len0, len1, len2];
             // Cycles through ray tree to get, casting lets us fill in the blanks if not a map ray
             for (int idx0 = 0; idx0 < len0; idx0++)
                 for (int idx1 = 0; idx1 < len1; idx1++)
@@ -100,17 +102,20 @@ namespace Isidore_Tests
                     // Checks to see if the ray has hit
                     if (thisRay.IntersectData.Hit)
                     {
-                        bool hit = thisRay.IntersectData.GetFieldValue<bool>("Hit");
-                        double depth = thisRay.IntersectData.GetFieldValue<double>("Travel");
-                        int id = thisRay.IntersectData.GetFieldValue<int>("ID");
-                        Body body = thisRay.IntersectData.GetFieldValue<Body>("Body");
-                        double cosIncAng = thisRay.IntersectData.GetFieldValue<double>("CosIncAng");
+                        bool hit = thisRay.IntersectData.GetValue<bool>("Hit");
+                        double depth = thisRay.IntersectData.GetValue<double>("Travel");
+                        int id = thisRay.IntersectData.GetValue<int>("ID");
+                        Body body = thisRay.IntersectData.GetValue<Body>("Body");
+                        double cosIncAng = thisRay.IntersectData.GetValue<double>("CosIncAng");
+                        double[] iComp = thisRay.IntersectData.GetValue<double[]>("IntersectPt.Comp");
 
                         intImg[idx0, idx1] = 1;
                         depthImg[idx0, idx1] = thisRay.IntersectData.Travel;
                         rImg[idx0, idx1] = (thisRay.IntersectData.Hit) ?
                             thisRay.Rank + 1 : thisRay.Rank;
                         idImg[idx0, idx1] = thisRay.IntersectData.Body.ID;
+                        for(int idx2=0;idx2<len2;idx2++)
+                            compImg[idx0, idx1, idx2] = iComp[idx2];
 
                         ShapeSpecificData sData = thisRay.IntersectData.BodySpecificData
                             as ShapeSpecificData;
@@ -132,6 +137,8 @@ namespace Isidore_Tests
             double[,] V = proj.GetIntersectValue<double>("V");
             double[,] Reflect = proj.GetPropertyData<double, Reflectance>
                 ("MeanCoeff");
+            var IntPt = proj.GetIntersectValue<Point>("IntersectPt");
+            var IntComp = Retrieve<Point>.Value<double[]>(IntPt, "Comp");
 
             // MatLab processing
             // Finds output directory location
