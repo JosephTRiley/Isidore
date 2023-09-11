@@ -21,29 +21,29 @@ namespace Isidore_Tests
             // error monitors
             List<bool> passed = new List<bool>();
 
-            //// Class Test (For checking class lists like Shapes)
-            //passed.Add(ClassTest.Run());
+            // Class Test (For checking class lists like Shapes)
+            passed.Add(ClassTest.Run());
 
-            //// Property Test (For checking that cloning is working
-            //passed.Add(PropertyTest.Run());
+            // Property Test (For checking that cloning is working
+            passed.Add(PropertyTest.Run());
 
-            //// Image Texture Test
-            //passed.Add(TextureMapTest.Run());
+            // Image Texture Test
+            passed.Add(TextureMapTest.Run());
 
             // Shape Tests
             passed.Add(ShapeTests.Run());
 
-            //// Volume Tests
-            //passed.Add(VolumeTests.Run());
+            // Volume Tests
+            passed.Add(VolumeTests.Run());
 
-            //// Octree Test
-            //passed.Add(OctreeTraceTest.Run());
+            // Octree Test
+            passed.Add(OctreeTraceTest.Run());
 
-            //// Surface Tests
-            //passed.Add(MaterialTest.Run());
+            // Surface Tests
+            passed.Add(MaterialTest.Run());
 
-            //// Noise function & procedural texture tests
-            //passed.Add(TextureTest.Run());
+            // Noise function & procedural texture tests
+            passed.Add(TextureTest.Run());
 
             bool passedAll = true;
             foreach (bool pass in passed)

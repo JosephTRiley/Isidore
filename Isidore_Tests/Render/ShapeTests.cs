@@ -16,11 +16,11 @@ namespace Isidore_Tests
             // error monitors
             List<bool> passed = new List<bool>();
 
-            //// Plane shape Test
-            //passed.Add(ShapeTracePlane.Run());
+            // Plane shape Test
+            passed.Add(ShapeTracePlane.Run());
 
-            //// Sphere shape Tests
-            //passed.Add(ShapeTraceSphere.Run());
+            // Sphere shape Tests
+            passed.Add(ShapeTraceSphere.Run());
 
             // Mesh shape Tests
             passed.Add(ShapeTraceMesh.Run());

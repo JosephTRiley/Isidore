@@ -17,11 +17,7 @@ namespace Isidore.Render
         /// at the lowest corner and shift across increasing dimensions
         /// </summary>
         public int[] Index { get { return index; } }
-        /// <summary>
-        /// Provides the index of each octree subspace.  Increments start
-        /// at the lowest corner and shift across increasing dimensions
-        /// </summary>
-        protected internal int[] index;
+        private int[] index;
 
         /// <summary>
         /// Children of this subspace
@@ -30,7 +26,7 @@ namespace Isidore.Render
         /// <summary>
         /// Children of this subspace
         /// </summary>
-        protected internal OctBox[] childBoxes;
+        protected OctBox[] childBoxes;
 
         /// <summary>
         /// Parent octree element
@@ -39,7 +35,7 @@ namespace Isidore.Render
         /// <summary>
         /// Parent octree element
         /// </summary>
-        protected internal OctBox parent;
+        protected OctBox parent;
 
         /// <summary>
         /// Switch indicating this instance can be used.  This value cascade
@@ -149,6 +145,7 @@ namespace Isidore.Render
             int rank = octbox.CenterPoint.Comp.Length;
             // number of subspace voxels
             int childCnt = (int)Math.Pow(2, rank);
+            OctBox[] childBoxes = new OctBox[childCnt];
 
             // New lower corner, grid resolution pixel, & half-length
             double[] newHlen = Operator.Multiply(octbox.HalfLength, 0.5);
@@ -158,10 +155,10 @@ namespace Isidore.Render
             // Uses the Voxel.SetVoxelPoints
             Tuple<Point[], int[,]> vData = Voxel.SetVoxelPoints(lowCorn, gridRes, 
                 octbox.HalfLength);
+            childBoxes = new OctBox[childCnt];
             int place = octbox.Index.Length;
             int[] newIndex = new int[place + 1];
             octbox.Index.CopyTo(newIndex, 0);
-            OctBox[] childBoxes = new OctBox[childCnt];
             for (int idx = 0; idx < childCnt; idx++)
             {
                 newIndex[place] = idx;
@@ -213,15 +210,16 @@ namespace Isidore.Render
         /// Constructs an octree for this instance and all children.
         /// </summary>
         /// <returns> List representing the octree </returns>
-        public List<OctBox> MakeOctree()
+        public List<OctBox> makeOctree()
         {
+            List<OctBox> octree = new List<OctBox>();
             // Adds this instance
-            List<OctBox> octree = new List<OctBox> { this };
+            octree.Add(this);
             // Now adds each child octree
             if(childBoxes != null)
                 for(int cIdx = 0; cIdx < childBoxes.Length; cIdx++)
                 {
-                    List<OctBox> childTree = childBoxes[cIdx].MakeOctree();
+                    List<OctBox> childTree = childBoxes[cIdx].makeOctree();
                     childTree.ForEach(branch => octree.Add(branch));
                 }
             return octree;

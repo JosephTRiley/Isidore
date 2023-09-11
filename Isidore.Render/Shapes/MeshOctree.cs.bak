@@ -20,15 +20,6 @@ namespace Isidore.Render
         /// </summary>
         protected internal List<MeshOctBox> meshoctboxes;
 
-        /// <summary>
-        /// Location of each child 
-        /// </summary>
-        public List<int[]> ChildrenIndices { get { return childrenIndices; } }
-        /// <summary>
-        /// Location of each child 
-        /// </summary>
-        protected internal List<int[]> childrenIndices;
-
         #endregion Fields & Properties
         #region Constructors
 
@@ -60,17 +51,13 @@ namespace Isidore.Render
             int maxFacetCount = 25, int maxTreeDepth = 4)
         {
             // First octbox has and ID of 0
-            meshoctboxes = new List<MeshOctBox>
-            {
-                new MeshOctBox(vertices, new int[] { 0 })
-            };
+            meshoctboxes = new List<MeshOctBox>();
+            meshoctboxes.Add(new MeshOctBox(vertices, new int[] { 0 }));
             meshoctboxes[0].FacetOverlap = 
                 Enumerable.Range(0, facets.Count).ToList();
 
-            childrenIndices = new List<int[]>();
-
             // Subdivides based on overlapping facet count
-            for (int idx = 0; idx < meshoctboxes.Count; idx++)
+            for(int idx = 0; idx < meshoctboxes.Count; idx++)
             {
                 // If the number of facets for this octbox is above the max
                 // and that the tree depth is below the maximum depth
@@ -80,34 +67,16 @@ namespace Isidore.Render
                     // Subdivides the current mesh octbox
                     meshoctboxes[idx].Subdivide();
 
-                    // Allocates for children indices
-                    int[] childIndices = new
-                        int[meshoctboxes[idx].ChildBoxes.Length];
                     // Processes each child box
-                    for (int cIdx = 0; cIdx < 
-                        meshoctboxes[idx].ChildBoxes.Length; cIdx++)
+                    foreach (MeshOctBox box in meshoctboxes[idx].ChildBoxes)
                     {
-                        MeshOctBox box = meshoctboxes[idx].ChildBoxes[cIdx] 
-                            as MeshOctBox;
-
                         // Finds overlapping facets
-                        box.FindFacetOverlap(vertices, facets,
+                        box.FindFacetOverlap(vertices, facets, 
                             meshoctboxes[idx].FacetOverlap);
-
-                        // Records location of new box
-                        childIndices[cIdx] = meshoctboxes.Count;
 
                         // Adds to mesh octree
                         meshoctboxes.Add(box);
                     }
-
-                    // Adds to index list
-                    childrenIndices.Add(childIndices);
-                }
-                else
-                {
-                    // There are no sudivision and therefore no children
-                    childrenIndices.Add(null);
                 }
             }
         }
@@ -198,42 +167,18 @@ namespace Isidore.Render
             // Steps through each box
             for (int idx = 0; idx < meshoctboxes.Count; idx++)
             {
-                // Continues to next loop if this box is marked for skipping
-                if (skip[idx] && childrenIndices !=null)
-                {
-                    // Marks all childen boxes for skipping
-                    if (childrenIndices[idx]!= null)
-                    {
-                        foreach (int cidx in childrenIndices[idx])
-                        {
-                            skip[cidx] = true;
-                        }
-                    }
+                // Checks to see if this is a child box
+                if (meshoctboxes[idx].ChildBoxes != null)
                     continue;
-                }
 
                 // Checks to see if this box is intesected
                 OctBoxIntersect oData = meshoctboxes[idx].Intersect(ray);
 
                 // Only if the box is hit
                 if (oData.Hit)
-                {
-                    // Only adds if it is base of the tree
-                    if (meshoctboxes[idx].ChildBoxes == null)
-                        octree.Add(oData);
-                }
-                else
-                {
-                    skip[idx] = true;
-                    if (childrenIndices[idx] != null)
-                    {
-                        foreach (int cidx in childrenIndices[idx])
-                        {
-                            skip[cidx] = true;
-                        }
-                    }
-                }
+                    octree.Add(oData);
             }
+
             return octree;
         }
 
