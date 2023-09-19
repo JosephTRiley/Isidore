@@ -54,6 +54,16 @@
         /// </summary>
         new public Spectrum<double, double> Value { get; set; }
 
+        /// <summary>
+        /// Spectral reflectance wavelength sampling
+        /// </summary>
+        public double[] Wavelength { get { return Value.Sample; } }
+
+        /// <summary>
+        /// Spectral irradiance at every wavelength sample
+        /// </summary>
+        public double[] Irradiance { get { return Value.Value; } }
+
         #endregion Fields & Properties
         #region Constructors
 
@@ -78,7 +88,7 @@
         public SpectralIrradiance(double[] wavelength, double[] irradiance,
             string units = "meters, watts/cm^2") 
         {
-            Spectrum<double, double> newSpec = new Spectrum<double, double>
+            Value = new Spectrum<double, double>
                 (wavelength, irradiance);
             Units = units;
         }
@@ -99,7 +109,7 @@
         /// Deep-copy clones this instance
         /// </summary>
         /// <returns> Clone copy of this instance </returns>
-        new protected virtual Property CloneImp()
+        new protected virtual Irradiance CloneImp()
         {
             // Shallow copies from base
             SpectralIrradiance newCopy = (SpectralIrradiance)base.CloneImp();

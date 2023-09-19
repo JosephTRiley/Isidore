@@ -100,6 +100,7 @@
     <Compile Include="Models\ScatterPointTurbulenceTest.cs" />
     <Compile Include="Models\TurbulencePointWFSTest.cs" />
     <Compile Include="Models\TurbulentNoiseTest.cs" />
+    <Compile Include="Render\MatTraceReflective.cs" />
     <Compile Include="Render\PerlinNoiseStandardFactorTest.cs" />
     <Compile Include="Render\PerturbedTextureTest.cs" />
     <Compile Include="Render\ProceduralTextureTest.cs" />

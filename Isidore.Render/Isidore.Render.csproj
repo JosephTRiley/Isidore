@@ -78,6 +78,7 @@
     <Compile Include="Materials\PropertyValue.cs" />
     <Compile Include="Materials\ProceduralValue.cs" />
     <Compile Include="Materials\OPD.cs" />
+    <Compile Include="Materials\Reflective.cs" />
     <Compile Include="Materials\TextureValue.cs" />
     <Compile Include="Physical Properties\PowerSpectrum.cs" />
     <Compile Include="Physical Properties\Scalar.cs" />

@@ -19,6 +19,9 @@ namespace Isidore_Tests
             // Mono-Static BRDF Reflectance Sphere test
             passed.Add(MatTraceReflectance.Run());
 
+            // Reflective Plane test
+            passed.Add(MatTraceReflective.Run());
+
             // Transparent Sphere test
             passed.Add(MatTraceRefractiveIndex.Run());
 
