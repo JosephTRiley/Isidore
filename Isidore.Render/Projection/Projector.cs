@@ -171,8 +171,9 @@ namespace Isidore.Render
         {
             T[] iValue = new T[rays.Length];
             for (int idx = 0; idx < rays.Length; idx++)
-                iValue[idx] = rays[idx].Rays[index].
-                    IntersectData.GetFieldValue<T>(fieldName);
+                if(index < rays[idx].Rays.Count)
+                    iValue[idx] = rays[idx].Rays[index].
+                        IntersectData.GetFieldValue<T>(fieldName);
             return iValue;
         }
 

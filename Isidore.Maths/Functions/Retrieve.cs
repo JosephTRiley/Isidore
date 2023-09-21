@@ -10,13 +10,27 @@ using System.Security.Policy;
 namespace Isidore.Maths
 {
     /// <summary>
-    /// Evaluates every element of an array, returning the result
+    /// Retrieves the member value(s) from a field(s) for an object.
     /// </summary>
     public class Retrieve<T>
     {
+        /// <summary>
+        /// Retrieves the member value from a nested field for an object
+        /// (e.g. {"Point" "Comp"}). If absent, returns the default 
+        /// for the member type.
+        /// </summary>
+        /// <typeparam name="Tout"> Retrieved member's type </typeparam>
+        /// <param name="inst"> Object instance </param>
+        /// <param name="fieldNames"> Array of nested field names of the 
+        /// retrieved member </param>
+        /// <returns> Field member's value</returns>
         public static Tout Value<Tout>(T inst, string[] fieldNames)
         {
             {
+                // If there is no instance returns the default for Tout
+                if (inst == null)
+                    return default;
+
                 // Retrieved value
                 object value = inst;
 
@@ -28,7 +42,7 @@ namespace Isidore.Maths
                     FieldInfo finfo = type.GetField(fieldNames[idx]);
                     PropertyInfo pinfo = type.GetProperty(fieldNames[idx]);
                     if (finfo == null && pinfo == null)
-                        return default(Tout);
+                        return default;
                     if (finfo != null)
                         value = finfo.GetValue(value);
                     else
@@ -39,6 +53,15 @@ namespace Isidore.Maths
             }
         }
 
+        /// <summary>
+        /// Retrieves the member value from a nested field for an object.
+        /// If absent, returns the default for the member type.
+        /// </summary>
+        /// <typeparam name="Tout"> Retrieved member's type </typeparam>
+        /// <param name="inst"> Object instance </param>
+        /// <param name="fieldName">  Field names of the 
+        /// retrieved member</param>
+        /// <returns> Field member's value </returns>
         public static Tout Value<Tout>(T inst, string fieldName)
         {
             // Splits fieldname string into an array of field strings
@@ -47,6 +70,15 @@ namespace Isidore.Maths
             return Value<Tout>(inst, fieldNames);
         }
 
+        /// <summary>
+        /// Retrieves the member value from a nested field for an array of 
+        /// objects.  If absent, returns the default for the member type.
+        /// </summary>
+        /// <typeparam name="Tout"> Retrieved member's type </typeparam>
+        /// <param name="inst"> Object instance </param>
+        /// <param name="fieldName"> Field names of the 
+        /// retrieved member </param>
+        /// <returns> An array of field member's value </returns>
         public static Tout[] Value<Tout>(T[] inst, string fieldName) 
         {
             // Splits fieldname string into an array of field strings
@@ -60,6 +92,15 @@ namespace Isidore.Maths
             return iValue;
         }
 
+        /// <summary>
+        /// Retrieves the member value from a nested field for an array of 
+        /// objects.  If absent, returns the default for the member type.
+        /// </summary>
+        /// <typeparam name="Tout"> Retrieved member's type </typeparam>
+        /// <param name="inst"> Object instance </param>
+        /// <param name="fieldName"> Field names of the 
+        /// retrieved member </param>
+        /// <returns> An array of field member's value </returns>
         public static Tout[,] Value<Tout>(T[,] inst, string fieldName)
         {
             // Splits fieldname string into an array of field strings

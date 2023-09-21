@@ -167,8 +167,9 @@ namespace Isidore.Render
                 for (int idx1 = 0; idx1 < Pos1.Length; idx1++)
                 {
                     RayTree rayT = Ray(idx0, idx1);
-                    iValue[idx0, idx1] = rayT.Rays[index].
-                        IntersectData.GetFieldValue<T>(fieldName);
+                    if (index < rayT.Rays.Count)
+                        iValue[idx0, idx1] = rayT.Rays[index].
+                            IntersectData.GetFieldValue<T>(fieldName);
                 }
             return iValue;
         }
