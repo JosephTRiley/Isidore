@@ -140,8 +140,14 @@ namespace Isidore.Render
                 // on the cosine incidence angle
                 double mat1, mat2;
                 Vector surfNorm;
-                double cosIncAng = sData.CosIncAng;
+                //double cosIncAng = sData.CosIncAng;
                 Normal dNorm = sData.SurfaceNormal;
+                Vector rDir = ray.Dir;
+
+                // Can't use the surface data cosIncAng since it's
+                // flipped of back face intersections
+                double cosIncAng = rDir.Dot(-1.0 * dNorm);
+
                 if (cosIncAng < 0)
                 {
                     // Used for calculating transmission/reflection vectors
