@@ -27,10 +27,13 @@ namespace Isidore_Tests
             //RectangleProjector proj = new RectangleProjector(1, 1, 0.0025, 0.0025, 0, 0); // Used to check ray tree
             proj.TransformTimeLine = new KeyFrameTrans(Transform.Translate(new double[] { 0, 0, -10 }));
 
-            // one meter sphere, centered at the origin
-            Isidore.Render.Sphere sphere = new Isidore.Render.Sphere(
-                Isidore.Maths.Point.Zero(3), 0.5, Vector.Unit(3, 1), 
-                -1.0*Vector.Unit(3, 2));
+            // One meter sphere, centered at the origin
+            Isidore.Render.Sphere obj = new Isidore.Render.Sphere(
+            Isidore.Maths.Point.Zero(3), 0.5, Vector.Unit(3, 1),
+            -1.0 * Vector.Unit(3, 2));
+
+            // One meter cube, centered at the origin
+            //var obj = Isidore.Library.Models.Cube();
 
             // Adds billboard
             Billboard billboard = new Billboard(new Isidore.Maths.Point(-1, -1, 1),
@@ -40,7 +43,7 @@ namespace Isidore_Tests
             Transparency glass = new Transparency(1.05);
             glass.CastReflectedRays = false;
             MaterialStack transMats = new MaterialStack(glass);
-            sphere.Materials.Add(transMats);
+            obj.Materials.Add(transMats);
 
             // Adds a reflectance to the billboard to test GetPropertyData
             Reflectance SpecReflect = new Reflectance(new double[]
@@ -58,8 +61,11 @@ namespace Isidore_Tests
             //  Adds the projector & shape to the scene
             Scene scene = new Scene();
             scene.Projectors.Add(proj);
-            scene.Bodies.Add(sphere);
+            scene.Bodies.Add(obj);
             scene.Bodies.Add(billboard);
+
+            // Turn this on for easier debugging
+            //scene.UseMultiCores = false;
 
             // Renders at t=0.0
             watch.Start();
@@ -67,7 +73,7 @@ namespace Isidore_Tests
             scene.AdvanceToTime(0.0);
 
             watch.Stop();
-            Console.WriteLine("Material Trace Reflectance Render 1: {0}ms", watch.ElapsedMilliseconds);
+            Console.WriteLine("Material Trace Refractive Index Render 1: {0}ms", watch.ElapsedMilliseconds);
 
             // Checks if AdvanceToTime is able to reject same times (via Item)
             //sphere.AdvanceToTime(0.0);
@@ -75,7 +81,7 @@ namespace Isidore_Tests
             // Retrieves data
             int len0 = proj.Pos0.Length;
             int len1 = proj.Pos1.Length;
-            int len2 = sphere.Center.Comp.Length;
+            int len2 = 3; // 3D space
             double[,] x = new double[len0, len1];
             double[,] y = new double[len0, len1];
             int[,] intImg = new int[len0, len1];

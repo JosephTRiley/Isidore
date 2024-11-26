@@ -1,4 +1,5 @@
 ﻿using Isidore.Maths;
+using System;
 
 namespace Isidore.Render
 {
@@ -241,9 +242,15 @@ namespace Isidore.Render
             if (ray.Time != CurrentTime)
                 base.AdvanceToTime(ray.Time);
 
+            // Incidence angle cosine
+            double cosIncAng = -ray.Dir.Dot(globalSurfaceNormal);
+
+            // Back face check
+            if (!IntersectBackFaces && cosIncAng < 0)
+                return false;
+
             // Finds travel distance to plane
             Vector AP = new Vector(ray.Origin - globalLowerCorner); // separation
-            double cosIncAng = - ray.Dir.Dot(globalSurfaceNormal);
             double t = AP.Dot(globalSurfaceNormal)/cosIncAng;
 
             // If farther than current hit, too close, or in negative space, 
@@ -255,29 +262,24 @@ namespace Isidore.Render
             M.ReduceComponent(majorAxis);
             Vector AM = M - A;
 
-            // U,V coordinates
-            // Note that CalculateUV is superseded by an active alpha flag
-            double u = double.NaN, v = double.NaN;
-            bool intersect = false;
-            if (UseAlpha || CalculateUV)
+            // U,V coordinates are used for calculating the hit operator
+            double u = double.NaN;
+            // V coordinate
+            double v = -Det(AM.Comp, ABpDC.Comp) / denV;
+            if (v < 0 || v >= 1)
+                return false;
+            // U coordinate
+            u = Det(AM.Comp, ADpBC.Comp) / denU;
+            if (u < 0 || u >= 1)
+                return false;
+
+            // Applies alpha mapping
+            if (UseAlpha)
             { 
-                v = -Det(AM.Comp, ABpDC.Comp) / denV;
+                // Finds the alpha value from the UV coordinates
+                bool alphaHit = getAlpha(u, v);
 
-                // Intersection hit operator
-                if (v >= 0 && v < 1)
-                {
-                    u = Det(AM.Comp, ADpBC.Comp) / denU;
-
-                    // Conditions for a hit
-                    if (u >= 0 && u < 1)
-                    {
-                        // Uses the UV coordinates to see if the alpha value
-                        // Finds the alpha value from the UV coordinates
-                        bool alphaHit = getAlpha(u, v);
-
-                        if (!alphaHit) return false;
-                    }
-                }
+                if (!alphaHit) return false;
             }
 
             // Intersect point

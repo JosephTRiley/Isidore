@@ -19,6 +19,9 @@ namespace Isidore_Tests
             // Plane shape Test
             passed.Add(ShapeTracePlane.Run());
 
+            // Billboard shape Test
+            passed.Add(ShapeTraceBillboard.Run());
+
             // Sphere shape Tests
             passed.Add(ShapeTraceSphere.Run());
 

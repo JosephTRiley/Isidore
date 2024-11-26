@@ -106,6 +106,7 @@
     <Compile Include="Render\ProceduralTextureTest.cs" />
     <Compile Include="Render\ProceduralMixingValueTest.cs" />
     <Compile Include="Models\ModelsTests.cs" />
+    <Compile Include="Render\ShapeTraceBillboard.cs" />
     <Compile Include="Render\TextureTest.cs" />
     <Compile Include="Render\ProceduralValueTest.cs" />
     <Compile Include="Render\NoiseFunctionTest.cs" />
