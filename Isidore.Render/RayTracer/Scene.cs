@@ -27,7 +27,7 @@
         /// <summary>
         /// The Scene's light sources.  These are indirect light sources such as point sources.
         /// </summary>
-        public Lights Lights;
+        public Sources Sources;
 
         /// <summary>
         /// Signals whether to use multiple cores
@@ -45,7 +45,7 @@
         {
             Projectors = new Projectors();
             Bodies = new Bodies();
-            Lights = new Lights();
+            Sources = new Sources();
         }
 
         #endregion Constructors
@@ -111,7 +111,8 @@
             proj.UpdateRayTrees();
 
             // Shader
-            //if (scene.Lights.Count > 0)
+            //for (int idx = 0; idx < Sources.Count; idx++)
+            //    if (Sources.Count > 0)
             //    Shade(scene, ref iData);
         }
 

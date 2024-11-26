@@ -6,19 +6,24 @@ namespace Isidore.Render
     /// <summary>
     /// Abstract light classes
     /// </summary>
-    public abstract class Light : Item
+    public abstract class Source : Item
     {
         /// <summary>
-        /// Light source position
+        /// Source position
         /// </summary>
         public Point Position { get; set; }
         /// <summary>
-        /// Light source pointing direction
+        /// Source pointing direction
         /// </summary>
-        public Vector PointingDir { get; set; }
+        public Vector Dir { get; set; }
+
+        /// <summary>
+        /// Source "up" direction (Completes coordinate system)
+        /// </summary>
+        public Vector Up { get; set; }
       
         /// <summary>
-        /// Light source's incident data processes from an intersection data class
+        /// Source's incident data processes from an intersection data class
         /// </summary>
         /// <param name="ray"> Intersection data class </param>
         /// <returns> Incident related data </returns>
@@ -28,7 +33,7 @@ namespace Isidore.Render
     /// <summary>
     /// List of light instances
     /// </summary>
-    public class Lights : List<Light>
+    public class Sources : List<Source>
     {
     }
 }

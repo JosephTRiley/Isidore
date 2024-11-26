@@ -91,6 +91,7 @@
     <Compile Include="Shapes\Polyshape.cs" />
     <Compile Include="Shapes\ShapeSpecificData.cs" />
     <Compile Include="Shapes\Vertex.cs" />
+    <None Include="Sources\OpticalPointSource.cs" />
     <Compile Include="Texture\PerturbedTexture.cs" />
     <Compile Include="Noise\SpectrumNoise.cs" />
     <Compile Include="Noise\FrequencyNoise.cs" />
@@ -112,8 +113,8 @@
     <Compile Include="Physical Properties\Wavelength.cs" />
     <Compile Include="Physical Properties\Property.cs" />
     <Compile Include="Projection\Projector.cs" />
-    <Compile Include="Lights\Light.cs" />
-    <None Include="Lights\PointSource.cs" />
+    <Compile Include="Sources\Source.cs" />
+    <None Include="Sources\PointSource.cs" />
     <Compile Include="Materials\Reflector.cs" />
     <Compile Include="Physical Properties\Irradiance.cs" />
     <Compile Include="RayTracer\IntersectData.cs" />

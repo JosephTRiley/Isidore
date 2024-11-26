@@ -9,7 +9,7 @@ namespace Isidore.Render.LightSources
     /// <summary>
     /// Represents a CGI point light source.
     /// </summary>
-    public class PointSource :Light
+    public class OpticalPointSource :PointS
     {
         // Inherited from Light
         //Vector PointingDir { get; set; }

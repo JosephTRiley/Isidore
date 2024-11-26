@@ -7,45 +7,60 @@ namespace Isidore.Render
     /// </summary>
     public class IncidentData
     {
+        # region Fields & Properties
+
         ///// <summary>
         ///// Surfaces intersected
         ///// </summary>
         //public Surfaces BlockSurfaces;
-        /// <summary>
-        /// Light sources
-        /// </summary>
-        public Light light;
-        /// <summary>
-        /// Ray/Object incident vectors
-        /// </summary>
-        public Vector IncidentVec;
-        /// <summary>
-        /// Ray distance traveled to intersection
-        /// </summary>
-        public double Dist;
-        /// <summary>
-        /// Light intensity
-        /// </summary>
-        public double Intensity;
-        /// <summary>
-        /// Cosine of the angle of incidence
-        /// </summary>
-        public double cosIncAng;
-        /// <summary>
-        /// Cosine of the camera angle
-        /// </summary>
-        public double cosCamAng;
 
         /// <summary>
-        /// Constructor
+        /// Reports if the source has line-of-sight with the intersection 
+        /// point
         /// </summary>
-        public IncidentData()
+        public bool LOS;
+
+        /// <summary>
+        /// Travel distance to intersection point
+        /// </summary>
+        public double Travel;
+
+        /// <summary>
+        /// Source/Intersect point propagation vector
+        /// </summary>
+        public Vector PropVec;
+
+        /// <summary>
+        /// Reference to the incident source
+        /// </summary>
+        public Source Source;
+
+        /// <summary>
+        /// Reference to the shape intersected
+        /// </summary>
+        public Properties Properties = new Properties();
+
+        #endregion Fields & Properties
+        #region Constructors
+
+        public IncidentData(bool los = false,
+            double travel = double.PositiveInfinity,
+            Vector propVec = null, Source source = null)
         {
+            LOS = los;
+            Travel = travel;
+            PropVec = propVec ?? Vector.Unit(3, 2);
+            Source = source;
         }
+
+        # endregion Constructors
+        # region Methods
 
         //public void Transform(Matrix4x4 m)
         //{
         //    IncidentVec.Transform(m);
         //}
+
+        # endregion Methods
     }
 }
