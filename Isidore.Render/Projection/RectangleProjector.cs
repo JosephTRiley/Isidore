@@ -76,7 +76,7 @@ namespace Isidore.Render
             double[] ang1 = new double[len1];
 
             // axis 0: positive increments
-            double axis0 = -0.5 * len0 + 0.5;
+            double axis0 = -0.5 * (len0 + 1);
             for (int idx = 0; idx < len0; idx++)
             {
                 pos0[idx] = axis0 * lenPix0;
@@ -84,7 +84,7 @@ namespace Isidore.Render
             }
 
             // axis 1: positive increments
-            double axis1 = -0.5 * len1 + 0.5;
+            double axis1 = -0.5 * (len1 + 1);
             for (int idx = 0; idx < len1; idx++)
             {
                 pos1[idx] = axis1 * lenPix1;
@@ -126,22 +126,20 @@ namespace Isidore.Render
             axis1ang = (double[])axis1Ang.Clone();
 
             // Fills local rays
-            raysLocal = new RenderRay[len0*len1];
+            raysLocal = new RenderRay[len0 * len1];
             int cnt = 0;
             for (int idx0 = 0; idx0 < len0; idx0++)
             {
-                double xLen = Math.Tan(axis0Ang[idx0]);
-                double xCos = Math.Cos(axis0Ang[idx0]);
-                for(int idx1=0;idx1<len1;idx1++)
+                double xComp = Math.Tan(axis0Ang[idx0]);
+                for (int idx1 = 0; idx1 < len1; idx1++)
                 {
                     // Directional vector
-                    double yLen = Math.Tan(axis1Ang[idx1]);
-                    double zLen = 1.0/Math.Cos(axis1Ang[idx1])/xCos;
-                    Vector locDir = new Vector(new double[]{xLen, yLen, zLen});
+                    double yComp = Math.Tan(axis1Ang[idx1]);
+                    Vector locDir = new Vector(new double[] { xComp, yComp, 1.0 });
                     locDir.Normalize();
 
                     // Position point
-                    Point locPt = new Point(new double[]{axis0pos[idx0], axis1pos[idx1], 0.0});
+                    Point locPt = new Point(new double[] { axis0pos[idx0], axis1pos[idx1], 0.0 });
 
                     // Local Ray
                     raysLocal[cnt++] = new RenderRay(locPt, locDir);
