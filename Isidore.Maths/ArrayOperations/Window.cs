@@ -1,7 +1,4 @@
-﻿// (c) Copyright 2012, MZA Associates Corporation
-
-
-namespace Isidore.Maths
+﻿namespace Isidore.Maths
 {
     public static partial class Arr
     {

@@ -108,7 +108,10 @@ namespace Isidore.Render
             List<double[]> vertexUV = null, int maxFacetPerOctBox = 20,
             int maxOctreeDepth = 4)
         {
+            // References facets
             Facets = facets;
+
+            // Sets parameters
             this.maxFacetPerOctBox = maxFacetPerOctBox;
             this.maxOctreeDepth = maxOctreeDepth;
 
@@ -126,6 +129,77 @@ namespace Isidore.Render
                 // Vertex texture
                 if (vertexUV != null && idx < vertexUV.Count)
                     vert.UV = vertexUV[idx];
+
+                // Adds to list
+                localVertices.Add(vert);
+            }
+        }
+
+        /// <summary>
+        /// Constructor using arrays for inputs (Useful for .NET interfaces)
+        /// </summary>
+        /// <param name="facets"> Facets X Vertice Array </param>
+        /// <param name="vertexPositions"> Vertice X Spatial Dimension Array 
+        /// (Usually N x 3) </param>
+        /// <param name="vertexNormals"> Vertices X Spatial Dimension Array 
+        /// (Usually N x 3) </param>
+        /// <param name="vertexUV"> Vertices X 2 Array </param>
+        /// <param name="maxFacetPerOctBox"> Maximum facets per octree 
+        /// box </param>
+        /// <param name="maxOctreeDepth"> Maximum octree depth </param>
+        public Mesh(int[,] facets = null,
+            double[,] vertexPositions = null,
+            double[,] vertexNormals = null,
+            double[,] vertexUV = null, int maxFacetPerOctBox = 20,
+            int maxOctreeDepth = 4)
+        {
+            // Sets parameters
+            this.maxFacetPerOctBox = maxFacetPerOctBox;
+            this.maxOctreeDepth = maxOctreeDepth;
+
+            // Converts the facet array to a facet list
+            Facets = new List<int[]>();
+            var flen1 = facets.GetLength(1);
+            for (int fidx = 0;fidx < facets.GetLength(0); fidx++)
+            {
+                int[] facet = new int[flen1];
+                for (int idx = 0; idx < flen1; idx++)
+                    facet[idx] = facets[fidx, idx];
+                Facets.Add(facet);
+            }
+
+            // Converts the vertice arrays to a vertex list
+            localVertices = new Vertices();
+            var vplen1 = vertexPositions.GetLength(1);
+            var vnlen = vertexNormals.GetLength(0);
+            var vnlen1 = vertexNormals.GetLength(1);
+            var vtlen = vertexUV.GetLength(0);
+            var vtlen1 = vertexUV.GetLength(1);
+            for(int vidx = 0; vidx < vertexPositions.GetLength(0); vidx++)
+            {
+                // Vertex position
+                double[] vPos = new double[vplen1];
+                for(int idx = 0; idx < vplen1; idx++)
+                    vPos[idx] = vertexPositions[vidx, idx];
+                var vert = new Vertex(new Point(vPos));
+
+                // Vertex normal
+                if (vertexNormals != null && vidx < vnlen)
+                {
+                    double[] vNorm = new double[vnlen1];
+                    for (int idx = 0; idx < vnlen1; idx++)
+                        vNorm[idx] = vertexPositions[vidx, idx];
+                    vert.Normal = new Normal(vNorm);
+                }
+
+                // Vertex texture
+                if (vertexUV != null && vidx < vtlen)
+                {
+                    double[] vUV = new double[vtlen1];
+                    for (int idx = 0; idx < vtlen1; idx++)
+                        vUV[idx] = vertexUV[vidx, idx];
+                    vert.UV = vUV;
+                }
 
                 // Adds to list
                 localVertices.Add(vert);

@@ -202,6 +202,153 @@ namespace Isidore_Tests
             MatLab.Put(matlab, "Hit", Hit);
             resStr = matlab.Execute("ShapeTraceMeshCheck");
 
+            ///////////////////////////////////////////////////////////////////
+            /// This section checks the array contrsuctor.  It will         ///
+            /// mostly be used by 3rd party apps like Matlab                ///
+            ///////////////////////////////////////////////////////////////////
+
+            // Loads a source mesh
+            Mesh sourceMesh = Isidore.Library.Models.Pyramid();
+
+            // Facet generation
+            // Mesh facet data prep
+            var facets = sourceMesh.Facets;
+            var flen = facets.Count;
+            int fdepth = 0;
+
+            // Determines the maximum vertices per facet
+            // (In case 4+ vertices facets are supported) 
+            foreach (var facet in facets)
+                if (facet.Length > fdepth)
+                    fdepth = facet.Length;
+
+            // Makes mesh facet list
+            var facetList = new int[flen, fdepth];
+            for (int lidx = 0; lidx < flen; lidx++)
+                for (int didx = 0; didx < fdepth; didx++)
+                    facetList[lidx, didx] = facets[lidx][didx];
+
+            // Mesh generation
+            // Mesh vertex data prep
+            var verts = sourceMesh.LocalVertices;
+            var vlen = verts.Count;
+
+            // Makes mesh facet list
+            var vPosList = new double[vlen, 3];
+            var vNormList = new double[vlen, 3];
+            var vUVList = new double[vlen, 2];
+            for (int lidx = 0; lidx < vlen; lidx++)
+            {
+                // Local copy
+                var vert = verts[lidx];
+                // Extracts vertex position and normal
+                // (Should have the same dimension)
+                for (int didx = 0; didx < vert.Position.Comp.Length; didx++)
+                {
+                    vPosList[lidx, didx] = vert.Position.Comp[didx];
+                    vNormList[lidx, didx] = vert.Normal.Comp[didx];
+                }
+                // Extracts vertex normals (
+                for (int didx = 0; didx < 2; didx++)
+                    vUVList[lidx, didx] = vert.UV[didx];
+            }
+
+            // Builds mesh from lists
+            var meshList = new Mesh(facetList, vPosList, vNormList, vUVList);
+
+            // Adds mehs to a new polyshape
+            var newPoly = new Polyshape(meshList);
+
+            // Replaces existing mesh
+            mesh = newPoly;
+            mesh.Shapes[0].ID = 2;
+            mesh.TransformTimeLine = new KeyFrameTrans(Transform.Translate(
+                new double[] { 0, -0.5, 0 }));
+
+            // Replaces the old mesh with this mesh (Required)
+            scene.Bodies[0] = mesh;
+
+            // Repeats renders (Being lazy, should improve later)
+            scene.UseMultiCores = false;
+            for (int idx = 0; idx < 10; idx++)
+            {
+                watch.Restart();
+                watch.Start();
+                scene.AdvanceToTime(0.0, true);
+                watch.Stop();
+                Console.WriteLine("Serial Mesh trace {0}, " +
+                    "total render time = {1}s",
+                    idx, watch.ElapsedMilliseconds / 1000.0);
+            }
+            scene.UseMultiCores = true;
+            for (int idx = 0; idx < 10; idx++)
+            {
+                watch.Restart();
+                watch.Start();
+                scene.AdvanceToTime(0.0, true);
+                watch.Stop();
+                Console.WriteLine("Parallel Mesh trace {0}, " +
+                    "total render time = {1}s",
+                    idx, watch.ElapsedMilliseconds / 1000.0);
+            }
+
+            // Retrieves data
+            intImg = new int[len0, len1, 2];
+            idImg = new int[len0, len1, 2];
+            cosIncImg = new double[len0, len1, 2];
+            depthImg = new double[len0, len1, 2];
+            uImg = new double[len0, len1, 2];
+            vImg = new double[len0, len1, 2];
+
+            // Cycles through ray tree to get, casting lets us fill in the 
+            // blanks if not a map ray
+            for (int idx0 = 0; idx0 < len0; idx0++)
+                for (int idx1 = 0; idx1 < len1; idx1++)
+                {
+                    RenderRay thisRay1 = proj1.Ray(idx0, idx1).Rays[0];
+                    RenderRay thisRay2 = proj2.Ray(idx0, idx1).Rays[0];
+
+                    // Checks to see if the ray has hit
+                    if (thisRay1.IntersectData.Hit)
+                    {
+                        intImg[idx0, idx1, 0] = 1;
+                        idImg[idx0, idx1, 0] = thisRay1.IntersectData.Body.ID;
+                        depthImg[idx0, idx1, 0] =
+                            thisRay1.IntersectData.Travel;
+                        ShapeSpecificData sData = thisRay1.IntersectData.BodySpecificData
+                            as ShapeSpecificData;
+                        cosIncImg[idx0, idx1, 0] = sData.CosIncAng;
+                        uImg[idx0, idx1, 0] = sData.U;
+                        vImg[idx0, idx1, 0] = sData.V;
+                    }
+                    if (thisRay2.IntersectData.Hit)
+                    {
+                        intImg[idx0, idx1, 1] = 1;
+                        idImg[idx0, idx1, 1] = thisRay2.IntersectData.Body.ID;
+                        depthImg[idx0, idx1, 1] =
+                            thisRay2.IntersectData.Travel;
+                        ShapeSpecificData sData = thisRay2.IntersectData.BodySpecificData
+                            as ShapeSpecificData;
+                        cosIncImg[idx0, idx1, 1] = sData.CosIncAng;
+                        uImg[idx0, idx1, 1] = sData.U;
+                        vImg[idx0, idx1, 1] = sData.V;
+                    }
+                }
+
+            // MatLab processing
+            resStr = matlab.Execute("clear;");
+            // Outputs data
+            MatLab.Put(matlab, "time_ms", watch.ElapsedMilliseconds);
+            MatLab.Put(matlab, "inter", intImg);
+            MatLab.Put(matlab, "id", idImg);
+            MatLab.Put(matlab, "cosIncImg", cosIncImg);
+            MatLab.Put(matlab, "depth", depthImg);
+            MatLab.Put(matlab, "u", uImg);
+            MatLab.Put(matlab, "v", vImg);
+            MatLab.Put(matlab, "pos1", proj1.Pos0);
+            MatLab.Put(matlab, "pos2", proj1.Pos1);
+            MatLab.Put(matlab, "Hit", Hit);
+            resStr = matlab.Execute("ShapeTraceMeshListCheck");
 
             ///////////////////////////////////////////
             // Ray-Cube without texture Intersect    //
@@ -313,8 +460,6 @@ namespace Isidore_Tests
                 }
 
             // MatLab processing
-            // Finds output directory location
-
             resStr = matlab.Execute("clear;");
             // Outputs data
             MatLab.Put(matlab, "time_ms", watch.ElapsedMilliseconds);

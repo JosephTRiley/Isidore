@@ -13,7 +13,12 @@
 /Isidore.Render/obj
 /Isidore_Tests/bin
 /Isidore_Tests/obj
-/Isidore_Tests/OutputData
+/Isidore_Tests/OutputData/**/*.mat
+/Isidore_Tests/OutputData/**/*.eps
+/Isidore_Tests/OutputData/**/*.pdf
+/Isidore_Tests/OutputData/**/*.png
+/Isidore_Tests/OutputData/**/*.mp4
+/Isidore_Tests/OutputData/**/*.fig
 /packages
 /Isidore_Tests/Isidore_Tests.csproj.user
 /Isidore.ImgProcess/bin
