@@ -176,22 +176,37 @@ namespace Isidore.Render
                 // Calculates the origin time
                 double startTime = ray.Time + n1[idx] * ray.IntersectData.Travel / c;
 
-                // Makes a new rays
-                RenderRay transmitRay = new RenderRay(ray.IntersectData.IntersectPt, 
-                    rtVecs.Item1, startTime, ray.Rank + 1, RayType.Transmitted, 
-                    transmitProp);
-                RenderRay reflectRay = new RenderRay(ray.IntersectData.IntersectPt, 
-                    rtVecs.Item2, startTime, ray.Rank + 1, RayType.Reflected, 
-                    reflectProp);
+                // Adds transmitted ray (If below the critical angle)
+                if (!double.IsNaN(rtVecs.Item1.Comp[0]))
+                {
+                    // Makes a new child ray
+                    RenderRay transmitRay = new RenderRay(
+                        ray.IntersectData.IntersectPt, rtVecs.Item1, 
+                        startTime, ray.Rank + 1, RayType.Transmitted,
+                        transmitProp);
 
-                // Adds the render ray as the parent of the casted rays
-                reflectRay.ParentRay = ray;
-                transmitRay.ParentRay = ray;
+                    // Adds the render ray as the parent of the casted ray
+                    transmitRay.ParentRay = ray;
 
-                // Adds new reflected and transmitted rays
-                ray.IntersectData.CastedRays.Add(transmitRay);
+                    // Adds the new transmitted ray
+                    ray.IntersectData.CastedRays.Add(transmitRay);
+                }
+
+                // Adds reflected ray (If specified)
                 if (CastReflectedRays)
+                {
+                    // Makes a new rays
+                    RenderRay reflectRay = new RenderRay(
+                        ray.IntersectData.IntersectPt, rtVecs.Item2,
+                        startTime, ray.Rank + 1, RayType.Reflected,
+                        reflectProp);
+
+                    // Adds the render ray as the parent of the casted ray
+                    reflectRay.ParentRay = ray;
+
+                    // Adds new reflected and transmitted rays
                     ray.IntersectData.CastedRays.Add(reflectRay);
+                }
             }
 
             // returns interaction notification
@@ -218,8 +233,12 @@ namespace Isidore.Render
             double eta = n1 / n2;
             double c2 = Math.Sqrt(1 - eta * eta * (1 - c1 * c1));
 
-            // Transmission
-            Vector transmit = eta * dir + (eta * c1 - c2) * norm;
+            // Transmission (c2 = NaN Total for internal reflection) 
+            Vector transmit = new Vector();
+            if (!double.IsNaN(c2))
+                transmit = eta * dir + (eta * c1 - c2) * norm;
+            else
+                transmit = new Vector(new double[]{ double.NaN });
 
             return new Tuple<Vector, Vector>(transmit, reflect);
         }

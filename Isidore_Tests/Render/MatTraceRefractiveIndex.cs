@@ -23,24 +23,27 @@ namespace Isidore_Tests
 
             // Orthonormal projector located -10m from the shape
             //RectangleProjector proj = new RectangleProjector(180, 160, 0.01, 0.01, 0, 0);
-            RectangleProjector proj = new RectangleProjector(1000, 500, 0.0025, 0.0025, 0, 0);
+            //RectangleProjector proj = new RectangleProjector(1000, 500, 0.0025, 0.0025, 0, 0);
+            RectangleProjector proj = new RectangleProjector(1000, 500, 0.0, 0.0, 1.5e-3, 1.5e-3);
             //RectangleProjector proj = new RectangleProjector(1, 1, 0.0025, 0.0025, 0, 0); // Used to check ray tree
             proj.TransformTimeLine = new KeyFrameTrans(Transform.Translate(new double[] { 0, 0, -10 }));
 
             // One meter sphere, centered at the origin
-            Isidore.Render.Sphere obj = new Isidore.Render.Sphere(
-            Isidore.Maths.Point.Zero(3), 0.5, Vector.Unit(3, 1),
-            -1.0 * Vector.Unit(3, 2));
+            //Isidore.Render.Sphere obj = new Isidore.Render.Sphere(
+            //Isidore.Maths.Point.Zero(3), 0.5, Vector.Unit(3, 1),
+            //-1.0 * Vector.Unit(3, 2));
 
             // One meter cube, centered at the origin
-            //var obj = Isidore.Library.Models.Cube();
+            var obj = Isidore.Library.Models.Cube();
+            obj.ID = 1;
 
             // Adds billboard
             Billboard billboard = new Billboard(new Isidore.Maths.Point(-1, -1, 1),
                 new Normal(0, 0, -1), new Vector(0, 1, 0), 2, 2);
+            billboard.ID = 2;
 
             // Adds straight refractive index material layer to the sphere
-            Transparency glass = new Transparency(1.05);
+            Transparency glass = new Transparency(1.33); // Sea-water
             glass.CastReflectedRays = false;
             MaterialStack transMats = new MaterialStack(glass);
             obj.Materials.Add(transMats);
