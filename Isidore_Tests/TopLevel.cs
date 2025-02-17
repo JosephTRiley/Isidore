@@ -29,6 +29,9 @@ namespace Isidore_Tests
             // Maths Tests
             passed.Add(Maths.Run());
 
+            // Maths Tests
+            passed.Add(MatlabTests.Run());
+
             // Loader Tests
             passed.Add(Loader.Run());
 

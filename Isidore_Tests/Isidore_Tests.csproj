@@ -96,6 +96,8 @@
     <Compile Include="Maths\ArrInverse.cs" />
     <Compile Include="Maths\Arrs.cs" />
     <Compile Include="Maths\KDTreeTest.cs" />
+    <Compile Include="Matlab\MatlabTests.cs" />
+    <Compile Include="Matlab\NetTest.cs" />
     <Compile Include="Models\ReferencePointTurbulenceTest.cs" />
     <Compile Include="Models\ScatterPointTurbulenceTest.cs" />
     <Compile Include="Models\TurbulencePointWFSTest.cs" />
