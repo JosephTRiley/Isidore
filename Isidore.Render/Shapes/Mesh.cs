@@ -188,7 +188,7 @@ namespace Isidore.Render
                 {
                     double[] vNorm = new double[vnlen1];
                     for (int idx = 0; idx < vnlen1; idx++)
-                        vNorm[idx] = vertexPositions[vidx, idx];
+                        vNorm[idx] = vertexNormals[vidx, idx];
                     vert.Normal = new Normal(vNorm);
                 }
 
